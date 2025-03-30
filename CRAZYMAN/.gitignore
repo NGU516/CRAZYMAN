@@ -50,6 +50,10 @@ ExportedObj/
 *.opendb
 *.VC.db
 
+
+# .vscode folder ignore
+*.vscode
+
 # Unity3D generated meta files
 *.pidb.meta
 *.pdb.meta
