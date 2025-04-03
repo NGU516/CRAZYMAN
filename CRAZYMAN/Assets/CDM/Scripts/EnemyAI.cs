@@ -49,9 +49,11 @@ public class EnemyAI : MonoBehaviour
         {
             case State.Patrolling:
                 patrol.Patrol();
+                // Debug.Log("순찰 상태");  
                 break;
             case State.Chasing:
                 chase.Chase(player);
+                // Debug.Log("추적 상태");  
                 break;
         }
     }

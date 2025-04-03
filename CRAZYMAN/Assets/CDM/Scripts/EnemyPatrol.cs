@@ -14,11 +14,12 @@ public class EnemyPatrol : MonoBehaviour
     private NavMeshAgent agent;
     private int currentPatrolIndex;
     private bool isWaiting = false;
+    private Transform player; // 플레이어 참조 (Transform player의 경우 Unity내에서 참조?)
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        agent.isStopped = false; // NavMeshAgent 활성화
+        agent.isStopped = false;
         agent.enabled = true; // NavMeshAgent 활성화
     }
 
@@ -47,37 +48,49 @@ public class EnemyPatrol : MonoBehaviour
     }
 
     // 다음 순찰 지점 이동
-    void MoveToNextPatrolPoint()
+    private void MoveToNextPatrolPoint()
     {
         if (patrolPoints == null || patrolPoints.Length == 0)
         {
-            Debug.LogWarning("🚨 Patrol points list is empty! Assign patrol points in the Inspector.");
+            Debug.LogWarning("순찰 지점 미설정: patrolPoints Array is empty.");
             return;
         }
 
-        List<Transform> validPoints = new List<Transform>();
+        // 플레이어가 존재하는지 확인, 없을 시 기본 순찰 진행
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        if (player == null)
+        {
+            Debug.LogWarning("플레이어를 찾을 수 없습니다: Player not found.");
+            currentPatrolIndex = Random.Range(0, patrolPoints.Length);
+            agent.SetDestination(patrolPoints[currentPatrolIndex].position);
+            Debug.Log($"기본 순찰지점 이동중: {patrolPoints[currentPatrolIndex].name} -> {patrolPoints[currentPatrolIndex].position}");
+            return;
+        }
 
+        // 플레이어 존재 시 일정 반경 내 우선 순찰지점을 찾음
+        // Transform Type(게임 오브젝트 위치, 회전, 크기 등 포함) 동적 배열
+        List<Transform> priorityPoints = new List<Transform>();
         foreach (var point in patrolPoints)
         {
-            if (point != patrolPoints[currentPatrolIndex]) // 이전 순찰 지점 제외
+            float distanceToPlayer = Vector3.Distance(point.position, player.position);
+            if (distanceToPlayer <= patrolPriorityRange)
             {
-                validPoints.Add(point);
+                priorityPoints.Add(point);
             }
         }
 
-        if (validPoints.Count > 0)
+        // 플레이어 주변 순찰지점이 있으면 우선 선택, 없으면 기존 방식대로 선택
+        if (priorityPoints.Count > 0)
         {
-            currentPatrolIndex = Random.Range(0, validPoints.Count);
-            Transform targetPoint = validPoints[currentPatrolIndex];
-
-            Debug.Log($"➡ Moving to: {targetPoint.name} at {targetPoint.position}");
-            agent.SetDestination(targetPoint.position);
+            currentPatrolIndex = Random.Range(0, priorityPoints.Count);
+            agent.SetDestination(priorityPoints[currentPatrolIndex].position);
+            Debug.Log($"우선 순찰지점 이동중: {priorityPoints[currentPatrolIndex].name} -> {priorityPoints[currentPatrolIndex].position}");
         }
         else
         {
-            Debug.LogWarning("⚠ No valid patrol points available.");
+            currentPatrolIndex = Random.Range(0, patrolPoints.Length);
+            agent.SetDestination(patrolPoints[currentPatrolIndex].position);
+            Debug.Log($"기본 순찰지점 이동중: {patrolPoints[currentPatrolIndex].name} -> {patrolPoints[currentPatrolIndex].position}");
         }
     }
-
-
 }
