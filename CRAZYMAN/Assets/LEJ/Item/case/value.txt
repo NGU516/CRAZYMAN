@@ -1,0 +1,2 @@
+roughness 0.4
+metallic 0
