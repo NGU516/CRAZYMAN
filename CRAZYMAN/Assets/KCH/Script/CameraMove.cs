@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraMove : MonoBehaviour
 {
     [SerializeField] Transform playerTransform; // Player의 transform 정보를 담을 변수 선언
-    [SerializeField] Vector3 offset = new Vector3(0, 1.6f, 0);
+    [SerializeField] Vector3 offset = new Vector3(0, 1.6f, 1);
     private float defaultHeight = 1.6f;
     private float crouchHeight = 0.7f;
     private Control playerControl;
