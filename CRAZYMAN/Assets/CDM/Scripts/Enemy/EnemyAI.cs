@@ -7,6 +7,7 @@ using UnityEngine.AI;
 // 상태 관리 클래스
 public class EnemyAI : MonoBehaviour
 {
+    private Animator EnemyAnimator; // 애니메이터 컴포넌트
     private EnemyPatrol patrol;
     private EnemyChase chase;
     
@@ -18,6 +19,7 @@ public class EnemyAI : MonoBehaviour
 
     void Start()
     {
+        EnemyAnimator = GetComponent<Animator>();
         patrol = GetComponent<EnemyPatrol>();
         chase = GetComponent<EnemyChase>();
 
@@ -47,12 +49,20 @@ public class EnemyAI : MonoBehaviour
 
         switch (currentState)
         {
+            // 순찰 상태
             case State.Patrolling:
                 patrol.Patrol();
+                EnemyAnimator.SetBool("isPatroling", true); 
+                EnemyAnimator.SetBool("isChasing", false); 
                 // Debug.Log("순찰 상태");  
                 break;
+            
+            // 추적 상태
             case State.Chasing:
                 chase.Chase(player);
+                EnemyAnimator.SetBool("isPatroling", false); 
+                EnemyAnimator.SetBool("isChasing", true); 
+                
                 // Debug.Log("추적 상태");  
                 break;
         }
