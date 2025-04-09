@@ -26,6 +26,10 @@ public class EnemyChase : MonoBehaviour
         agent.isStopped = false; 
         agent.enabled = true; 
         agent.speed = normalSpeed; // 기본 속도로 설정
+        agent.updateRotation = true; // 회전 업데이트 활성화
+        agent.updatePosition = true; // 위치 업데이트 활성화
+        agent.updateUpAxis = true; // Y축 업데이트 활성화
+        agent.angularSpeed = 720f; // 회전 속도 설정
 
         patrol = GetComponent<EnemyPatrol>();
     }
@@ -46,7 +50,7 @@ public class EnemyChase : MonoBehaviour
         {
             if (!isChasing)
             {
-                Debug.Log("추격 시작");
+                Debug.Log("플레이어 추적 시작");
                 isChasing = true; // 추적 시작
                 chaseTimer = 0f; // 타이머 초기화
             }
@@ -68,7 +72,7 @@ public class EnemyChase : MonoBehaviour
 
     private IEnumerator ForcePatrolMode()
     {
-        Debug.Log("추격 시간 초과, 쿨타임 시작"); // 디버그 메시지
+        Debug.Log("추적 시간 초과, 쿨타임 시작"); // 디버그 메시지
 
         isOnCooldown = true;
         isChasing = false;

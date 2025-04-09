@@ -63,7 +63,6 @@ public class EnemyPatrol : MonoBehaviour
             Debug.LogWarning("플레이어를 찾을 수 없습니다: Player not found.");
             currentPatrolIndex = Random.Range(0, patrolPoints.Length);
             agent.SetDestination(patrolPoints[currentPatrolIndex].position);
-            Debug.Log($"기본 순찰지점 이동중: {patrolPoints[currentPatrolIndex].name} -> {patrolPoints[currentPatrolIndex].position}");
             return;
         }
 
@@ -84,13 +83,11 @@ public class EnemyPatrol : MonoBehaviour
         {
             currentPatrolIndex = Random.Range(0, priorityPoints.Count);
             agent.SetDestination(priorityPoints[currentPatrolIndex].position);
-            Debug.Log($"우선 순찰지점 이동중: {priorityPoints[currentPatrolIndex].name} -> {priorityPoints[currentPatrolIndex].position}");
         }
         else
         {
             currentPatrolIndex = Random.Range(0, patrolPoints.Length);
             agent.SetDestination(patrolPoints[currentPatrolIndex].position);
-            Debug.Log($"기본 순찰지점 이동중: {patrolPoints[currentPatrolIndex].name} -> {patrolPoints[currentPatrolIndex].position}");
         }
     }
 }

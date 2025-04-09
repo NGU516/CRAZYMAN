@@ -1,6 +1,7 @@
 // EnemyAI.cs
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -14,8 +15,15 @@ public class EnemyAI : MonoBehaviour
     public Transform player;
     public float chaseRange = 5f;    // 플레이어 감지 거리
 
-    private enum State { Patrolling, Chasing }
-    private State currentState;
+    private enum EnemyState 
+    { 
+        Patrol = 0, 
+        Chase = 1,
+        Blind = 2,
+        Attack = 3,
+    }
+    
+    private EnemyState currentState;
 
     void Start()
     {
@@ -29,41 +37,60 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
-        currentState = State.Patrolling;
-        patrol.StartPatrol(); // 처음에는 순찰 상태
+        SetState(EnemyState.Patrol); // 초기 상태 설정
+
+        EnemyAnimator.applyRootMotion = false; // 루트 모션 비활성화
     }
 
     void Update()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-        // chaseRange 이내에 플레이어가 있으면 추적 시작
-        if (distanceToPlayer <= chaseRange)
+        EnemyState nextState = (distanceToPlayer <= chaseRange)
+            ? EnemyState.Chase
+            : EnemyState.Patrol;
+
+        if (currentState != nextState)
         {
-            currentState = State.Chasing;
-        }
-        else
-        {
-            currentState = State.Patrolling;
+            SetState(nextState);
         }
 
+        // 상태에 따른 행동을 매 프레임 수행
         switch (currentState)
         {
-            // 순찰 상태
-            case State.Patrolling:
+            case EnemyState.Patrol:
                 patrol.Patrol();
-                EnemyAnimator.SetBool("isPatroling", true); 
-                EnemyAnimator.SetBool("isChasing", false); 
-                // Debug.Log("순찰 상태");  
                 break;
-            
-            // 추적 상태
-            case State.Chasing:
+            case EnemyState.Chase:
                 chase.Chase(player);
-                EnemyAnimator.SetBool("isPatroling", false); 
-                EnemyAnimator.SetBool("isChasing", true); 
-                
-                // Debug.Log("추적 상태");  
+                break;
+        }
+    }
+
+    void SetState(EnemyState newState)
+    {
+        currentState = newState; // 현재 상태 업데이트
+        EnemyAnimator.SetInteger("EnemyState", (int)newState); // 애니메이터 상태 변경
+
+        // 0: Patrol, 1: Chase, 2: Blind, 3: Attack
+        switch (newState)
+        {
+            case EnemyState.Patrol:
+                patrol.Patrol(); 
+                Debug.Log("순찰 상태");
+                break;
+            case EnemyState.Chase:
+                chase.Chase(player); 
+                Debug.Log("추적 상태");
+                break;
+            case EnemyState.Blind:
+                // 블라인드 상태 처리 (구현 필요)
+                break;
+            case EnemyState.Attack:
+                // 공격 상태 처리 (구현 필요)
+                break;
+            default:
+                Debug.LogError("알 수 없는 상태입니다.");
                 break;
         }
     }
@@ -78,7 +105,6 @@ public class EnemyAI : MonoBehaviour
             // 플레이어 사망 처리 (구현 필요)
 
             // 일정 시간 대기 후 다시 순찰 시작
-            currentState = State.Patrolling;
             StartCoroutine(patrol.WaitAtPatrolPoint());
         }
         else
