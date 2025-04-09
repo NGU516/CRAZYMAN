@@ -56,5 +56,24 @@ public class Control : MonoBehaviour
         animator.SetBool("canCrouch", canCrouch);
 
         PlayerTr.Translate(new Vector3(h, 0, v) * moveSpeed * Time.deltaTime);
+        // Vector3 moveDir = new Vector3(h, 0, v);
+        // Vector3 move = moveDir * moveSpeed * Time.deltaTime;
+        // GetComponent<Rigidbody>().MovePosition(transform.position + move);
+
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("OnCollisionEnter " + collision.gameObject.name);
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        Debug.Log("OnCollisionStay " + collision.gameObject.name);
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        Debug.Log("OnCollisionExit " + collision.gameObject.name);
     }
 }
