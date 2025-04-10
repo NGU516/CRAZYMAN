@@ -10,7 +10,10 @@ public class Control : MonoBehaviour
     private float defaultSpeed = 5.0f;
     private float runSpeed = 10.0f;
     private float crouchSpeed = 2.0f;
-    public Transform PlayerTr;
+    //public Transform PlayerTr;
+    private Rigidbody rb;
+    public Transform cameraTransform;
+
     public Animator animator;
     public bool canRun = false;
     public bool canCrouch = false;
@@ -18,8 +21,14 @@ public class Control : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlayerTr = GetComponent<Transform>();
+        //PlayerTr = GetComponent<Transform>();
+        rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+
+        if (cameraTransform == null)
+        {
+            cameraTransform = Camera.main.transform;
+        }
     }
 
     // Update is called once per frame
@@ -54,7 +63,50 @@ public class Control : MonoBehaviour
         animator.SetFloat("v", v);
         animator.SetBool("canRun", canRun);
         animator.SetBool("canCrouch", canCrouch);
+    }
 
-        PlayerTr.Translate(new Vector3(h, 0, v) * moveSpeed * Time.deltaTime);
+    void FixedUpdate()
+    {
+        Vector3 camForward = cameraTransform.forward;
+        Vector3 camRight = cameraTransform.right;
+
+        camForward.y = 0;
+        camRight.y = 0;
+        camForward.Normalize();
+        camRight.Normalize();
+
+        //Vector3 origin = transform.position;
+        //float distance = 1.0f;
+
+        //bool isGrounded = Physics.Raycast(origin, Vector3.down, distance);
+
+        //if (!isGrounded)
+        //{
+        //    rb.useGravity = true;
+        //}
+        //else
+        //{
+        //    rb.useGravity = false;
+        //    rb.velocity = Vector3.zero;
+        //}
+
+        Vector3 move = (camRight * h + camForward * v).normalized;
+
+        rb.MovePosition(rb.position + move * moveSpeed * Time.fixedDeltaTime);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("OnCollisionEnter " + collision.gameObject.name);
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        Debug.Log("OnCollisionStay " + collision.gameObject.name);
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        Debug.Log("OnCollisionExit " + collision.gameObject.name);
     }
 }
