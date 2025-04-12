@@ -1068,6 +1068,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &770125086
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 770125088}
+  - component: {fileID: 770125087}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &770125087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 770125086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8330559cf6b09a541a5e07119951d4e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mentalGauge: {fileID: 1974799959}
+--- !u!4 &770125088
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 770125086}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.6951394, y: 0.98859805, z: 15.741456}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &775724961
 GameObject:
   m_ObjectHideFlags: 0
@@ -1175,7 +1220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 2947574401148126855}
-  offset: {x: 0, y: 1.6, z: 0}
+  offset: {x: 0, y: 1.6, z: 1}
 --- !u!114 &775724966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1190,6 +1235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBody: {fileID: 2947574401148126855}
   mouseSensitivity: 1000
+  mentalGauge: {fileID: 1974799959}
 --- !u!1 &943557518
 GameObject:
   m_ObjectHideFlags: 0
@@ -1659,7 +1705,7 @@ Transform:
   m_GameObject: {fileID: 1721576027}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.29, y: 2.33, z: -18.12}
+  m_LocalPosition: {x: 0.29, y: 2.33, z: -16.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1720,6 +1766,8 @@ MonoBehaviour:
   maxMental: 100
   decreaseRate: 4
   increaseRate: 4
+  isDeath: 0
+  animator: {fileID: 9081455432002034941}
 --- !u!114 &1974799960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1790,7 +1838,7 @@ GameObject:
   - component: {fileID: 2000800170}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4092,6 +4140,8 @@ MonoBehaviour:
   animator: {fileID: 0}
   canRun: 0
   canCrouch: 0
+  mentalGauge: {fileID: 0}
+  gameManager: {fileID: 0}
 --- !u!54 &9015395530834415628
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4214,6 +4264,8 @@ MonoBehaviour:
   animator: {fileID: 0}
   canRun: 0
   canCrouch: 0
+  mentalGauge: {fileID: 1974799959}
+  gameManager: {fileID: 0}
 --- !u!136 &9081455432002034944
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4331,3 +4383,4 @@ SceneRoots:
   - {fileID: 259188393}
   - {fileID: 298160501}
   - {fileID: 733623847}
+  - {fileID: 770125088}
