@@ -6,9 +6,11 @@ using UnityEngine.AI;
 // 상태 관리 클래스
 public class EnemyAI : MonoBehaviour
 {
+    // 필요한 컴포넌트들 참조
     private Animator EnemyAnimator;
     private EnemyPatrol patrol;
     private EnemyChase chase;
+    private EnemyAttack attack; 
 
     public Transform player;
     public float chaseRange = 5f;
@@ -17,6 +19,7 @@ public class EnemyAI : MonoBehaviour
     public float attackCooldown = 2f;
 
     private float lastAttackTime;
+
 
     private enum EnemyState
     {
@@ -28,17 +31,21 @@ public class EnemyAI : MonoBehaviour
 
     private EnemyState currentState;
 
-    void Start()
+    // 안정성을 위해 IEnumerator 사용
+    IEnumerator Start()
     {
         EnemyAnimator = GetComponent<Animator>();
         patrol = GetComponent<EnemyPatrol>();
         chase = GetComponent<EnemyChase>();
+        attack = GetComponent<EnemyAttack>();
 
         if (patrol == null || chase == null)
         {
             Debug.LogError("EnemyPatrol 또는 EnemyChase 컴포넌트가 필요합니다.");
-            return;
+            yield break;
         }
+
+        yield return null; // 한 프레임 대기하여 초기화 완료
 
         SetState(EnemyState.Patrol);
         EnemyAnimator.applyRootMotion = false;
@@ -49,30 +56,30 @@ public class EnemyAI : MonoBehaviour
     {
         if (player == null) return;
 
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-        Vector3 directionToPlayer = player.position - transform.position;
-        float angle = Vector3.Angle(transform.forward, directionToPlayer);
-
-        // 공격 조건
-        if (angle <= fieldOfView * 0.5f && distanceToPlayer <= attackRange)
+        // 부채꼴 공격 판정 검사 (EnemyAttack.cs에서 구현)
+        if (attack != null && attack.IsPlayerInAttackCone())
         {
+            // 쿨타임이 지났다면 공격 상태로
             if (Time.time - lastAttackTime >= attackCooldown)
             {
                 SetState(EnemyState.Attack);
-                return;
+                return;  
             }
         }
 
         // 추적/순찰 상태 판별
+        // (공격 조건 아니거나 쿨타임 중이면)
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
         EnemyState nextState = (distanceToPlayer <= chaseRange)
-            ? EnemyState.Chase : EnemyState.Patrol;
+            ? EnemyState.Chase
+            : EnemyState.Patrol;
 
         if (currentState != nextState)
         {
             SetState(nextState);
         }
 
-        // 상태별 동작 수행
+        // 상태별 매 프레임 동작
         switch (currentState)
         {
             case EnemyState.Patrol:
