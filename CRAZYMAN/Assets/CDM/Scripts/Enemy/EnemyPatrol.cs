@@ -26,16 +26,32 @@ public class EnemyPatrol : MonoBehaviour
     // 순찰 시작 (초기화)
     public void StartPatrol()
     {
-        MoveToNextPatrolPoint();
-    }
+        if (patrolPoints == null || patrolPoints.Length == 0)
+        {
+            Debug.LogWarning("StartPatrol 실패: patrolPoints가 비어 있음");
+            return;
+        }
 
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        currentPatrolIndex = 0;
+
+        Debug.Log("초기 순찰 지점 이동 시작");
+        MoveToNextPatrolPoint(); 
+    }
     // 순찰 동작
     public void Patrol()
     {
-        if (agent.remainingDistance < 0.5f && !isWaiting)
+        if (patrolPoints == null || patrolPoints.Length == 0)
         {
-            StartCoroutine(WaitAtPatrolPoint());
+            Debug.LogWarning("StartPatrol 실패: patrolPoints가 비어 있음");
+            return;
         }
+
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        currentPatrolIndex = 0;
+
+        Debug.Log("초기 순찰 지점 이동 시작");
+        MoveToNextPatrolPoint();  // 🔑 바로 이동!
     }
 
     // 순찰 지점 대기
