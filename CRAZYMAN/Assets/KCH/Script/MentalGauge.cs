@@ -11,9 +11,9 @@ public class MentalGauge : MonoBehaviour
     [SerializeField] private float decreaseRate = 4f;
     [SerializeField] private float increaseRate = 4f;
     private float currentMental;
-    private bool isDark = false;
     public bool isDeath = false;
     public Animator animator;
+    public LightOff lightOff;
 
     public System.Action<string> OnDeathRequest;
 
@@ -26,7 +26,7 @@ public class MentalGauge : MonoBehaviour
         }
 
         currentMental = maxMental;
-        mentalSlider.value = currentMental / maxMental; // 초기값 1 (최대)
+        mentalSlider.value = currentMental / maxMental;
     }
 
     // Update is called once per frame
@@ -35,51 +35,31 @@ public class MentalGauge : MonoBehaviour
     {
         if (isDeath)
             return;
-        // 정신력 테스트용 F 누르면 isDark 상태 전환
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            SetDarkState(!isDark);
-        }
 
-        if (isDark)
+        if (!(lightOff.isLightOn))
         {
-            currentMental -= Time.deltaTime * decreaseRate; // 초당 4씩 감소
+            currentMental -= Time.deltaTime * decreaseRate; // ???? 4?? ????
             if (currentMental <= 0)
             {
                 currentMental = 0;
                 TriggerDeath("MentalDepleted");
             }
-
+            mentalSlider.value = currentMental / maxMental; // 0~1 ???? ?????? ???????? ????????
         }
-        else
-        {
-            currentMental += Time.deltaTime * increaseRate;
-            if(currentMental >= 100)
-                currentMental = 100;
-        }
-
-        mentalSlider.value = currentMental / maxMental; // 0~1 사이 값으로 슬라이더 업데이트
     }
 
-  // 정신력을 줄이거나 늘리는 함수
-    public void ChangeMental(float amount)
+  // ???????? ???????? ?????? ????
+    public void ChargeMental(float amount)
     {
         currentMental += amount;
         currentMental = Mathf.Clamp(currentMental, 0, maxMental);
         mentalSlider.value = currentMental / maxMental;
     }
 
-    public void SetDarkState(bool dark)
-    {
-        isDark = dark;
-        Debug.Log($"Dark state changed to: {isDark}");
-    }
-
     public void ResetMentalGauge()
     {
         currentMental = maxMental;
         mentalSlider.value = currentMental / maxMental;
-        isDark = false;
         isDeath = false;
         if(animator != null)
         {
