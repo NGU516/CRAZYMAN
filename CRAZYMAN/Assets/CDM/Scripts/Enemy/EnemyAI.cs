@@ -10,7 +10,8 @@ public class EnemyAI : MonoBehaviour
     private Animator EnemyAnimator;
     private EnemyPatrol patrol;
     private EnemyChase chase;
-    private EnemyAttack attack; 
+    private EnemyAttack attack;
+    private MentalGauge mentalGauge; // 정신력 게이지 참조    
 
     public Transform player;
     public float chaseRange = 5f;
@@ -38,6 +39,7 @@ public class EnemyAI : MonoBehaviour
         patrol = GetComponent<EnemyPatrol>();
         chase = GetComponent<EnemyChase>();
         attack = GetComponent<EnemyAttack>();
+        mentalGauge = GetComponent<MentalGauge>();
 
         if (patrol == null || chase == null)
         {
@@ -114,6 +116,7 @@ public class EnemyAI : MonoBehaviour
                 int randomAttack = Random.Range(0, 3);
                 EnemyAnimator.SetInteger("AttackIndex", randomAttack); // 먼저 설정
                 EnemyAnimator.SetTrigger("Attack");                    // 마지막에 트리거
+                mentalGauge.TriggerDeath("Test"); // 정신력 감소
                 Debug.Log($"공격 상태 - 패턴: {randomAttack}");
                 lastAttackTime = Time.time;
                 break;
