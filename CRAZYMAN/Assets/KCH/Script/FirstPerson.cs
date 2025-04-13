@@ -9,15 +9,24 @@ public class FirstPerson : MonoBehaviour
     private float xRotation = 0f;
     private float yRotation = 0f;
 
+    public MentalGauge mentalGauge;
+
     // Start is called before the first frame update
     void Start()
     {
+        if (mentalGauge == null)
+        {
+            Debug.LogError("MentalGauge is not assigned in Control! Please assign it in the Inspector.");
+        }
         Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (mentalGauge != null && mentalGauge.isDeath)
+            return;
+
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Control : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class Control : MonoBehaviour
     public bool canRun = false;
     public bool canCrouch = false;
 
+    public MentalGauge mentalGauge;
+    public GameManager gameManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,11 +33,26 @@ public class Control : MonoBehaviour
         {
             cameraTransform = Camera.main.transform;
         }
+    mentalGauge = FindObjectOfType<MentalGauge>();
+        gameManager = FindObjectOfType<GameManager>();
+
+        if(mentalGauge == null)
+        {
+            Debug.LogError("MentalGauge is not assigned in Control! Please assign it in the Inspector.");
+        }
+        if(gameManager == null)
+        {
+            Debug.LogError("MentalGauge is not assigned in Control! Please assign it in the Inspector.");
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        // 사망 상태면 이동 중지
+        if (mentalGauge != null && mentalGauge.isDeath)
+            return;
+
         v = Input.GetAxis("Vertical");
         h = Input.GetAxis("Horizontal");
 
@@ -67,6 +86,9 @@ public class Control : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (mentalGauge != null && mentalGauge.isDeath)
+            return;
+
         Vector3 camForward = cameraTransform.forward;
         Vector3 camRight = cameraTransform.right;
 
@@ -75,24 +97,23 @@ public class Control : MonoBehaviour
         camForward.Normalize();
         camRight.Normalize();
 
-        //Vector3 origin = transform.position;
-        //float distance = 1.0f;
-
-        //bool isGrounded = Physics.Raycast(origin, Vector3.down, distance);
-
-        //if (!isGrounded)
-        //{
-        //    rb.useGravity = true;
-        //}
-        //else
-        //{
-        //    rb.useGravity = false;
-        //    rb.velocity = Vector3.zero;
-        //}
-
         Vector3 move = (camRight * h + camForward * v).normalized;
 
         rb.MovePosition(rb.position + move * moveSpeed * Time.fixedDeltaTime);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Monster"))
+        {
+            Debug.Log("Player collided with Enemy! Triggering death.");
+if(mentalGauge != null && gameManager != null)
+            {
+                Debug.Log("mental && gameManager");
+                mentalGauge.TriggerDeath("EnemyCollision");
+                gameManager.RequestDeath("EnemyCollision");
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
