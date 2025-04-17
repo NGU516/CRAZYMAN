@@ -23,21 +23,6 @@ public class EnemyPatrol : MonoBehaviour
         agent.enabled = true; // NavMeshAgent 활성화
     }
 
-    // 순찰 시작 (초기화)
-    public void StartPatrol()
-    {
-        if (patrolPoints == null || patrolPoints.Length == 0)
-        {
-            Debug.LogWarning("StartPatrol 실패: patrolPoints가 비어 있음");
-            return;
-        }
-
-        player = GameObject.FindGameObjectWithTag("Player")?.transform;
-        currentPatrolIndex = 0;
-
-        Debug.Log("초기 순찰 지점 이동 시작");
-        MoveToNextPatrolPoint(); 
-    }
     // 순찰 동작
     public void Patrol()
     {
@@ -47,11 +32,13 @@ public class EnemyPatrol : MonoBehaviour
             return;
         }
 
-        player = GameObject.FindGameObjectWithTag("Player")?.transform;
-        currentPatrolIndex = 0;
+        // 도착 전에는 아무것도 하지 않음
+        if (agent.pathPending || isWaiting) return;
 
-        Debug.Log("초기 순찰 지점 이동 시작");
-        MoveToNextPatrolPoint();  // 🔑 바로 이동!
+        if (!agent.hasPath || agent.remainingDistance < 0.5f)
+        {
+            StartCoroutine(WaitAtPatrolPoint());
+        }
     }
 
     // 순찰 지점 대기
@@ -99,11 +86,15 @@ public class EnemyPatrol : MonoBehaviour
         {
             currentPatrolIndex = Random.Range(0, priorityPoints.Count);
             agent.SetDestination(priorityPoints[currentPatrolIndex].position);
+            // 현재 순찰지점 디버깅 메시지
+            Debug.Log("1. 우선 순찰 지점: " + priorityPoints[currentPatrolIndex].name);
         }
         else
         {
             currentPatrolIndex = Random.Range(0, patrolPoints.Length);
             agent.SetDestination(patrolPoints[currentPatrolIndex].position);
+            Debug.Log("2. 우선 순찰 지점: " + priorityPoints[currentPatrolIndex].name);
         }
+        
     }
 }
