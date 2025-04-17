@@ -7,10 +7,11 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
     // 필요한 컴포넌트들 참조
-    private Animator EnemyAnimator;
-    private EnemyPatrol patrol;
-    private EnemyChase chase;
-    private EnemyAttack attack; 
+    private Animator EnemyAnimator; // 애니메이션
+    private EnemyPatrol patrol; // 순찰
+    private EnemyChase chase;   // 추적
+    private EnemyAttack attack; // 공격 
+    private LightOff lightOff;  // 전등 
 
     public Transform player;
     public float chaseRange = 5f;
@@ -130,6 +131,16 @@ public class EnemyAI : MonoBehaviour
             Debug.Log("플레이어 충돌 발생! 플레이어 사망!");
             StartCoroutine(patrol.WaitAtPatrolPoint());
         }
+        
+        // 특수 Parol Point(배전함, 전등 관리) 도착 시, 모든 전등 off
+        else if(other.CompareTag("Light_ParolPoint"))
+        {
+            //Debug.Log("전등 관리 도착! 모든 전등 off!");
+            //LightManager.Instance.AllLightOff();
+            Debug.Log("특수 위치 도달!");
+
+        }
+
         else
         {
             Debug.Log($"{other.gameObject.name}와 충돌.");
@@ -140,4 +151,5 @@ public class EnemyAI : MonoBehaviour
     {
         SetState(EnemyState.Patrol);
     }
+    
 }

@@ -44,7 +44,7 @@ public class EnemyChase : MonoBehaviour
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-        // ✅ 쿨타임 중에는 강제로 Patrol 상태 유지
+        // 쿨타임 중에는 강제로 Patrol 상태 유지
         if (isOnCooldown)
         {
             if (enemyAI != null)
@@ -54,7 +54,7 @@ public class EnemyChase : MonoBehaviour
             return;
         }
 
-        // ✅ 감지 범위 내 → 추적 시작
+        // 감지 범위 내 → 추적 시작
         if (distanceToPlayer <= chaseRange)
         {
             if (!isChasing)
@@ -78,7 +78,7 @@ public class EnemyChase : MonoBehaviour
         }
         else
         {
-            // ✅ 감지 범위 벗어남 → 추적 종료
+            // 감지 범위 벗어남 → 추적 종료
             if (isChasing)
             {
                 StopChasing();
@@ -109,7 +109,7 @@ public class EnemyChase : MonoBehaviour
         agent.speed = normalSpeed; // 기본 속도로 복귀
         isChasing = false;
         isOnCooldown = true; // 쿨타임 시작
-        patrol.StartPatrol(); // 순찰 시작
+        patrol.Patrol(); // 순찰 시작
     }
 }
 
