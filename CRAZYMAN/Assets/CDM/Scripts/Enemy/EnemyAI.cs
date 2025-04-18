@@ -7,17 +7,14 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
     // 필요한 컴포넌트들 참조
-    private Animator EnemyAnimator;
-    private EnemyPatrol patrol;
-    private EnemyChase chase;
-    private EnemyAttack attack; 
+    private Animator EnemyAnimator; // 애니메이션
+    private EnemyPatrol patrol; // 순찰
+    private EnemyChase chase;   // 추적
+    private EnemyAttack attack; // 공격 
 
     public Transform player;
     public float chaseRange = 5f;
-    public float attackRange = 2.5f;
-    public float fieldOfView = 120f;
     public float attackCooldown = 2f;
-
     private float lastAttackTime;
 
 
@@ -91,6 +88,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    // 상태 변경 메서드
     void SetState(EnemyState newState)
     {
         currentState = newState;
@@ -123,6 +121,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    // 충돌 감지
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -130,14 +129,17 @@ public class EnemyAI : MonoBehaviour
             Debug.Log("플레이어 충돌 발생! 플레이어 사망!");
             StartCoroutine(patrol.WaitAtPatrolPoint());
         }
+
         else
         {
             Debug.Log($"{other.gameObject.name}와 충돌.");
         }
     }
 
+    // 강제 상태 변경
     public void ForceStateToPatrol()
     {
         SetState(EnemyState.Patrol);
     }
+    
 }
