@@ -11,14 +11,10 @@ public class EnemyAI : MonoBehaviour
     private EnemyPatrol patrol; // 순찰
     private EnemyChase chase;   // 추적
     private EnemyAttack attack; // 공격 
-    private LightOff lightOff;  // 전등 
 
     public Transform player;
     public float chaseRange = 5f;
-    public float attackRange = 2.5f;
-    public float fieldOfView = 120f;
     public float attackCooldown = 2f;
-
     private float lastAttackTime;
 
 
@@ -92,6 +88,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    // 상태 변경 메서드
     void SetState(EnemyState newState)
     {
         currentState = newState;
@@ -124,21 +121,13 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    // 충돌 감지
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             Debug.Log("플레이어 충돌 발생! 플레이어 사망!");
             StartCoroutine(patrol.WaitAtPatrolPoint());
-        }
-        
-        // 특수 Parol Point(배전함, 전등 관리) 도착 시, 모든 전등 off
-        else if(other.CompareTag("Light_ParolPoint"))
-        {
-            //Debug.Log("전등 관리 도착! 모든 전등 off!");
-            //LightManager.Instance.AllLightOff();
-            Debug.Log("특수 위치 도달!");
-
         }
 
         else
@@ -147,6 +136,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    // 강제 상태 변경
     public void ForceStateToPatrol()
     {
         SetState(EnemyState.Patrol);
