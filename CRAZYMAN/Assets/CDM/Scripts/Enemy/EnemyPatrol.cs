@@ -8,12 +8,15 @@ using UnityEngine.AI;
 public class EnemyPatrol : MonoBehaviour
 {
     public Transform[] patrolPoints; // 순찰 지점 목록
+    public Transform[] LightOffPoints; // 전등 끄기 지점 목록
     public float waitTimeAtPatrol = 1f; // 순찰 지점 대기 시간
     public float patrolPriorityRange = 10f; // 우선 순찰 거리
+    public float lightOffTime = 180f; // 전등 끄기 대기 시간
 
     private NavMeshAgent agent;
     private int currentPatrolIndex;
     private bool isWaiting = false;
+    private float lightOffTimer = 0f; // 전등 끄기 타이머
     private Transform player; // 플레이어 참조 (Transform player의 경우 Unity내에서 참조?)
 
     void Start()
@@ -23,21 +26,20 @@ public class EnemyPatrol : MonoBehaviour
         agent.enabled = true; // NavMeshAgent 활성화
     }
 
-    // 순찰 시작 (초기화)
-    public void StartPatrol()
+    void Update()
     {
-        if (patrolPoints == null || patrolPoints.Length == 0)
+        Debug.Log("EnemyPatrol Update() 호출됨");
+        // 타이머 갱신
+        lightOffTimer += Time.deltaTime;
+
+        // 3분 경과 시 언제든지 특수 지점으로 강제 이동
+        if (lightOffTimer >= lightOffTime && !isWaiting && !agent.pathPending)
         {
-            Debug.LogWarning("StartPatrol 실패: patrolPoints가 비어 있음");
-            return;
+            MoveToLightPatrolPoint();
+            lightOffTimer = 0f;
         }
-
-        player = GameObject.FindGameObjectWithTag("Player")?.transform;
-        currentPatrolIndex = 0;
-
-        Debug.Log("초기 순찰 지점 이동 시작");
-        MoveToNextPatrolPoint(); 
     }
+
     // 순찰 동작
     public void Patrol()
     {
@@ -47,11 +49,13 @@ public class EnemyPatrol : MonoBehaviour
             return;
         }
 
-        player = GameObject.FindGameObjectWithTag("Player")?.transform;
-        currentPatrolIndex = 0;
+        // 도착 전에는 아무것도 하지 않음
+        if (agent.pathPending || isWaiting) return;
 
-        Debug.Log("초기 순찰 지점 이동 시작");
-        MoveToNextPatrolPoint();  // 🔑 바로 이동!
+        if (!agent.hasPath || agent.remainingDistance < 0.5f)
+        {
+            StartCoroutine(WaitAtPatrolPoint());
+        }
     }
 
     // 순찰 지점 대기
@@ -99,11 +103,27 @@ public class EnemyPatrol : MonoBehaviour
         {
             currentPatrolIndex = Random.Range(0, priorityPoints.Count);
             agent.SetDestination(priorityPoints[currentPatrolIndex].position);
+            // 현재 순찰지점 디버깅 메시지
+            Debug.Log("1. 우선 순찰 지점: " + priorityPoints[currentPatrolIndex].name);
         }
         else
         {
             currentPatrolIndex = Random.Range(0, patrolPoints.Length);
             agent.SetDestination(patrolPoints[currentPatrolIndex].position);
+            Debug.Log("2. 우선 순찰 지점: " + priorityPoints[currentPatrolIndex].name);
+        }   
+    }
+
+    private void MoveToLightPatrolPoint()
+    {
+        if (LightOffPoints == null || LightOffPoints.Length == 0)
+        {
+            Debug.LogWarning("LightOffPoints가 설정되지 않았습니다.");
+            return;
         }
+
+        int index = Random.Range(0, LightOffPoints.Length);
+        agent.SetDestination(LightOffPoints[index].position);
+        Debug.Log("전등 끄기 특수 지점으로 이동: " + LightOffPoints[index].name);
     }
 }
