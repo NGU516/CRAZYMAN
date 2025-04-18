@@ -72,12 +72,14 @@ public class ElectricTorchOnOff : MonoBehaviour
 
 	void InputKey()
     {
-		if (Input.GetKeyDown(_kCode) && _flashLightOn == true)
+		// if (Input.GetKeyDown(_kCode) && _flashLightOn == true)
+		if (Input.GetMouseButtonDown(1) && _flashLightOn == true)
 		{
 			_flashLightOn = false;
 
 		}
-		else if (Input.GetKeyDown(_kCode) && _flashLightOn == false)
+		// else if (Input.GetKeyDown(_kCode) && _flashLightOn == false)
+		else if (Input.GetMouseButtonDown(1) && _flashLightOn == false)
 		{
 			_flashLightOn = true;
 
