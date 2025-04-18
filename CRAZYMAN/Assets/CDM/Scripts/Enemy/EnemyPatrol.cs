@@ -28,7 +28,6 @@ public class EnemyPatrol : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("EnemyPatrol Update() 호출됨");
         // 타이머 갱신
         lightOffTimer += Time.deltaTime;
 
