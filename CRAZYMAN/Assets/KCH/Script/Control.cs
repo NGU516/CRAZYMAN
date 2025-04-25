@@ -126,7 +126,7 @@ public class Control : MonoBehaviour
         if(other.CompareTag("Monster"))
         {
             Debug.Log("Player collided with Enemy! Triggering death.");
-if(mentalGauge != null && gameManager != null)
+            if(mentalGauge != null && gameManager != null)
             {
                 Debug.Log("mental && gameManager");
                 mentalGauge.TriggerDeath("EnemyCollision");
@@ -137,16 +137,16 @@ if(mentalGauge != null && gameManager != null)
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("OnCollisionEnter " + collision.gameObject.name);
+        // Debug.Log("OnCollisionEnter " + collision.gameObject.name);
     }
 
     private void OnCollisionStay(Collision collision)
     {
-        Debug.Log("OnCollisionStay " + collision.gameObject.name);
+        // Debug.Log("OnCollisionStay " + collision.gameObject.name);
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        Debug.Log("OnCollisionExit " + collision.gameObject.name);
+        // Debug.Log("OnCollisionExit " + collision.gameObject.name);
     }
 }

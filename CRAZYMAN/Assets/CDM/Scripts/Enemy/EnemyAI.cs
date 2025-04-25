@@ -11,6 +11,7 @@ public class EnemyAI : MonoBehaviour
     private EnemyPatrol patrol; // 순찰
     private EnemyChase chase;   // 추적
     private EnemyAttack attack; // 공격 
+    private MentalGauge mentalGauge; // 정신 게이지
 
     public Transform player;
     public float chaseRange = 5f;
@@ -114,6 +115,7 @@ public class EnemyAI : MonoBehaviour
                 EnemyAnimator.SetTrigger("Attack");                    // 마지막에 트리거
                 Debug.Log($"공격 상태 - 패턴: {randomAttack}");
                 lastAttackTime = Time.time;
+                // mentalGauge.TriggerDeath("플레이어 사망");
                 break;
             case EnemyState.Blind:
                 Debug.Log("블라인드 상태");
@@ -124,9 +126,11 @@ public class EnemyAI : MonoBehaviour
     // 충돌 감지
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("OnTriggerEnter");
         if (other.CompareTag("Player"))
         {
             Debug.Log("플레이어 충돌 발생! 플레이어 사망!");
+            // mentalGauge.TriggerDeath("플레이어 사망");
             StartCoroutine(patrol.WaitAtPatrolPoint());
         }
 
