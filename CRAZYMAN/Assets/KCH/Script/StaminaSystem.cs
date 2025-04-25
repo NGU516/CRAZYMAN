@@ -7,16 +7,16 @@ public class StaminaSystem : MonoBehaviour
 {
     [SerializeField] public float maxStamina = 100f;
     [SerializeField] public float currentStamina = 100f;
-    [SerializeField] public float staminaDrainRate = 10f;
+    [SerializeField] public float staminaDrainRate = 25f;
     [SerializeField] public float staminaRegenRate = 5f;
-    [SerializeField] public float recoveryDelay = 3f;  // 탈진?
+    [SerializeField] public float recoveryDelay = 3f;  // ?????
     public Slider staminaSlider;
 
     private bool isDraining = false;
-    private bool isRecoveryDelayed = false; // 회복 지연 상태
-    private bool isExhausted = false; // 스테미나 소진 상태
+    private bool isRecoveryDelayed = false; // ???? ???? ????
+    private bool isExhausted = false; // ???????? ???? ????
 
-    public bool IsExhausted => isExhausted; // 외부에서 소진 상태 확인
+    public bool IsExhausted => isExhausted; // ???????? ???? ???? ????
 
     void Start()
     {
