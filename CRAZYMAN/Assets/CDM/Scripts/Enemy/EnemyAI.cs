@@ -136,7 +136,7 @@ public class EnemyAI : MonoBehaviour
 
         else
         {
-            Debug.Log($"{other.gameObject.name}와 충돌.");
+            // Debug.Log($"{other.gameObject.name}와 충돌.");
         }
     }
 
