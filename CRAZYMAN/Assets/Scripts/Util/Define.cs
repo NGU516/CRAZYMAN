@@ -21,7 +21,14 @@ public class Define
         Merge,
         Throw,
         UseItem,
-        GetItem
+        GetItem,
+        PlayerWalk,
+        PlayerRun,
+        PlayerDie,
+        EnemyWalk,
+        EnemyRun,
+        EnemyDie,
+        DoorOpen
     }
 
     public enum Item

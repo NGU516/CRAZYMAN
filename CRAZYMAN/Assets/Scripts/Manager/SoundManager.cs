@@ -2,11 +2,28 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class SoundManager
+public class SoundManager : MonoBehaviour
 {
     private AudioSource[] _audioSources = new AudioSource[System.Enum.GetValues(typeof(Define.Sound)).Length];
     private Dictionary<string, AudioClip> _audioClips = new();
     private GameObject _soundRoot = null;
+
+    // Enum-경로 매핑 딕셔너리
+    private Dictionary<Define.Sound, string> _soundPaths = new Dictionary<Define.Sound, string>
+    {
+        { Define.Sound.PlayerWalk, "test" },
+        { Define.Sound.PlayerDie, "test" },
+        { Define.Sound.EnemyWalk, "test" },
+        { Define.Sound.EnemyRun, "test" },
+        { Define.Sound.EnemyDie, "test" },
+        { Define.Sound.DoorOpen, "test" },
+        { Define.Sound.Merge, "test" },
+        { Define.Sound.Throw, "test" },
+        { Define.Sound.UseItem, "test" },
+        { Define.Sound.GetItem, "test" },
+        { Define.Sound.Bgm, "test" },
+        // 필요에 따라 추가
+    };
 
     public void Init()
     {
@@ -41,6 +58,18 @@ public class SoundManager
         _audioClips.Clear();
     }
 
+    // 오버로딩: Enum만 받아서 내부적으로 경로를 찾아서 재생
+    public bool Play(Define.Sound type, float volume = 1.0f, float pitch = 1.0f)
+    {
+        if (!_soundPaths.TryGetValue(type, out string path))
+        {
+            Debug.LogWarning($"Sound path not found for {type}");
+            return false;
+        }
+        return Play(type, path, volume, pitch);
+    }
+
+    // 기존 Play 함수(경로 직접 지정)는 내부적으로만 사용
     public bool Play(Define.Sound type, string path, float volume = 1.0f, float pitch = 1.0f)
     {
         if (string.IsNullOrEmpty(path))
@@ -52,58 +81,55 @@ public class SoundManager
 
         audioSource.volume = volume;
 
-        if (type == Define.Sound.Bgm)
+        switch (type)
         {
-            AudioClip audioClip = Managers.Resource.Load<AudioClip>(path);
-            if (audioClip == null)
+            case Define.Sound.Bgm:
+                return PlayBGM(audioSource, path, pitch);
+            
+            case Define.Sound.Merge:
+            case Define.Sound.Throw:
+            case Define.Sound.UseItem:
+            case Define.Sound.GetItem:
+            case Define.Sound.PlayerWalk:
+            case Define.Sound.PlayerRun:
+            case Define.Sound.PlayerDie:
+            case Define.Sound.EnemyWalk:
+            case Define.Sound.EnemyRun:
+            case Define.Sound.EnemyDie:
+            case Define.Sound.DoorOpen:
+                return PlaySoundEffect(audioSource, path, pitch);
+
+            default:
                 return false;
-
-            if (audioSource.isPlaying)
-                audioSource.Stop();
-
-            audioSource.clip = audioClip;
-            audioSource.pitch = pitch;
-            audioSource.Play();
-            return true;
         }
-        else if (type == Define.Sound.Throw || type == Define.Sound.Merge)
-        {
-            AudioClip audioClip = GetAudioClip(path);
-            if (audioClip == null)
-                return false;
+    }
 
-            audioSource.pitch = pitch;
-            audioSource.PlayOneShot(audioClip);
-            return true;
-        }
+    private bool PlayBGM(AudioSource audioSource, string path, float pitch)
+    {
+        AudioClip bgmClip = Managers.Resource.Load<AudioClip>(path);
+        if (bgmClip == null)
+            return false;
 
-        else if (type == Define.Sound.UseItem)
-        {
-            AudioClip audioClip = GetAudioClip(path);
-            if (audioClip == null)
-            {
-                return false;
-            }
+        if (audioSource.isPlaying)
+            audioSource.Stop();
 
-            audioSource.pitch = pitch;
-            audioSource.PlayOneShot(audioClip);
-            return true;
-        }
+        audioSource.clip = bgmClip;
+        audioSource.pitch = pitch;
+        audioSource.Play();
+        return true;
+    }
 
-        else if (type == Define.Sound.GetItem)
-        {
-            AudioClip audioClip = GetAudioClip(path);
-            if (audioClip == null)
-            {
-                return false;
-            }
+    private bool PlaySoundEffect(AudioSource audioSource, string path, float pitch)
+    {
+        AudioClip effectClip = GetAudioClip(path);
+        if (effectClip == null)
+            return false;
 
-            audioSource.pitch = pitch;
-            audioSource.PlayOneShot(audioClip);
-            return true;
-        }
-
-        return false;
+        // 오디오 소스 초기화
+        audioSource.clip = effectClip;
+        audioSource.pitch = pitch;
+        audioSource.Play();
+        return true;
     }
 
     private AudioClip GetAudioClip(string path)
