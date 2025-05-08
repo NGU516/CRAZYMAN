@@ -76,10 +76,8 @@ public class MentalGauge : MonoBehaviour
         Debug.Log($"Death triggered! Cause: {cause}");
         if(animator != null)
         {
-            Debug.Log("check ppint");
             animator.SetBool("isDeath", true);
         }
-        Debug.Log("check ppint2222222");
         OnDeathRequest?.Invoke(cause);
     }
 

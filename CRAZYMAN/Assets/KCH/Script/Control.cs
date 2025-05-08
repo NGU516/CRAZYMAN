@@ -128,7 +128,6 @@ public class Control : MonoBehaviour
             Debug.Log("Player collided with Enemy! Triggering death.");
             if(mentalGauge != null && gameManager != null)
             {
-                Debug.Log("mental && gameManager");
                 mentalGauge.TriggerDeath("EnemyCollision");
                 gameManager.RequestDeath("EnemyCollision");
             }
