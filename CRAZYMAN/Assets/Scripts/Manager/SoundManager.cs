@@ -11,9 +11,9 @@ public class SoundManager : MonoBehaviour
     // Enum-경로 매핑 딕셔너리
     private Dictionary<Define.Sound, string> _soundPaths = new Dictionary<Define.Sound, string>
     {
-        { Define.Sound.PlayerWalk, "test" },
+        { Define.Sound.PlayerWalk, "enemy_breath_2" },
         { Define.Sound.PlayerDie, "test" },
-        { Define.Sound.EnemyWalk, "test" },
+        { Define.Sound.EnemyWalk, "enemy_breath_2" },
         { Define.Sound.EnemyRun, "test" },
         { Define.Sound.EnemyDie, "test" },
         { Define.Sound.DoorOpen, "test" },
