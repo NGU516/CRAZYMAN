@@ -11,10 +11,11 @@ public class SoundManager : MonoBehaviour
     // Enum-경로 매핑 딕셔너리
     private Dictionary<Define.Sound, string> _soundPaths = new Dictionary<Define.Sound, string>
     {
-        { Define.Sound.PlayerWalk, "enemy_breath_2" },
+        { Define.Sound.PlayerWalk, "player_footstep" },
+        { Define.Sound.PlayerRun, "player_footstep" },
         { Define.Sound.PlayerDie, "test" },
-        { Define.Sound.EnemyWalk, "enemy_breath_2" },
-        { Define.Sound.EnemyRun, "test" },
+        { Define.Sound.EnemyWalk, "enemy_walk_4" },
+        { Define.Sound.EnemyRun, "enemy_breath_2" },
         { Define.Sound.EnemyDie, "test" },
         { Define.Sound.DoorOpen, "test" },
         { Define.Sound.Merge, "test" },
@@ -23,6 +24,7 @@ public class SoundManager : MonoBehaviour
         { Define.Sound.GetItem, "test" },
         { Define.Sound.Bgm, "test" },
         // 필요에 따라 추가
+        { Define.Sound.Flashlight, "flashlight_on_off" },
     };
 
     public void Init()
@@ -97,6 +99,7 @@ public class SoundManager : MonoBehaviour
             case Define.Sound.EnemyRun:
             case Define.Sound.EnemyDie:
             case Define.Sound.DoorOpen:
+            case Define.Sound.Flashlight:
                 return PlaySoundEffect(audioSource, path, pitch);
 
             default:

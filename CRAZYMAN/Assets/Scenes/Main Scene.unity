@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311915, g: 0.38073978, b: 0.35872692, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -594,11 +594,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8678208568722236408, guid: f4eefdfff1c69f941bf6b9d53e877faa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 496.6
+      value: 446
       objectReference: {fileID: 0}
     - target: {fileID: 8678208568722236408, guid: f4eefdfff1c69f941bf6b9d53e877faa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -113
+      value: -203
       objectReference: {fileID: 0}
     - target: {fileID: 8678208568722236408, guid: f4eefdfff1c69f941bf6b9d53e877faa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -711,11 +711,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3458592618503884993, guid: e93356fecb04712499d51373288a366c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 519
+      value: 482
       objectReference: {fileID: 0}
     - target: {fileID: 3458592618503884993, guid: e93356fecb04712499d51373288a366c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -113
+      value: -200
       objectReference: {fileID: 0}
     - target: {fileID: 3458592618503884993, guid: e93356fecb04712499d51373288a366c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1677,7 +1677,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0264763f6b46844eb40b05fd0423f64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allLight: {fileID: 0}
+  lampRoot: {fileID: 0}
+  allLight:
+  - {fileID: 0}
   detectionRadius: 3
   monster: Monster
   isLightOn: 1
@@ -2018,6 +2020,10 @@ PrefabInstance:
     - target: {fileID: 22013656105581351, guid: d9d3dbe48b702c24ca8489f33319b9af, type: 3}
       propertyPath: m_Name
       value: Test_Enemy_monster
+      objectReference: {fileID: 0}
+    - target: {fileID: 22013656105581351, guid: d9d3dbe48b702c24ca8489f33319b9af, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 79345284919082065, guid: d9d3dbe48b702c24ca8489f33319b9af, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
