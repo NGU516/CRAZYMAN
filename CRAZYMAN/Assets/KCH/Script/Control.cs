@@ -123,6 +123,7 @@ public class Control : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("TriggerEnter");
         if(other.CompareTag("Monster"))
         {
             if(mentalGauge != null && gameManager != null)

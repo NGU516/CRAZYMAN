@@ -1013,9 +1013,17 @@ PrefabInstance:
       value: 112
       objectReference: {fileID: 0}
     - target: {fileID: 3707858449783479621, guid: 3a77a671fb01840adb5270e10330a1dc, type: 3}
+      propertyPath: canRun
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3707858449783479621, guid: 3a77a671fb01840adb5270e10330a1dc, type: 3}
       propertyPath: animator
       value: 
       objectReference: {fileID: 8513088837576801534}
+    - target: {fileID: 3707858449783479621, guid: 3a77a671fb01840adb5270e10330a1dc, type: 3}
+      propertyPath: mentalGauge
+      value: 
+      objectReference: {fileID: 1488225146}
     - target: {fileID: 3707858449783479621, guid: 3a77a671fb01840adb5270e10330a1dc, type: 3}
       propertyPath: cameraTransform
       value: 
@@ -1032,6 +1040,10 @@ PrefabInstance:
       propertyPath: staminaSlider
       value: 
       objectReference: {fileID: 423683080}
+    - target: {fileID: 8820272154427006425, guid: 3a77a671fb01840adb5270e10330a1dc, type: 3}
+      propertyPath: staminaDrainRate
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 9169526180364814201, guid: 3a77a671fb01840adb5270e10330a1dc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -14

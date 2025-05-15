@@ -69,6 +69,7 @@ public class MentalGauge : MonoBehaviour
 
     public void TriggerDeath(string cause)
     {
+        Debug.Log("TriggerDeath : " + isDeath);
         if (isDeath)
             return;
 
@@ -76,6 +77,7 @@ public class MentalGauge : MonoBehaviour
         Debug.Log($"Death triggered! Cause: {cause}");
         if(animator != null)
         {
+            Debug.Log("Trigger Animator");
             animator.SetBool("isDeath", true);
         }
         OnDeathRequest?.Invoke(cause);
