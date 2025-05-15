@@ -52,9 +52,9 @@ public class AudioEventRX : MonoBehaviour
         Debug.Log("아이템 획득 소리 재생");
     }
 
-    public void PlayDoorOpenSound()
+    public void PlayDoorinteractSound()
     {
-        Managers.SoundManager.Play(Define.Sound.DoorOpen);
+        Managers.SoundManager.Play(Define.Sound.DoorInteract);
         Debug.Log("문 열기 소리 재생");
     }
 

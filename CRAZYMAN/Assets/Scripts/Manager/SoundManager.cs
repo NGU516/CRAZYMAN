@@ -16,7 +16,7 @@ public class SoundManager : MonoBehaviour
         { Define.Sound.EnemyWalk, "enemy_breath_2" },
         { Define.Sound.EnemyRun, "test" },
         { Define.Sound.EnemyDie, "test" },
-        { Define.Sound.DoorOpen, "test" },
+        { Define.Sound.DoorInteract, "test" },
         { Define.Sound.Merge, "test" },
         { Define.Sound.Throw, "test" },
         { Define.Sound.UseItem, "test" },
@@ -96,7 +96,7 @@ public class SoundManager : MonoBehaviour
             case Define.Sound.EnemyWalk:
             case Define.Sound.EnemyRun:
             case Define.Sound.EnemyDie:
-            case Define.Sound.DoorOpen:
+            case Define.Sound.DoorInteract:
                 return PlaySoundEffect(audioSource, path, pitch);
 
             default:

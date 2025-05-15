@@ -28,7 +28,7 @@ public class Define
         EnemyWalk,
         EnemyRun,
         EnemyDie,
-        DoorOpen
+        DoorInteract,
     }
 
     public enum Item
