@@ -28,7 +28,11 @@ public class Define
         EnemyWalk,
         EnemyRun,
         EnemyDie,
-        DoorOpen
+        DoorOpen,
+        Flashlight,
+        UseCamera,
+        UsePill,
+        swallow,
     }
 
     public enum Item
