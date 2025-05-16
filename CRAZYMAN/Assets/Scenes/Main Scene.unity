@@ -1231,6 +1231,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 1 Floor-Test
       objectReference: {fileID: 0}
+    - target: {fileID: 6301622553850714361, guid: 94842db8302e9a943a9785e2882a9391, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2164454952144709831, guid: 94842db8302e9a943a9785e2882a9391, type: 3}
     m_RemovedGameObjects: []
@@ -1677,7 +1681,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0264763f6b46844eb40b05fd0423f64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allLight: {fileID: 0}
+  lampRoot: {fileID: 0}
+  allLight:
+  - {fileID: 0}
   detectionRadius: 3
   monster: Monster
   isLightOn: 1
