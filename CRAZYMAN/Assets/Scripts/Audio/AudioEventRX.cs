@@ -18,13 +18,11 @@ public class AudioEventRX : MonoBehaviour
         {
             // 플레이어 걷기 소리
             Managers.SoundManager.Play(Define.Sound.PlayerWalk, volume:0.1f, pitch: 5.0f);
-            Debug.Log("플레이어 걷기 소리 재생");
         }
         else
         {
             // 괴인 걷기 소리
             Managers.SoundManager.Play(Define.Sound.EnemyWalk, volume:0.1f);
-            Debug.Log("괴인 걷기 소리 재생");
         }
     }
 
@@ -33,7 +31,6 @@ public class AudioEventRX : MonoBehaviour
         if (isPlayer)
         {
             Managers.SoundManager.Play(Define.Sound.PlayerRun);
-            Debug.Log("플레이어 달리기 소리 재생");
         }
         else
         {
@@ -45,7 +42,6 @@ public class AudioEventRX : MonoBehaviour
     public void PlayDieSound()
     {
         Managers.SoundManager.Play(Define.Sound.PlayerDie);
-        Debug.Log("플레이어 죽음 소리 재생");
     }
 
     public void PlayUseItemSound()
@@ -81,6 +77,5 @@ public class AudioEventRX : MonoBehaviour
     public void PlayFlashlightSound()
     {
         Managers.SoundManager.Play(Define.Sound.Flashlight);
-        Debug.Log("손전등 소리 재생");
     }
 } 

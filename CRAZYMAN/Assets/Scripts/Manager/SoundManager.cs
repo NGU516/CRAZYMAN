@@ -17,7 +17,7 @@ public class SoundManager : MonoBehaviour
         { Define.Sound.EnemyWalk, "enemy_walk_4" }, // 괴인 걷는 소리
         { Define.Sound.EnemyRun, "enemy_breath_2" },
         { Define.Sound.EnemyDie, "test" },
-        { Define.Sound.DoorOpen, "door_open" }, // 문 여는 소리
+        { Define.Sound.DoorInteract, "door_open" }, // 문 여는 소리
         { Define.Sound.Merge, "test" },
         { Define.Sound.Throw, "test" },
         { Define.Sound.UseItem, "test" },
@@ -101,7 +101,7 @@ public class SoundManager : MonoBehaviour
             case Define.Sound.EnemyWalk:
             case Define.Sound.EnemyRun:
             case Define.Sound.EnemyDie:
-            case Define.Sound.DoorOpen:
+            case Define.Sound.DoorInteract:
             case Define.Sound.Flashlight:
             case Define.Sound.UseCamera:
             case Define.Sound.UsePill:
