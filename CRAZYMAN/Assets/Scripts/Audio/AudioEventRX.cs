@@ -3,19 +3,27 @@ using UnityEngine;
 public class AudioEventRX : MonoBehaviour
 {
     [SerializeField] private bool isPlayer = true; // 플레이어인지 적인지 구분
+    private Control control;
+    void Update()
+    {
+        if(Input.GetMouseButtonDown(1)) {
+            // 손전등 소리 재생
+            PlayFlashlightSound();
+        }
+    }
 
     public void PlayFootstepSound()
     {
         if (isPlayer)
         {
             // 플레이어 걷기 소리
-            Managers.SoundManager.Play(Define.Sound.PlayerWalk);
+            Managers.SoundManager.Play(Define.Sound.PlayerWalk, volume:0.1f, pitch: 5.0f);
             Debug.Log("플레이어 걷기 소리 재생");
         }
         else
         {
             // 괴인 걷기 소리
-            Managers.SoundManager.Play(Define.Sound.EnemyWalk);
+            Managers.SoundManager.Play(Define.Sound.EnemyWalk, volume:0.1f);
             Debug.Log("괴인 걷기 소리 재생");
         }
     }
@@ -68,5 +76,11 @@ public class AudioEventRX : MonoBehaviour
     {
         Managers.SoundManager.Play(Define.Sound.Throw);
         Debug.Log("던지기 소리 재생");
+    }
+
+    public void PlayFlashlightSound()
+    {
+        Managers.SoundManager.Play(Define.Sound.Flashlight);
+        Debug.Log("손전등 소리 재생");
     }
 } 

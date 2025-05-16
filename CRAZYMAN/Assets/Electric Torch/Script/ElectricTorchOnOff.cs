@@ -22,10 +22,10 @@ public class ElectricTorchOnOff : MonoBehaviour
 	public LightChoose modoLightChoose;
 	[Space]
 	[Space]
-	public string onOffLightKey = "F";
-	private KeyCode _kCode;
-	[Space]
-	[Space]
+	// public string onOffLightKey = "F";
+	// private KeyCode _kCode;
+	// [Space]
+	// [Space]
 	public bool _PowerPickUp = false;
 	[Space]
 	public float intensityLight = 2.5F;
@@ -47,16 +47,16 @@ public class ElectricTorchOnOff : MonoBehaviour
 		}
 		if (_scriptControllerEmissionFade  == null) {Debug.Log("Cannot find 'EmissionMaterialGlassTorchFadeOut' script");}
 
-		_kCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), onOffLightKey);
+		// _kCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), onOffLightKey);
 	}
 
 	void Update()
 	{
 		// detecting parse error keyboard type
-		if (System.Enum.TryParse(onOffLightKey, out _kCode))
-		{
-			_kCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), onOffLightKey);
-		}
+		// if (System.Enum.TryParse(onOffLightKey, out _kCode))
+		// {
+		// 	_kCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), onOffLightKey);
+		// }
         //
 
         switch (modoLightChoose)
@@ -82,7 +82,6 @@ public class ElectricTorchOnOff : MonoBehaviour
 		else if (Input.GetMouseButtonDown(1) && _flashLightOn == false)
 		{
 			_flashLightOn = true;
-
 		}
 	}
 
