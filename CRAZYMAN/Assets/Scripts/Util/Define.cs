@@ -32,6 +32,7 @@ public class Define
         Flashlight,
         UseCamera,
         UsePill,
+        swallow,
     }
 
     public enum Item

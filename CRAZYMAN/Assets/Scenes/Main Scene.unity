@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311915, g: 0.38073978, b: 0.35872692, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -594,11 +594,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8678208568722236408, guid: f4eefdfff1c69f941bf6b9d53e877faa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 446
+      value: 471
       objectReference: {fileID: 0}
     - target: {fileID: 8678208568722236408, guid: f4eefdfff1c69f941bf6b9d53e877faa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -203
+      value: -163
       objectReference: {fileID: 0}
     - target: {fileID: 8678208568722236408, guid: f4eefdfff1c69f941bf6b9d53e877faa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -711,11 +711,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3458592618503884993, guid: e93356fecb04712499d51373288a366c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 482
+      value: 508
       objectReference: {fileID: 0}
     - target: {fileID: 3458592618503884993, guid: e93356fecb04712499d51373288a366c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -200
+      value: -162
       objectReference: {fileID: 0}
     - target: {fileID: 3458592618503884993, guid: e93356fecb04712499d51373288a366c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -729,6 +729,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4205900572900729755, guid: e93356fecb04712499d51373288a366c, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 8513088837576801534}
     - target: {fileID: 6362519834991057172, guid: e93356fecb04712499d51373288a366c, type: 3}
       propertyPath: m_Name
       value: Mental_Slider

@@ -22,11 +22,12 @@ public class SoundManager : MonoBehaviour
         { Define.Sound.Throw, "test" },
         { Define.Sound.UseItem, "test" },
         { Define.Sound.GetItem, "test" },
-        { Define.Sound.Bgm, "test" },
+        { Define.Sound.Bgm, "horror_bgm" }, // 브금
         { Define.Sound.UseCamera, "camera_1" }, // 카메라 소리
         { Define.Sound.UsePill, "pill_cap" }, // 약 캡슐 소리
+        { Define.Sound.swallow, "swallow" }, // 정신력 바닥에 가까워지면 환청 들리게? 
         // 필요에 따라 추가
-        { Define.Sound.Flashlight, "flashlight_on_off" },
+        { Define.Sound.Flashlight, "flashlight_on_off" }, // 손전등 on/off 소리
     };
 
     public void Init()
