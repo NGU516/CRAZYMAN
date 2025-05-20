@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Diagnostics;
 
 public class UIBase : MonoBehaviour
 {
@@ -24,6 +23,11 @@ public class UIBase : MonoBehaviour
         Init();
     }
 
+    public virtual void CloseUI()
+    {
+        Debug.Log($"{gameObject.name} UI Close 호출됨 (UIBase)");
+    }
+
     protected void Bind<T>(Type type) where T : UnityEngine.Object
     {
         string[] names = Enum.GetNames(type);
@@ -38,8 +42,35 @@ public class UIBase : MonoBehaviour
             else
                 objects[i] = Utils.FindChild<T>(gameObject, names[i], true);
 
-            if (objects[i] != null)
-                Debug.Log($"Failed to bind({names[i]})");
+            if (objects[i] == null)
+                Debug.Log($"Failed to bind({names[i]}) in {gameObject.name}");
+            else
+                Debug.Log($"Successfully bound({names[i]}) in {gameObject.name}");
+        }
+    }
+
+    public static void BindEvent(GameObject go, Action action, Define.UIEvent type = Define.UIEvent.Click)
+    {
+        switch (type)
+        {
+            case Define.UIEvent.Click:
+                
+                // GameObject에서 Button 컴포넌트를 찾아서 클릭 이벤트에 Action 연결
+                Button btn = go.GetComponent<Button>();
+                if (btn != null)
+                {
+                    btn.onClick.AddListener(() => { action.Invoke(); }); // 람다식으로 감싸서 Action 호출
+                    Debug.Log($"Button click event bound for {go.name}");
+                }
+                else
+                {
+                    Debug.LogError($"GameObject {go.name} does not have a Button component for Click event binding!");
+                }
+                break;
+
+            default:
+                Debug.LogWarning($"Unsupported UIEvent type: {type} for GameObject {go.name}");
+                break;
         }
     }
 
@@ -54,6 +85,11 @@ public class UIBase : MonoBehaviour
         if (_objects.TryGetValue(typeof(T), out objects) == false)
             return null;
 
+        if (idx < 0 || idx >= objects.Length)
+        {
+            Debug.Log($"Invalid index {idx} for type {typeof(T).Name} in {gameObject.name}");
+            return null;
+        }
         return objects[idx] as T;
     }
 

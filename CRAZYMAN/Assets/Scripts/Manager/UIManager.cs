@@ -41,7 +41,7 @@ public class UIManager
             canvas.sortingOrder = 0;
         }
     }
-    public T MakeSubItem<T>(Transform parent = null, string name = null) where T : UIBase
+    /*public T MakeSubItem<T>(Transform parent = null, string name = null) where T : UIBase
     {
         if (string.IsNullOrEmpty(name))
             name = typeof(T).Name;
@@ -56,7 +56,7 @@ public class UIManager
         go.transform.localPosition = prefab.transform.position;
 
         return Utils.GetOrAddComponent<T>(go);
-    }
+    }*/
 
     public T ShowSceneUI<T>(string name = null) where T : UIScene
     {
@@ -107,6 +107,27 @@ public class UIManager
             return null;
 
         return _popupStack.Peek() as T;
+    }
+
+    public void ShowCharacterIdleScene()
+    {
+        Debug.Log("캐릭터 대기 화면으로 전환");
+
+        CloseAllPopupUI();
+
+        if (SceneUI != null)
+        {
+            SceneUI.CloseUI();
+
+            // 이전 SceneUI 게임 오브젝트 파괴
+            Managers.Resource.Destroy(SceneUI.gameObject);
+
+            SceneUI = null;
+        }
+
+        // 캐릭터 대기 화면 UI 로드
+        // UI_CharacterIdleScene -> 캐릭터 대기 화면 UI 프리팹 이름임!!!
+        ShowSceneUI<UICharacterIdleScene>("UICharacterIdle");
     }
 
     public void ClosePopupUI(UIPopup popup)
