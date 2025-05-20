@@ -8,7 +8,7 @@ public class MentalGauge : MonoBehaviour
 {
     public Slider mentalSlider;
     [SerializeField] private float maxMental = 100f;
-    [SerializeField] private float decreaseRate = 4f;
+    [SerializeField] private float decreaseRate = 2f;
     [SerializeField] private float increaseRate = 4f;
     private float currentMental;
     public bool isDeath = false;

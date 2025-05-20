@@ -50141,8 +50141,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4177870381391360820}
-  - component: {fileID: 2030003408268992601}
-  - component: {fileID: 5014334750372076022}
   m_Layer: 0
   m_Name: Door_V3
   m_TagString: Untagged
@@ -50167,54 +50165,6 @@ Transform:
   - {fileID: 5559064152460445733}
   m_Father: {fileID: 4287701138327636021}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &2030003408268992601
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8331090937848162444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3c8b1e2a868a54fbf90d78f96e8b2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorRoot: {fileID: 1200728208435055573}
-  doorObjects:
-  - {fileID: 7604081276977395661}
-  - {fileID: 5559064152460445733}
-  openAngle: -180
-  closeAngle: 0
-  smoothSpeed: 2
-  isOpen: 0
-  isLocked: 0
-  interactionRadius: 2
-  playerTag: Player
-  interactionKey: 101
-  lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
---- !u!65 &5014334750372076022
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8331090937848162444}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8417634278396578454
 GameObject:
   m_ObjectHideFlags: 0
