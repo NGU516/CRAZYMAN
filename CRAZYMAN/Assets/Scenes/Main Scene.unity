@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311915, g: 0.38073978, b: 0.35872692, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -172,10 +172,10 @@ MonoBehaviour:
   doorObstacle: {fileID: 0}
   interactionRadius: 2
   playerTag: Player
-  interactionKey: 101
+  interactionKey: 102
   lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
+  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
+  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
 --- !u!208 &2118907
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -246,10 +246,10 @@ MonoBehaviour:
   doorObstacle: {fileID: 0}
   interactionRadius: 2
   playerTag: Player
-  interactionKey: 101
+  interactionKey: 102
   lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
+  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
+  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
 --- !u!208 &30618690
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -446,10 +446,10 @@ MonoBehaviour:
   doorObstacle: {fileID: 0}
   interactionRadius: 2
   playerTag: Player
-  interactionKey: 101
+  interactionKey: 102
   lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
+  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
+  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
 --- !u!208 &90290541
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -515,10 +515,10 @@ MonoBehaviour:
   doorObstacle: {fileID: 0}
   interactionRadius: 2
   playerTag: Player
-  interactionKey: 101
+  interactionKey: 102
   lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
+  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
+  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
 --- !u!208 &123876528
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -888,10 +888,10 @@ MonoBehaviour:
   doorObstacle: {fileID: 0}
   interactionRadius: 2
   playerTag: Player
-  interactionKey: 101
+  interactionKey: 102
   lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
+  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
+  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
 --- !u!208 &492950279
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -1114,10 +1114,10 @@ MonoBehaviour:
   doorObstacle: {fileID: 0}
   interactionRadius: 2
   playerTag: Player
-  interactionKey: 101
+  interactionKey: 102
   lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
+  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
+  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
 --- !u!208 &703056818
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -1377,10 +1377,10 @@ MonoBehaviour:
   doorObstacle: {fileID: 0}
   interactionRadius: 2
   playerTag: Player
-  interactionKey: 101
+  interactionKey: 102
   lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
+  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
+  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
 --- !u!208 &980836568
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -1675,10 +1675,10 @@ MonoBehaviour:
   doorObstacle: {fileID: 0}
   interactionRadius: 2
   playerTag: Player
-  interactionKey: 101
+  interactionKey: 102
   lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
+  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
+  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
 --- !u!208 &1060543670
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -1744,10 +1744,10 @@ MonoBehaviour:
   doorObstacle: {fileID: 0}
   interactionRadius: 2
   playerTag: Player
-  interactionKey: 101
+  interactionKey: 102
   lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
+  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
+  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
 --- !u!208 &1088580260
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -1813,10 +1813,10 @@ MonoBehaviour:
   doorObstacle: {fileID: 0}
   interactionRadius: 2
   playerTag: Player
-  interactionKey: 101
+  interactionKey: 102
   lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
+  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
+  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
 --- !u!208 &1091060805
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -1838,6 +1838,107 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2475787493547467872, guid: cde6b76cdd7d224408f56c04eb646941, type: 3}
   m_PrefabInstance: {fileID: 4847939689614749898}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1129919121 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 506443766317340540, guid: 1900be3e568a92543a46ccfba4297007, type: 3}
+  m_PrefabInstance: {fileID: 957719305453491894}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &1129919132
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129919121}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 0
+  MinDistance: 2
+  MaxDistance: 20
+  Pan2D: 0
+  rolloffMode: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1140860324
 GameObject:
   m_ObjectHideFlags: 0
@@ -1950,10 +2051,10 @@ MonoBehaviour:
   doorObstacle: {fileID: 0}
   interactionRadius: 2
   playerTag: Player
-  interactionKey: 101
+  interactionKey: 102
   lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
+  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
+  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
 --- !u!208 &1157811152
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -2019,10 +2120,10 @@ MonoBehaviour:
   doorObstacle: {fileID: 0}
   interactionRadius: 2
   playerTag: Player
-  interactionKey: 101
+  interactionKey: 102
   lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
+  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
+  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
 --- !u!208 &1254235666
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -2184,10 +2285,10 @@ MonoBehaviour:
   doorObstacle: {fileID: 0}
   interactionRadius: 2
   playerTag: Player
-  interactionKey: 101
+  interactionKey: 102
   lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
+  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
+  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
 --- !u!208 &1333689058
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -2395,10 +2496,10 @@ MonoBehaviour:
   doorObstacle: {fileID: 0}
   interactionRadius: 2
   playerTag: Player
-  interactionKey: 101
+  interactionKey: 102
   lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
+  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
+  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
 --- !u!208 &1510517124
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -2563,10 +2664,10 @@ MonoBehaviour:
   doorObstacle: {fileID: 0}
   interactionRadius: 2
   playerTag: Player
-  interactionKey: 101
+  interactionKey: 102
   lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
+  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
+  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
 --- !u!208 &1671765298
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -2695,10 +2796,10 @@ MonoBehaviour:
   doorObstacle: {fileID: 0}
   interactionRadius: 2
   playerTag: Player
-  interactionKey: 101
+  interactionKey: 102
   lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
+  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
+  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
 --- !u!208 &1776748785
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -2832,10 +2933,10 @@ MonoBehaviour:
   doorObstacle: {fileID: 0}
   interactionRadius: 2
   playerTag: Player
-  interactionKey: 101
+  interactionKey: 102
   lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
+  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
+  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
 --- !u!208 &1803350357
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -2964,10 +3065,10 @@ MonoBehaviour:
   doorObstacle: {fileID: 0}
   interactionRadius: 2
   playerTag: Player
-  interactionKey: 101
+  interactionKey: 102
   lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
+  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
+  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
 --- !u!208 &1977742661
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -3834,7 +3935,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 506443766317340540, guid: 1900be3e568a92543a46ccfba4297007, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1129919132}
   m_SourcePrefab: {fileID: 100100000, guid: 1900be3e568a92543a46ccfba4297007, type: 3}
 --- !u!1001 &2561670557462674994
 PrefabInstance:
@@ -3909,6 +4013,10 @@ PrefabInstance:
       propertyPath: lightOff
       value: 
       objectReference: {fileID: 554418168}
+    - target: {fileID: 1237898303367337999, guid: 2e3659486f7106d4aa20fce93afdc482, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2624810566891503455, guid: 2e3659486f7106d4aa20fce93afdc482, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4070,6 +4178,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7508357041466334132, guid: c75ecb5f14a04cf46883f652015ad095, type: 3}
+      propertyPath: m_Radius
+      value: 0.27267933
+      objectReference: {fileID: 0}
+    - target: {fileID: 7508357041466334132, guid: c75ecb5f14a04cf46883f652015ad095, type: 3}
+      propertyPath: m_Center.z
+      value: 0.22732067
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4133,7 +4249,7 @@ PrefabInstance:
       objectReference: {fileID: 2000434486}
     - target: {fileID: 2437603986513349204, guid: cde6b76cdd7d224408f56c04eb646941, type: 3}
       propertyPath: interactionKey
-      value: 101
+      value: 102
       objectReference: {fileID: 0}
     - target: {fileID: 2437603986513349204, guid: cde6b76cdd7d224408f56c04eb646941, type: 3}
       propertyPath: detectionRadius
@@ -4615,10 +4731,10 @@ MonoBehaviour:
   doorObstacle: {fileID: 0}
   interactionRadius: 2
   playerTag: Player
-  interactionKey: 101
+  interactionKey: 102
   lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "E\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
+  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
+  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
 --- !u!65 &4847939689614749907
 BoxCollider:
   m_ObjectHideFlags: 0

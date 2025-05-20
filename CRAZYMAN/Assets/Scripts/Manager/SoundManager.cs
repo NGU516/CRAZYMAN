@@ -112,6 +112,42 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public void PlayAtPosition(Define.Sound type, Vector3 position, float volume = 1.0f, float pitch = 1.0f)
+    {
+        if (!_soundPaths.TryGetValue(type, out string path))
+        {
+            Debug.LogWarning($"Sound path not found for {type}");
+            return;
+        }
+
+        if (!path.Contains("Audio/"))
+            path = $"Audio/{path}";
+
+        AudioClip clip = GetAudioClip(path);
+        if (clip == null)
+        {
+            Debug.LogWarning($"AudioClip not found at path: {path}");
+            return;
+        }
+
+        GameObject tempGO = new GameObject("TempAudio");
+        tempGO.transform.position = position;
+
+        AudioSource source = tempGO.AddComponent<AudioSource>();
+        source.clip = clip;
+        source.volume = volume;
+        source.pitch = pitch;
+
+        // 🔊 3D 사운드 설정
+        source.spatialBlend = 1.0f;
+        source.minDistance = 2f;
+        source.maxDistance = 25f;
+        source.rolloffMode = AudioRolloffMode.Linear;
+
+        source.Play();
+        Object.Destroy(tempGO, clip.length / pitch);
+    }
+
     private bool PlayBGM(AudioSource audioSource, string path, float pitch)
     {
         AudioClip bgmClip = Managers.Resource.Load<AudioClip>(path);

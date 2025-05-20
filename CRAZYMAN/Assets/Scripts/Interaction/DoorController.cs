@@ -16,10 +16,10 @@ public class DoorController : MonoBehaviour
     [Header("Interaction Settings")]
     public float interactionRadius = 2f;    // 상호작용 가능 거리
     public string playerTag = "Player";     // 플레이어 태그
-    public KeyCode interactionKey = KeyCode.E; // 상호작용 키
+    public KeyCode interactionKey = KeyCode.F; // 상호작용 키
     public string lockedMessage = "문이 잠겨있습니다."; // 잠긴 문 메시지
-    public string openMessage = "E키를 눌러 문을 열기"; // 열기 메시지
-    public string closeMessage = "E키를 눌러 문을 닫기"; // 닫기 메시지
+    public string openMessage = "F키를 눌러 문을 열기"; // 열기 메시지
+    public string closeMessage = "F키를 눌러 문을 닫기"; // 닫기 메시지
 
     private bool isPlayerInRange = false;   // 플레이어가 상호작용 범위 내에 있는지
     private Quaternion[] initialRotations;  // 각 문의 초기 회전값

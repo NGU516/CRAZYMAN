@@ -17,12 +17,13 @@ public class AudioEventRX : MonoBehaviour
         if (isPlayer)
         {
             // 플레이어 걷기 소리
-            Managers.SoundManager.Play(Define.Sound.PlayerWalk, volume:0.1f, pitch: 5.0f);
+            Managers.SoundManager.Play(Define.Sound.PlayerWalk, volume: 0.1f, pitch: 5.0f);
         }
         else
         {
             // 괴인 걷기 소리
-            Managers.SoundManager.Play(Define.Sound.EnemyWalk, volume:0.1f);
+            // Managers.SoundManager.Play(Define.Sound.EnemyWalk, volume:0.1f);
+            Managers.SoundManager.PlayAtPosition(Define.Sound.EnemyWalk, transform.position, volume: 0.1f);
         }
     }
 
