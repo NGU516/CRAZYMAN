@@ -7,7 +7,7 @@ using UnityEngine;
 public class UIManager
 {
     // 정렬 순서
-    int _order = -20;
+    int _order = 20;
 
     Stack<UIPopup> _popupStack = new Stack<UIPopup>();
 
@@ -127,7 +127,7 @@ public class UIManager
 
         // 캐릭터 대기 화면 UI 로드
         // UI_CharacterIdleScene -> 캐릭터 대기 화면 UI 프리팹 이름임!!!
-        ShowSceneUI<UICharacterIdleScene>("UICharacterIdle");
+        ShowPopupUI<UICharacterIdleScene>("UICharacterIdle");
     }
 
     public void ClosePopupUI(UIPopup popup)
