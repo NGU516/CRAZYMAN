@@ -13,11 +13,7 @@ public class UICharacterIdleScene : UIScene
 
         // 캐릭터 대기 화면 로직 추가
 
+        Managers.UI.SetCanvas(gameObject, false);
         return true;
     }
-
-    public override void CloseUI()
-    {
-        base.CloseUI();
-    }
-}
+ }

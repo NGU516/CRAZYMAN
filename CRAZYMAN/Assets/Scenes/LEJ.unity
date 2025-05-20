@@ -1041,6 +1041,9 @@ MonoBehaviour:
   detectionRadius: 10
   monster: Monster
   isLightOn: 1
+  interactionRadius: 2
+  playerTag: Player
+  interactionKey: 101
 --- !u!1 &310701191
 GameObject:
   m_ObjectHideFlags: 0
@@ -6480,7 +6483,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1799244923
 Transform:
   m_ObjectHideFlags: 0
@@ -9105,7 +9108,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modoLightChoose: 0
-  onOffLightKey: F
   _PowerPickUp: 0
   intensityLight: 2.5
   _lightTime: 0.05
@@ -9399,7 +9401,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &3407822192193071866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9937,7 +9939,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!33 &5160666754066502747
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -11158,7 +11160,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modoLightChoose: 0
-  onOffLightKey: F
   _PowerPickUp: 0
   intensityLight: 2.5
   _lightTime: 0.05
