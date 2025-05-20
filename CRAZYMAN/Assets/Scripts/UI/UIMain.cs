@@ -1,16 +1,22 @@
 using System;
-using UnityEngine.SceneManagement;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class UIMain : UIPopup
 {
     enum Texts
     {
-
+        GameTitle
     }
 
     enum Buttons
     {
-
+        GameStartButton,
+        SettingButton,
+        GameQuitButton
     }
 
     public override bool Init()
@@ -21,21 +27,21 @@ public class UIMain : UIPopup
         BindText(typeof(Texts));
         BindButton(typeof(Buttons));
 
-/*      이런식으로 가져오기~
-        GetButton((int)Buttons.StartButton).gameObject.BindEvent(OnClickStartButton);
-        GetButton((int)Buttons.ScoreBoardButton).gameObject.BindEvent(OnClickScoreBoardButton);
+        GetButton((int)Buttons.GameStartButton).gameObject.BindEvent(OnClickStartButton);
+        GetButton((int)Buttons.SettingButton).gameObject.BindEvent(OnClickScoreBoardButton);
 
-        GetText((int)Texts.StartText).text = "시작";
-        GetText((int)Texts.ScoreBoardText).text = "기록";*/
+        GetText((int)Texts.GameTitle).text = "CRAZY MAN";
 
         return true;
     }
 
     void OnClickStartButton()
     {
+        Debug.Log("게임 시작");
+
         Managers.UI.ClosePopupUI(this);
         
-        //Managers.UI.ShowPopupUI<UIModeSelect>();
+        Managers.UI.ShowCharacterIdleScene();
     }
 
     void OnClickScoreBoardButton()
