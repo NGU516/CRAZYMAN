@@ -11,18 +11,23 @@ public class SoundManager : MonoBehaviour
     // Enum-경로 매핑 딕셔너리
     private Dictionary<Define.Sound, string> _soundPaths = new Dictionary<Define.Sound, string>
     {
-        { Define.Sound.PlayerWalk, "test" },
-        { Define.Sound.PlayerDie, "test" },
-        { Define.Sound.EnemyWalk, "test" },
-        { Define.Sound.EnemyRun, "test" },
+        { Define.Sound.PlayerWalk, "player_footstep" }, // 플레이어 걷는 소리
+        { Define.Sound.PlayerRun, "player_footstep" }, // 플레이어 달리는 소리
+        { Define.Sound.PlayerDie, "player_die" },
+        { Define.Sound.EnemyWalk, "enemy_walk_4" }, // 괴인 걷는 소리
+        { Define.Sound.EnemyRun, "enemy_breath_2" },
         { Define.Sound.EnemyDie, "test" },
-        { Define.Sound.DoorOpen, "test" },
+        { Define.Sound.DoorInteract, "door_open" }, // 문 여는 소리
         { Define.Sound.Merge, "test" },
         { Define.Sound.Throw, "test" },
         { Define.Sound.UseItem, "test" },
         { Define.Sound.GetItem, "test" },
-        { Define.Sound.Bgm, "test" },
+        { Define.Sound.Bgm, "horror_bgm" }, // 브금
+        { Define.Sound.UseCamera, "camera_1" }, // 카메라 소리
+        { Define.Sound.UsePill, "pill_cap" }, // 약 캡슐 소리
+        { Define.Sound.swallow, "swallow" }, // 정신력 바닥에 가까워지면 환청 들리게? 
         // 필요에 따라 추가
+        { Define.Sound.Flashlight, "flashlight_on_off" }, // 손전등 on/off 소리
     };
 
     public void Init()
@@ -96,7 +101,10 @@ public class SoundManager : MonoBehaviour
             case Define.Sound.EnemyWalk:
             case Define.Sound.EnemyRun:
             case Define.Sound.EnemyDie:
-            case Define.Sound.DoorOpen:
+            case Define.Sound.DoorInteract:
+            case Define.Sound.Flashlight:
+            case Define.Sound.UseCamera:
+            case Define.Sound.UsePill:
                 return PlaySoundEffect(audioSource, path, pitch);
 
             default:

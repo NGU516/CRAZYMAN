@@ -3,20 +3,26 @@ using UnityEngine;
 public class AudioEventRX : MonoBehaviour
 {
     [SerializeField] private bool isPlayer = true; // 플레이어인지 적인지 구분
+    private Control control;
+    void Update()
+    {
+        if(Input.GetMouseButtonDown(1)) {
+            // 손전등 소리 재생
+            PlayFlashlightSound();
+        }
+    }
 
     public void PlayFootstepSound()
     {
         if (isPlayer)
         {
             // 플레이어 걷기 소리
-            Managers.SoundManager.Play(Define.Sound.PlayerWalk);
-            Debug.Log("플레이어 걷기 소리 재생");
+            Managers.SoundManager.Play(Define.Sound.PlayerWalk, volume:0.1f, pitch: 5.0f);
         }
         else
         {
             // 괴인 걷기 소리
-            Managers.SoundManager.Play(Define.Sound.EnemyWalk);
-            Debug.Log("괴인 걷기 소리 재생");
+            Managers.SoundManager.Play(Define.Sound.EnemyWalk, volume:0.1f);
         }
     }
 
@@ -25,7 +31,6 @@ public class AudioEventRX : MonoBehaviour
         if (isPlayer)
         {
             Managers.SoundManager.Play(Define.Sound.PlayerRun);
-            Debug.Log("플레이어 달리기 소리 재생");
         }
         else
         {
@@ -37,7 +42,6 @@ public class AudioEventRX : MonoBehaviour
     public void PlayDieSound()
     {
         Managers.SoundManager.Play(Define.Sound.PlayerDie);
-        Debug.Log("플레이어 죽음 소리 재생");
     }
 
     public void PlayUseItemSound()
@@ -52,9 +56,9 @@ public class AudioEventRX : MonoBehaviour
         Debug.Log("아이템 획득 소리 재생");
     }
 
-    public void PlayDoorOpenSound()
+    public void PlayDoorinteractSound()
     {
-        Managers.SoundManager.Play(Define.Sound.DoorOpen);
+        Managers.SoundManager.Play(Define.Sound.DoorInteract);
         Debug.Log("문 열기 소리 재생");
     }
 
@@ -68,5 +72,10 @@ public class AudioEventRX : MonoBehaviour
     {
         Managers.SoundManager.Play(Define.Sound.Throw);
         Debug.Log("던지기 소리 재생");
+    }
+
+    public void PlayFlashlightSound()
+    {
+        Managers.SoundManager.Play(Define.Sound.Flashlight);
     }
 } 

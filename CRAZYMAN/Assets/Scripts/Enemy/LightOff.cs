@@ -17,6 +17,12 @@ public class LightOff : MonoBehaviour
     // 전등 상태 추적
     public bool isLightOn = true;
 
+    public float interactionRadius = 2f;     // 플레이어 상호작용 범위
+    public string playerTag = "Player";      // 플레이어 태그
+    public KeyCode interactionKey = KeyCode.E; // 상호작용 키
+
+    private bool isPlayerInRange = false;    // 플레이어가 상호작용 범위 내에 있는지
+
     void Start()
     {
         // allLight가 비어 있으면 자동으로 자식에서 Light 컴포넌트 찾아서 할당
@@ -29,11 +35,20 @@ public class LightOff : MonoBehaviour
 
     void Update()
     {
-        Debug.Log($"{name} Update: 전등 상태: {(isLightOn ? "켜짐" : "꺼짐")}");
-        if (!isLightOn) return; // 전등이 꺼져 있으면 감지하지 않음
+        // 전등이 꺼져있고 플레이어가 상호작용 범위 내에 있을 때
+        if (!isLightOn && isPlayerInRange)
+        {
+            // 상호작용 키를 누르면 전등 켜기
+            if (Input.GetKeyDown(interactionKey))
+            {
+                TurnOnLight();
+            }
+        }
+
+        // 전등이 켜져있을 때만 몬스터 감지
+        if (!isLightOn) return;
 
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRadius);
-
         foreach (var hitCollider in hitColliders)
         {
             if (hitCollider.CompareTag(monster))
@@ -55,11 +70,48 @@ public class LightOff : MonoBehaviour
         Debug.Log("전체 전등 OFF!");
     }
 
-    // 씬에서 감지 반경 시각화용 Gizmo
+    void TurnOnLight()
+    {
+        foreach (var light in allLight)
+        {
+            if (light != null) light.enabled = true;
+        }
+        isLightOn = true;
+        Debug.Log("전체 전등 ON!");
+    }
+
+    // 플레이어가 상호작용 범위에 들어왔을 때
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag(playerTag))
+        {
+            isPlayerInRange = true;
+            if (!isLightOn)
+            {
+                Debug.Log("전등을 켤 수 있습니다. E키를 눌러주세요.");
+            }
+        }
+    }
+
+    // 플레이어가 상호작용 범위를 벗어났을 때
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag(playerTag))
+        {
+            isPlayerInRange = false;
+        }
+    }
+
+    // 디버깅용 Gizmo
     void OnDrawGizmosSelected()
     {
+        // 몬스터 감지 범위
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRadius);
+
+        // 플레이어 상호작용 범위
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, interactionRadius);
     }
 
 #if UNITY_EDITOR

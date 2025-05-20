@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311915, g: 0.38073978, b: 0.35872692, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -467,6 +467,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2659606938153704251, guid: c9fadc450f351cf438efff2156864f77, type: 3}
+      propertyPath: mentalGauge
+      value: 
+      objectReference: {fileID: 1488225146}
     - target: {fileID: 3439574770886676806, guid: c9fadc450f351cf438efff2156864f77, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.6951394
@@ -594,11 +598,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8678208568722236408, guid: f4eefdfff1c69f941bf6b9d53e877faa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 496.6
+      value: 471
       objectReference: {fileID: 0}
     - target: {fileID: 8678208568722236408, guid: f4eefdfff1c69f941bf6b9d53e877faa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -113
+      value: -163
       objectReference: {fileID: 0}
     - target: {fileID: 8678208568722236408, guid: f4eefdfff1c69f941bf6b9d53e877faa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -711,11 +715,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3458592618503884993, guid: e93356fecb04712499d51373288a366c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 519
+      value: 508
       objectReference: {fileID: 0}
     - target: {fileID: 3458592618503884993, guid: e93356fecb04712499d51373288a366c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -113
+      value: -162
       objectReference: {fileID: 0}
     - target: {fileID: 3458592618503884993, guid: e93356fecb04712499d51373288a366c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -729,6 +733,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4205900572900729755, guid: e93356fecb04712499d51373288a366c, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 8513088837576801534}
+    - target: {fileID: 4205900572900729755, guid: e93356fecb04712499d51373288a366c, type: 3}
+      propertyPath: lightOff
+      value: 
+      objectReference: {fileID: 1228550060}
     - target: {fileID: 6362519834991057172, guid: e93356fecb04712499d51373288a366c, type: 3}
       propertyPath: m_Name
       value: Mental_Slider
@@ -1013,9 +1025,21 @@ PrefabInstance:
       value: 112
       objectReference: {fileID: 0}
     - target: {fileID: 3707858449783479621, guid: 3a77a671fb01840adb5270e10330a1dc, type: 3}
+      propertyPath: canRun
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3707858449783479621, guid: 3a77a671fb01840adb5270e10330a1dc, type: 3}
       propertyPath: animator
       value: 
       objectReference: {fileID: 8513088837576801534}
+    - target: {fileID: 3707858449783479621, guid: 3a77a671fb01840adb5270e10330a1dc, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1284137835}
+    - target: {fileID: 3707858449783479621, guid: 3a77a671fb01840adb5270e10330a1dc, type: 3}
+      propertyPath: mentalGauge
+      value: 
+      objectReference: {fileID: 1488225146}
     - target: {fileID: 3707858449783479621, guid: 3a77a671fb01840adb5270e10330a1dc, type: 3}
       propertyPath: cameraTransform
       value: 
@@ -1032,6 +1056,10 @@ PrefabInstance:
       propertyPath: staminaSlider
       value: 
       objectReference: {fileID: 423683080}
+    - target: {fileID: 8820272154427006425, guid: 3a77a671fb01840adb5270e10330a1dc, type: 3}
+      propertyPath: staminaDrainRate
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 9169526180364814201, guid: 3a77a671fb01840adb5270e10330a1dc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -14
@@ -1230,6 +1258,10 @@ PrefabInstance:
     - target: {fileID: 6301622553850714361, guid: 94842db8302e9a943a9785e2882a9391, type: 3}
       propertyPath: m_Name
       value: 1 Floor-Test
+      objectReference: {fileID: 0}
+    - target: {fileID: 6301622553850714361, guid: 94842db8302e9a943a9785e2882a9391, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2164454952144709831, guid: 94842db8302e9a943a9785e2882a9391, type: 3}
@@ -1677,10 +1709,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0264763f6b46844eb40b05fd0423f64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allLight: {fileID: 0}
+  lampRoot: {fileID: 0}
+  allLight:
+  - {fileID: 0}
   detectionRadius: 3
   monster: Monster
   isLightOn: 1
+  interactionRadius: 2
+  playerTag: Player
+  interactionKey: 101
+--- !u!114 &1284137835 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2659606938153704251, guid: c9fadc450f351cf438efff2156864f77, type: 3}
+  m_PrefabInstance: {fileID: 311860261}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8330559cf6b09a541a5e07119951d4e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1305779220
 GameObject:
   m_ObjectHideFlags: 0
@@ -2018,6 +2066,10 @@ PrefabInstance:
     - target: {fileID: 22013656105581351, guid: d9d3dbe48b702c24ca8489f33319b9af, type: 3}
       propertyPath: m_Name
       value: Test_Enemy_monster
+      objectReference: {fileID: 0}
+    - target: {fileID: 22013656105581351, guid: d9d3dbe48b702c24ca8489f33319b9af, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 79345284919082065, guid: d9d3dbe48b702c24ca8489f33319b9af, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

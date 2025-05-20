@@ -102,14 +102,11 @@ public class EnemyPatrol : MonoBehaviour
         {
             currentPatrolIndex = Random.Range(0, priorityPoints.Count);
             agent.SetDestination(priorityPoints[currentPatrolIndex].position);
-            // 현재 순찰지점 디버깅 메시지
-            Debug.Log("1. 우선 순찰 지점: " + priorityPoints[currentPatrolIndex].name);
         }
         else
         {
             currentPatrolIndex = Random.Range(0, patrolPoints.Length);
             agent.SetDestination(patrolPoints[currentPatrolIndex].position);
-            Debug.Log("2. 우선 순찰 지점: " + priorityPoints[currentPatrolIndex].name);
         }   
     }
 
@@ -117,7 +114,6 @@ public class EnemyPatrol : MonoBehaviour
     {
         if (LightOffPoints == null || LightOffPoints.Length == 0)
         {
-            Debug.LogWarning("LightOffPoints가 설정되지 않았습니다.");
             return;
         }
 

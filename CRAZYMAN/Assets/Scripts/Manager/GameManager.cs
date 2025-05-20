@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
         else
         {
             mentalGauge.OnDeathRequest += HandleDeath;
-            Debug.Log("GameManager subscribed to MentalGauge's OnDeathRequest event.");
         }
     }
 
@@ -37,8 +36,8 @@ public class GameManager : MonoBehaviour
 
         isGameOver = true;
         Debug.Log($"player Died! Cause: {cause}");
-// °ÔÀÓ ¿À¹ö UI Ç¥½Ã (³ªÁß¿¡ Ãß°¡)
-// ¿¹: gameOverUI.SetActive(true);
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ UI Ç¥ï¿½ï¿½ (ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ß°ï¿½)
+// ï¿½ï¿½: gameOverUI.SetActive(true);
     }
 
     private void RestartGame()

@@ -101,24 +101,20 @@ public class EnemyAI : MonoBehaviour
                 EnemyAnimator.ResetTrigger("Attack");
                 EnemyAnimator.SetInteger("AttackIndex", -1);
                 patrol.Patrol();
-                Debug.Log("순찰 상태");
                 break;
             case EnemyState.Chase:
                 EnemyAnimator.ResetTrigger("Attack");
                 EnemyAnimator.SetInteger("AttackIndex", -1);
                 chase.Chase(player);
-                Debug.Log("추적 상태");
                 break;
             case EnemyState.Attack:
                 int randomAttack = Random.Range(0, 3);
                 EnemyAnimator.SetInteger("AttackIndex", randomAttack); // 먼저 설정
                 EnemyAnimator.SetTrigger("Attack");                    // 마지막에 트리거
-                Debug.Log($"공격 상태 - 패턴: {randomAttack}");
                 lastAttackTime = Time.time;
                 // mentalGauge.TriggerDeath("플레이어 사망");
                 break;
             case EnemyState.Blind:
-                Debug.Log("블라인드 상태");
                 break;
         }
     }
@@ -126,10 +122,9 @@ public class EnemyAI : MonoBehaviour
     // 충돌 감지
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("OnTriggerEnter");
+
         if (other.CompareTag("Player"))
         {
-            Debug.Log("플레이어 충돌 발생! 플레이어 사망!");
             // mentalGauge.TriggerDeath("플레이어 사망");
             StartCoroutine(patrol.WaitAtPatrolPoint());
         }
