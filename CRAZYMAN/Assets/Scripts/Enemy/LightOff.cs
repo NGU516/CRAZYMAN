@@ -35,12 +35,14 @@ public class LightOff : MonoBehaviour
 
     void Update()
     {
+        Debug.Log($"[LightOff] Update 실행 중, isPlayerInRange={isPlayerInRange}, isLightOn={isLightOn}");
         // 전등이 꺼져있고 플레이어가 상호작용 범위 내에 있을 때
         if (!isLightOn && isPlayerInRange)
         {
-            // 상호작용 키를 누르면 전등 켜기
+            Debug.Log($"[LightOff] E키 입력 대기 중 (isPlayerInRange={isPlayerInRange}, isLightOn={isLightOn})");
             if (Input.GetKeyDown(interactionKey))
             {
+                Debug.Log($"[LightOff] E키 입력 감지: 불 켜기 시도 (isPlayerInRange={isPlayerInRange}, isLightOn={isLightOn})");
                 TurnOnLight();
             }
         }
@@ -67,17 +69,18 @@ public class LightOff : MonoBehaviour
             if (light != null) light.enabled = false;
         }
         isLightOn = false;
-        Debug.Log("전체 전등 OFF!");
+        Debug.Log("[LightOff] 전체 전등 OFF! (TurnOffLight 호출됨)");
     }
 
     void TurnOnLight()
     {
+        Debug.Log("[LightOff] TurnOnLight() 호출됨");
         foreach (var light in allLight)
         {
             if (light != null) light.enabled = true;
         }
         isLightOn = true;
-        Debug.Log("전체 전등 ON!");
+        Debug.Log("[LightOff] 전체 전등 ON! (TurnOnLight 호출됨)");
     }
 
     // 플레이어가 상호작용 범위에 들어왔을 때
@@ -86,9 +89,10 @@ public class LightOff : MonoBehaviour
         if (other.CompareTag(playerTag))
         {
             isPlayerInRange = true;
+            Debug.Log($"[LightOff] OnTriggerEnter: 플레이어가 상호작용 범위에 들어옴 (isPlayerInRange={isPlayerInRange})");
             if (!isLightOn)
             {
-                Debug.Log("전등을 켤 수 있습니다. E키를 눌러주세요.");
+                Debug.Log("[LightOff] 전등을 켤 수 있습니다. E키를 눌러주세요.");
             }
         }
     }
@@ -99,6 +103,7 @@ public class LightOff : MonoBehaviour
         if (other.CompareTag(playerTag))
         {
             isPlayerInRange = false;
+            Debug.Log($"[LightOff] OnTriggerExit: 플레이어가 상호작용 범위를 벗어남 (isPlayerInRange={isPlayerInRange})");
         }
     }
 

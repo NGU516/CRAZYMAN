@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class DoorController : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class DoorController : MonoBehaviour
     public float smoothSpeed = 2f;          // 문이 열리고 닫히는 속도
     public bool isOpen = false;             // 문의 현재 상태
     public bool isLocked = false;           // 문이 잠겨있는지 여부
+    public NavMeshObstacle doorObstacle;
 
     [Header("Interaction Settings")]
     public float interactionRadius = 2f;    // 상호작용 가능 거리
@@ -26,13 +28,10 @@ public class DoorController : MonoBehaviour
 
     void Start()
     {
-        Debug.Log($"[DoorController] {name} 초기화 시작");
-        
         // doorRoot가 비어 있으면 자기 자신으로 자동 할당
         if (doorRoot == null)
         {
             doorRoot = this.gameObject;
-            Debug.Log($"[DoorController] {name}: doorRoot가 비어 있어 자기 자신으로 자동 할당");
         }
 
         // doorObjects가 비어 있으면 자동으로 자식에서 이름이 'Door'인 오브젝트만 찾아서 할당
@@ -40,13 +39,6 @@ public class DoorController : MonoBehaviour
         {
             var allChildren = doorRoot.GetComponentsInChildren<Transform>(true);
             doorObjects = System.Array.FindAll(allChildren, t => t.name == "Door" && t != doorRoot.transform);
-            Debug.Log($"[DoorController] {name}에서 자동으로 {doorObjects.Length}개의 Door 오브젝트를 할당했습니다.");
-            foreach (var door in doorObjects)
-                Debug.Log($"[DoorController] 할당된 문: {door.name} (경로: {GetHierarchyPath(door)})");
-        }
-        else if (doorRoot == null)
-        {
-            Debug.LogWarning($"[DoorController] {name}: Door Root가 설정되지 않았습니다!");
         }
 
         // 각 문의 초기 회전값 및 목표 회전값 설정
@@ -60,14 +52,12 @@ public class DoorController : MonoBehaviour
                 targetRotations[i] = doorObjects[i].rotation;
             }
         }
-        
         // 오디오 이벤트 컴포넌트 가져오기
         audioEventRX = GetComponent<AudioEventRX>();
         if (audioEventRX == null)
         {
             audioEventRX = gameObject.AddComponent<AudioEventRX>();
         }
-
         // Collider가 없으면 자동으로 추가
         if (GetComponent<Collider>() == null)
         {
@@ -76,11 +66,6 @@ public class DoorController : MonoBehaviour
             collider.size = new Vector3(interactionRadius * 2, 2f, interactionRadius * 2);
             collider.center = new Vector3(0, 1f, 0);
         }
-        else
-        {
-            Collider existingCollider = GetComponent<Collider>();
-        }
-
     }
 
     void Update()
@@ -97,7 +82,6 @@ public class DoorController : MonoBehaviour
                 );
             }
         }
-
         // 플레이어가 상호작용 범위 내에 있을 때
         if (isPlayerInRange)
         {
@@ -106,11 +90,8 @@ public class DoorController : MonoBehaviour
             {
                 if (isLocked)
                 {
-                    Debug.Log($"[DoorController] {name}: {lockedMessage}");
                     return;
                 }
-
-                Debug.Log($"[DoorController] {name}: 문 상태 변경 시도 (현재: {(isOpen ? "열림" : "닫힘")})");
                 ToggleDoor();
             }
         }
@@ -119,8 +100,6 @@ public class DoorController : MonoBehaviour
     void ToggleDoor()
     {
         isOpen = !isOpen;
-        Debug.Log($"[DoorController] {name}: 문 상태 변경 - {(isOpen ? "열기" : "닫기")} 시작");
-        
         // 모든 문의 목표 회전값 업데이트
         for (int i = 0; i < doorObjects.Length; i++)
         {
@@ -133,19 +112,13 @@ public class DoorController : MonoBehaviour
                 targetRotations[i] = Quaternion.Euler(targetEuler);
             }
         }
-
         // 문 소리 재생
         if (audioEventRX != null)
         {
             audioEventRX.PlayDoorinteractSound();
-            Debug.Log($"[DoorController] {name}: 문 소리 재생");
         }
-        else
-        {
-            Debug.LogWarning($"[DoorController] {name}: AudioEventRX 컴포넌트가 없습니다!");
-        }
-
-        Debug.Log($"[DoorController] {name}: 문이 {(isOpen ? "열렸습니다" : "닫혔습니다")}.");
+        if (doorObstacle != null)
+            doorObstacle.enabled = isOpen;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -153,14 +126,6 @@ public class DoorController : MonoBehaviour
         if (other.CompareTag(playerTag))
         {
             isPlayerInRange = true;
-            if (!isLocked)
-            {
-                Debug.Log($"[DoorController] {name}: {(isOpen ? closeMessage : openMessage)}");
-            }
-            else
-            {
-                Debug.Log($"[DoorController] {name}: {lockedMessage}");
-            }
         }
     }
 
@@ -168,7 +133,6 @@ public class DoorController : MonoBehaviour
     {
         if (other.CompareTag(playerTag))
         {
-            Debug.Log($"[DoorController] {name}: 플레이어가 상호작용 범위를 벗어남");
             isPlayerInRange = false;
         }
     }
@@ -190,6 +154,8 @@ public class DoorController : MonoBehaviour
                 }
             }
         }
+        if (doorObstacle != null)
+            doorObstacle.enabled = !isOpen;
     }
 
     // 디버깅용 Gizmo
@@ -198,18 +164,6 @@ public class DoorController : MonoBehaviour
         // 상호작용 범위 표시
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, interactionRadius);
-    }
-
-    // 디버깅용: 계층 경로 반환
-    private string GetHierarchyPath(Transform t)
-    {
-        string path = t.name;
-        while (t.parent != null && t.parent != doorRoot.transform)
-        {
-            t = t.parent;
-            path = t.name + "/" + path;
-        }
-        return path;
     }
 
 #if UNITY_EDITOR
