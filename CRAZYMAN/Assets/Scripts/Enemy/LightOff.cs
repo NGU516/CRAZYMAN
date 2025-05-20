@@ -19,7 +19,7 @@ public class LightOff : MonoBehaviour
 
     public float interactionRadius = 2f;     // 플레이어 상호작용 범위
     public string playerTag = "Player";      // 플레이어 태그
-    public KeyCode interactionKey = KeyCode.E; // 상호작용 키
+    public KeyCode interactionKey = KeyCode.F; // 상호작용 키
 
     private bool isPlayerInRange = false;    // 플레이어가 상호작용 범위 내에 있는지
 
