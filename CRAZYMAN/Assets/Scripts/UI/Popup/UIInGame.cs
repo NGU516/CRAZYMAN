@@ -1,18 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+using System;
+using UnityEngine.SceneManagement;
 
-public class UIInGame : MonoBehaviour
+
+public class UIInGame : UIPopup
 {
-    // Start is called before the first frame update
-    void Start()
+    enum Texts
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
+
+    enum GameObjects
     {
-        
+        Sliders
+    }
+
+    public override bool Init()
+    {
+        if (base.Init() == false)
+            return false;
+
+        BindText(typeof(Texts));
+        BindObject(typeof(GameObjects));
+
+        return true;
     }
 }
