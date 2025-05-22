@@ -9,16 +9,15 @@ public class GameManager : MonoBehaviour
     private bool isGameOver = false;
 
     // Start is called before the first frame update
-    void Start()
+    IEnumerator Start()
     {
-        if(mentalGauge == null)
+        while (mentalGauge == null)
         {
+            mentalGauge = FindObjectOfType<MentalGauge>();
             Debug.LogError("MetalGauge is not assigned in GameManager! Please assign it in the Inspector");
+            yield return null;
         }
-        else
-        {
-            mentalGauge.OnDeathRequest += HandleDeath;
-        }
+        mentalGauge.OnDeathRequest += HandleDeath;
     }
 
     // Update is called once per frame
