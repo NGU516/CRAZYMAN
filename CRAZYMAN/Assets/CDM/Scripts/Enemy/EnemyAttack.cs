@@ -16,8 +16,8 @@ public class EnemyAttack : MonoBehaviour
         Vector3 origin = transform.position;
         Vector3 forward = transform.forward;
 
+        // 부채꼴 공격 범위
         Gizmos.color = Color.yellow;
-
         Vector3 lastPoint = origin + Quaternion.Euler(0, -halfFOV, 0) * forward * attackRange;
         for (int i = 1; i <= segments; i++)
         {
@@ -32,8 +32,13 @@ public class EnemyAttack : MonoBehaviour
 
             lastPoint = nextPoint;
         }
+
+        // 괴인 시야 범위
+        Gizmos.color = Color.red;
+           
     }
 
+    // 플레이어가 괴인 공격 범위에 있는지 확인
     public bool IsPlayerInAttackCone()
     {
         if (player == null) return false;
@@ -43,6 +48,19 @@ public class EnemyAttack : MonoBehaviour
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
         return angleToPlayer <= fieldOfView * 0.5f && distanceToPlayer <= attackRange;
+    }
+    
+
+    // 플레이어가 괴인 시야에 있는지 확인
+    public bool IsPlayerInSight(float viewDistance)
+    {
+        if (player == null) return false;
+
+        Vector3 directionToPlayer = (player.position - transform.position).normalized;
+        float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer);
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+        return angleToPlayer <= fieldOfView * 0.5f && distanceToPlayer <= viewDistance;
     }
 
 }

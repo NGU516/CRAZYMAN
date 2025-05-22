@@ -54,30 +54,24 @@ public class EnemyAI : MonoBehaviour
     {
         if (player == null) return;
 
-        // 부채꼴 공격 판정 검사 (EnemyAttack.cs에서 구현)
+        // 공격 조건
         if (attack != null && attack.IsPlayerInAttackCone())
         {
-            // 쿨타임이 지났다면 공격 상태로
             if (Time.time - lastAttackTime >= attackCooldown)
             {
                 SetState(EnemyState.Attack);
-                return;  
+                return;
             }
         }
 
-        // 추적/순찰 상태 판별
-        // (공격 조건 아니거나 쿨타임 중이면)
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-        EnemyState nextState = (distanceToPlayer <= chaseRange)
-            ? EnemyState.Chase
-            : EnemyState.Patrol;
+        // 시야 내 감지 → 추적
+        bool playerInSight = attack != null && attack.IsPlayerInSight(7f); // viewDistance 조절 가능
+        EnemyState nextState = playerInSight ? EnemyState.Chase : EnemyState.Patrol;
 
         if (currentState != nextState)
-        {
             SetState(nextState);
-        }
 
-        // 상태별 매 프레임 동작
+        // 상태별 처리
         switch (currentState)
         {
             case EnemyState.Patrol:
