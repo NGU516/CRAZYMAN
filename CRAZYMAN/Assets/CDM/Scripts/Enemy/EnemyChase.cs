@@ -21,6 +21,7 @@ public class EnemyChase : MonoBehaviour
     private bool isChasing = false; // 추적 상태 플래그
     private bool isOnCooldown = false; // 추적 쿨타임 상태 플래그
     private EnemyPatrol patrol; // 순찰 스크립트 참조
+    private EnemyAttack attack; // 시야 체크용
 
     void Start()
     {
@@ -35,6 +36,7 @@ public class EnemyChase : MonoBehaviour
 
         patrol = GetComponent<EnemyPatrol>();
         enemyAI = GetComponent<EnemyAI>();
+        attack = GetComponent<EnemyAttack>(); // 추가
     }
 
     // 플레이어 추적 함수
@@ -43,6 +45,13 @@ public class EnemyChase : MonoBehaviour
         if (player == null) return;
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        bool inSight = false;
+        if (attack != null)
+        {
+            Vector3 directionToPlayer = (player.position - transform.position).normalized;
+            float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer);
+            inSight = angleToPlayer <= attack.fieldOfView * 0.5f && distanceToPlayer <= attack.viewDistance;
+        }
 
         // 쿨타임 중에는 강제로 Patrol 상태 유지
         if (isOnCooldown)
@@ -54,8 +63,8 @@ public class EnemyChase : MonoBehaviour
             return;
         }
 
-        // 감지 범위 내 → 추적 시작
-        if (distanceToPlayer <= chaseRange)
+        // 감지 범위 + 시야 내 → 추적 시작
+        if (distanceToPlayer <= chaseRange && inSight)
         {
             if (!isChasing)
             {
@@ -78,7 +87,7 @@ public class EnemyChase : MonoBehaviour
         }
         else
         {
-            // 감지 범위 벗어남 → 추적 종료
+            // 감지 범위 벗어남 또는 시야 밖 → 추적 종료
             if (isChasing)
             {
                 StopChasing();

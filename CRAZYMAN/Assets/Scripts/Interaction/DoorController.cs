@@ -26,6 +26,8 @@ public class DoorController : MonoBehaviour
     private Quaternion[] targetRotations;   // 각 문의 목표 회전값
     private AudioEventRX audioEventRX;      // 오디오 이벤트 컴포넌트
 
+    public bool IsPlayerInRange => isPlayerInRange; // 외부에서 읽기 전용 접근자
+
     void Start()
     {
         // doorRoot가 비어 있으면 자기 자신으로 자동 할당
@@ -97,7 +99,7 @@ public class DoorController : MonoBehaviour
         }
     }
 
-    void ToggleDoor()
+    public void ToggleDoor()
     {
         isOpen = !isOpen;
         // 모든 문의 목표 회전값 업데이트
