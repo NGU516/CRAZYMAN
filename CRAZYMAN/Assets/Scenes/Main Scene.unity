@@ -3778,6 +3778,26 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 9169526181442416441}
+    - target: {fileID: 1892758239735321406, guid: 1900be3e568a92543a46ccfba4297007, type: 3}
+      propertyPath: attackRange
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1892758239735321406, guid: 1900be3e568a92543a46ccfba4297007, type: 3}
+      propertyPath: fieldOfView
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1892758239735321406, guid: 1900be3e568a92543a46ccfba4297007, type: 3}
+      propertyPath: viewDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729271686600635428, guid: 1900be3e568a92543a46ccfba4297007, type: 3}
+      propertyPath: relaxDuration
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729271686600635428, guid: 1900be3e568a92543a46ccfba4297007, type: 3}
+      propertyPath: pressureDuration
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 4729271686600635428, guid: 1900be3e568a92543a46ccfba4297007, type: 3}
       propertyPath: patrolPoints.Array.data[0]
       value: 
@@ -3920,7 +3940,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8634645149864560865, guid: 1900be3e568a92543a46ccfba4297007, type: 3}
       propertyPath: normalSpeed
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8634645149864560865, guid: 1900be3e568a92543a46ccfba4297007, type: 3}
       propertyPath: chaseTimeLimit

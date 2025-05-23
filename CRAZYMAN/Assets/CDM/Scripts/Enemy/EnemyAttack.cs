@@ -5,6 +5,7 @@ public class EnemyAttack : MonoBehaviour
 {
     public float attackRange = 2.5f;
     public float fieldOfView = 120f;
+    public float viewDistance = 7f; // Inspector에서 수정 가능한 시야 범위
     public Transform player;
 
     void OnDrawGizmosSelected()
@@ -35,7 +36,20 @@ public class EnemyAttack : MonoBehaviour
 
         // 괴인 시야 범위
         Gizmos.color = Color.red;
-           
+        Vector3 viewLastPoint = origin + Quaternion.Euler(0, -halfFOV, 0) * forward * viewDistance;
+        for (int i = 1; i <= segments; i++)
+        {
+            float angle = -halfFOV + angleStep * i;
+            Vector3 nextPoint = origin + Quaternion.Euler(0, angle, 0) * forward * viewDistance;
+
+            // 시야 범위의 테두리 라인을 그림
+            Gizmos.DrawLine(viewLastPoint, nextPoint);
+
+            // 중심에서 퍼지는 선도 함께 그림
+            Gizmos.DrawLine(origin, nextPoint);
+
+            viewLastPoint = nextPoint;
+        }
     }
 
     // 플레이어가 괴인 공격 범위에 있는지 확인
