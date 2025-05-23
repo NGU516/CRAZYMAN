@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311915, g: 0.38073978, b: 0.35872692, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1186,7 +1186,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &811258628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3162,7 +3162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerBody: {fileID: 9169526181442416441}
-  mouseSensitivity: 1000
+  mouseSensitivity: 250
   mentalGauge: {fileID: 0}
 --- !u!114 &1996686217
 MonoBehaviour:
@@ -3936,11 +3936,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8634645149864560865, guid: 1900be3e568a92543a46ccfba4297007, type: 3}
       propertyPath: chaseSpeed
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8634645149864560865, guid: 1900be3e568a92543a46ccfba4297007, type: 3}
       propertyPath: normalSpeed
-      value: 3
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 8634645149864560865, guid: 1900be3e568a92543a46ccfba4297007, type: 3}
       propertyPath: chaseTimeLimit
@@ -4031,6 +4031,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1034082875772450575, guid: c75ecb5f14a04cf46883f652015ad095, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 9169526181442416447}
+    - target: {fileID: 1034082875772450575, guid: c75ecb5f14a04cf46883f652015ad095, type: 3}
+      propertyPath: moveSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1034082875772450575, guid: c75ecb5f14a04cf46883f652015ad095, type: 3}
       propertyPath: gameManager
       value: 
@@ -4681,6 +4689,11 @@ NavMeshObstacle:
 --- !u!4 &9169526181442416441 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2265477470887563449, guid: c75ecb5f14a04cf46883f652015ad095, type: 3}
+  m_PrefabInstance: {fileID: 3215800102237107808}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &9169526181442416447 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4241739085901500186, guid: c75ecb5f14a04cf46883f652015ad095, type: 3}
   m_PrefabInstance: {fileID: 3215800102237107808}
   m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
