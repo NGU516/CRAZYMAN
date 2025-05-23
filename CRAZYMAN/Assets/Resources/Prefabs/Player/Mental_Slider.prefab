@@ -102,9 +102,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a88b5aa7d9227740991d2713e370039, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mentalSlider: {fileID: 5194557861377032822}
+  mentalSlider: {fileID: 0}
   maxMental: 100
-  decreaseRate: 4
+  decreaseRate: 2
   increaseRate: 4
   isDeath: 0
   animator: {fileID: 0}

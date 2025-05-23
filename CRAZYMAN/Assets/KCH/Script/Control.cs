@@ -25,7 +25,7 @@ public class Control : MonoBehaviour
 
     private StaminaSystem staminaSystem;
     // Start is called before the first frame update
-    void Start()
+    IEnumerator Start()
     {
         //PlayerTr = GetComponent<Transform>();
         rb = GetComponent<Rigidbody>();
@@ -36,16 +36,11 @@ public class Control : MonoBehaviour
         {
             cameraTransform = Camera.main.transform;
         }
-        mentalGauge = FindObjectOfType<MentalGauge>();
-        gameManager = FindObjectOfType<GameManager>();
-
-        if(mentalGauge == null)
+        while (mentalGauge == null || gameManager == null)
         {
-            Debug.LogError("MentalGauge is not assigned in Control! Please assign it in the Inspector.");
-        }
-        if(gameManager == null)
-        {
-            Debug.LogError("MentalGauge is not assigned in Control! Please assign it in the Inspector.");
+            mentalGauge = FindObjectOfType<MentalGauge>();
+            gameManager = FindObjectOfType<GameManager>();
+            yield return null;
         }
     }
 

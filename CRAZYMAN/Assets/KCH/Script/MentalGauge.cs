@@ -17,6 +17,25 @@ public class MentalGauge : MonoBehaviour
 
     public System.Action<string> OnDeathRequest;
 
+    void Awake()
+    {
+        mentalSlider = GetComponentInChildren<Slider>();
+        if (mentalSlider == null)
+        {
+            Debug.LogError("MentalSlider is not assigned in MentalGauge! Please assign the Slider in the Inspector");
+        }
+        animator = GameObject.FindWithTag("Player")?.GetComponent<Animator>();
+        if (animator == null)
+        {
+            Debug.LogError("Animator is not assigned in MentalGauge! Please assign the Animator in the Inspector");
+        }
+        lightOff = FindObjectOfType<LightOff>();
+        if (lightOff == null)
+        {
+            Debug.LogError("LightOff is not found in the scene! Please ensure LightOff script is attached to a GameObject in the scene");
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
