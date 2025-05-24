@@ -95,8 +95,9 @@ GameObject:
   - component: {fileID: 8406063761175331976}
   - component: {fileID: 4646485255319072732}
   - component: {fileID: 1103335121702504343}
+  - component: {fileID: 3418534181644566326}
   m_Layer: 0
-  m_Name: LomoCamera
+  m_Name: LomoCamera 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,8 +131,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2105ab1cbe14c4082c7b3d43e31a5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Camera: Camera
-  cameraIcon: {fileID: 21300000, guid: 13d71c9ca4e3cee418ad672be40d6288, type: 3}
+  itemType: 1
+  itemName: "\uCE74\uBA54\uB77C"
+  inventoryIcon: {fileID: 21300000, guid: c1201d72261487b488666636b6124c65, type: 3}
 --- !u!114 &4646485255319072732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,3 +168,30 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &3418534181644566326
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3198727993985584918}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
