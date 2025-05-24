@@ -58,7 +58,7 @@ public class EnemyAI : MonoBehaviour
         
         if (agent != null)
         {
-            Debug.Log($"괴인 현재 속도: {agent.velocity.magnitude:F2} (실제 이동 속도)");
+            // Debug.Log($"괴인 현재 속도: {agent.velocity.magnitude:F2} (실제 이동 속도)");
         }
 
         // 공격 조건

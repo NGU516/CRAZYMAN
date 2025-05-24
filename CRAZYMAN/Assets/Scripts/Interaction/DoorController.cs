@@ -11,10 +11,10 @@ public class DoorController : MonoBehaviour
     public float smoothSpeed = 2f;          // 문이 열리고 닫히는 속도
     public bool isOpen = false;             // 문의 현재 상태
     public bool isLocked = false;           // 문이 잠겨있는지 여부
-    public NavMeshObstacle doorObstacle;
+    public NavMeshObstacle doorObstacle;    // 문 장애물 처리 컴포넌트
 
     [Header("Interaction Settings")]
-    public float interactionRadius = 2f;    // 상호작용 가능 거리
+    public float interactionRadius = 1f;    // 상호작용 가능 거리
     public string playerTag = "Player";     // 플레이어 태그
     public KeyCode interactionKey = KeyCode.F; // 상호작용 키
     public string lockedMessage = "문이 잠겨있습니다."; // 잠긴 문 메시지
@@ -94,22 +94,36 @@ public class DoorController : MonoBehaviour
                 {
                     return;
                 }
-                ToggleDoor();
+                // 플레이어 Transform을 찾아서 전달
+                Transform playerTr = GameObject.FindGameObjectWithTag(playerTag)?.transform;
+                ToggleDoor(playerTr);
             }
         }
     }
 
-    public void ToggleDoor()
+    public void ToggleDoor(Transform player = null)
     {
         isOpen = !isOpen;
-        // 모든 문의 목표 회전값 업데이트
         for (int i = 0; i < doorObjects.Length; i++)
         {
             if (doorObjects[i] != null)
             {
                 Vector3 baseEuler = initialRotations[i].eulerAngles;
+                float angle = openAngle;
+
+                // 플레이어가 있으면 방향에 따라 열리는 각도 결정
+                if (player != null)
+                {
+                    Vector3 doorForward = doorObjects[i].forward;
+                    Vector3 toPlayer = (player.position - doorObjects[i].position).normalized;
+                    float dot = Vector3.Dot(doorForward, toPlayer);
+
+                    // dot > 0: 문 앞, dot < 0: 문 뒤
+                    angle = (dot > 0) ? openAngle : -openAngle;
+                }
+
                 Vector3 targetEuler = isOpen
-                    ? new Vector3(baseEuler.x, baseEuler.y + openAngle, baseEuler.z)
+                    ? new Vector3(baseEuler.x, baseEuler.y + angle, baseEuler.z)
                     : baseEuler;
                 targetRotations[i] = Quaternion.Euler(targetEuler);
             }
