@@ -8,10 +8,10 @@ using UnityEngine.Analytics;
 // 추적 담당 클래스
 public class EnemyChase : MonoBehaviour
 {
-    public float chaseSpeed = 6f; // 추적 속도
-    public float normalSpeed = 3.5f; // 기본 속도
-    public float chaseRange = 5f; // 플레이어 감지 거리
-    public float chaseTimeLimit = 3f; // 추적 시간 제한 (초)
+    public float chaseSpeed = 5f; // 추적 속도
+    public float normalSpeed = 2.5f; // 기본 속도
+    public float chaseRange = 10f; // 플레이어 감지 거리
+    public float chaseTimeLimit = 20f; // 추적 시간 제한 (초)
     public float chaseCoolDownTime = 5f; // 추적 쿨타임 (초)
 
     private EnemyAI enemyAI; // EnemyAI 스크립트 참조

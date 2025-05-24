@@ -7,11 +7,11 @@ public class Control : MonoBehaviour
 {
     public float v = 0.0f;
     public float h = 0.0f;
-    public float moveSpeed = 5.0f;
-    private float defaultSpeed = 5.0f;
-    private float runSpeed = 10.0f;
-    private float crouchSpeed = 2.0f;
-    private float exhaustedSpeed = 3.0f; // 스테미나 소진 시 속도
+    public float moveSpeed = 2.5f;
+    private float defaultSpeed = 2.5f;
+    private float runSpeed = 5.0f;
+    private float crouchSpeed = 1.0f;
+    private float exhaustedSpeed = 1.5f; // 스테미나 소진 시 속도
     //public Transform PlayerTr;
     private Rigidbody rb;
     public Transform cameraTransform;
