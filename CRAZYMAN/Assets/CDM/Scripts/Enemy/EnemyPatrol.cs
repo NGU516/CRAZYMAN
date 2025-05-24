@@ -21,6 +21,8 @@ public class EnemyPatrol : MonoBehaviour
     private Transform player; // 플레이어 참조 (Transform player의 경우 Unity내에서 참조?)
     private float stuckTimer = 0f;
     private Vector3 lastPosition;
+    private float stuckThreshold = 0.1f; // 위치 변화 허용 오차
+    private float stuckTimeLimit = 5f;   // 5초
     // 압박/휴식 시스템
     private float pressureTimer = 0f;
     public float pressureDuration = 15f; // 플레이어 압박 시간
@@ -30,11 +32,21 @@ public class EnemyPatrol : MonoBehaviour
     private Queue<int> recentPatrolIndices = new Queue<int>();
     public int recentPatrolMemory = 3;
 
+    public float doorInteractionRange = 5f; // 문 상호작용 가능 거리
+    public float playerDetectionRange = 10f; // 플레이어 감지 거리
+    private float doorStuckTimer = 0f; // 문 앞에서 멈춰있는 시간
+    private Vector3 lastDoorPosition; // 마지막으로 시도한 문의 위치
+    private float doorRetryTime = 5f; // 문 재시도 대기 시간
+
+    public float pressureRange = 15f;    // 압박 모드에서의 플레이어 감지 거리
+    public float relaxRange = 5f;        // 휴식 모드에서의 플레이어 감지 거리
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         agent.isStopped = false;
         agent.enabled = true; // NavMeshAgent 활성화
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
     }
 
     void Update()
@@ -45,11 +57,13 @@ public class EnemyPatrol : MonoBehaviour
         {
             isPressuringPlayer = false;
             pressureTimer = 0f;
+            Debug.Log("휴식 모드로 전환");
         }
         else if (!isPressuringPlayer && pressureTimer > relaxDuration)
         {
             isPressuringPlayer = true;
             pressureTimer = 0f;
+            Debug.Log("압박 모드로 전환");
         }
 
         // 타이머 갱신
@@ -62,41 +76,35 @@ public class EnemyPatrol : MonoBehaviour
             lightOffTimer = 0f;
         }
 
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 1.5f))
+        // 위치 변화량 체크 (stuckTimer)
+        if (Vector3.Distance(transform.position, lastPosition) < stuckThreshold)
         {
-            DoorController door = hit.collider.GetComponent<DoorController>();
-            if (door != null && !door.isOpen && !door.isLocked)
+            stuckTimer += Time.deltaTime;
+            if (stuckTimer > stuckTimeLimit)
             {
-                if (door.IsPlayerInRange)
-                    door.ToggleDoor();
-                else
-                    Patrol(); // 다른 곳 순찰
-            }
-        }
-
-        if (agent.hasPath && agent.remainingDistance > 0.5f)
-        {
-            // 실제로 거의 멈췄는지 velocity(속도)로 체크
-            if (agent.velocity.magnitude < 0.05f)
-            {
-                stuckTimer += Time.deltaTime;
-                if (stuckTimer > 3f && agent.pathStatus != NavMeshPathStatus.PathComplete)
-                {
-                    MoveToNextPatrolPoint();
-                    stuckTimer = 0f;
-                }
-            }
-            else
-            {
+                Debug.Log($"[EnemyPatrol] stuck! {gameObject.name}가 {stuckTimeLimit}초 동안 위치 {transform.position}에서 멈춤. 다른 순찰지점으로 이동");
+                MoveToNextPatrolPoint();
                 stuckTimer = 0f;
             }
-            lastPosition = transform.position;
         }
-        if (!agent.hasPath || agent.remainingDistance < 0.5f)
+        else
         {
-            stuckTimer = 0f; // 도착 시 무조건 리셋
+            stuckTimer = 0f;
         }
+        lastPosition = transform.position;
+    }
+
+    // 플레이어가 특정 범위 내에 있는지 확인
+    private bool IsPlayerInRange(float range)
+    {
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player")?.transform;
+            if (player == null) return false;
+        }
+
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        return distanceToPlayer <= range;
     }
 
     // 순찰 동작
@@ -148,20 +156,24 @@ public class EnemyPatrol : MonoBehaviour
             Debug.LogWarning("순찰 지점 미설정: patrolPoints Array is empty.");
             return;
         }
-        player = GameObject.FindGameObjectWithTag("Player")?.transform;
+
         int nextIndex = -1;
         int attempts = 0;
         int maxAttempts = patrolPoints.Length * 2;
+        List<int> triedIndices = new List<int>();
+        bool foundReachable = false;
+
         while (attempts < maxAttempts)
         {
-            // 기존 압박/휴식/랜덤 로직
-            if (isPressuringPlayer && player != null)
+            // 압박 모드일 때는 플레이어 근처의 순찰 지점을 우선적으로 선택
+            if (isPressuringPlayer && IsPlayerInRange(pressureRange))
             {
                 List<int> priorityIndices = new List<int>();
                 for (int i = 0; i < patrolPoints.Length; i++)
                 {
+                    if (triedIndices.Contains(i)) continue;
                     float dist = Vector3.Distance(patrolPoints[i].position, player.position);
-                    if (dist <= patrolPriorityRange && !recentPatrolIndices.Contains(i))
+                    if (dist <= pressureRange && !recentPatrolIndices.Contains(i))
                     {
                         priorityIndices.Add(i);
                     }
@@ -171,35 +183,62 @@ public class EnemyPatrol : MonoBehaviour
                     nextIndex = priorityIndices[Random.Range(0, priorityIndices.Count)];
                 }
             }
+
+            // 일반적인 순찰 지점 선택
             if (nextIndex == -1)
             {
                 List<int> candidates = new List<int>();
                 for (int i = 0; i < patrolPoints.Length; i++)
                 {
-                    if (!recentPatrolIndices.Contains(i)) candidates.Add(i);
+                    if (!triedIndices.Contains(i) && !recentPatrolIndices.Contains(i))
+                        candidates.Add(i);
                 }
                 if (candidates.Count > 0)
                     nextIndex = candidates[Random.Range(0, candidates.Count)];
                 else
-                    nextIndex = Random.Range(0, patrolPoints.Length); // fallback
+                {
+                    // 모든 지점을 시도했다면 최근 방문 기록을 무시하고 랜덤 선택
+                    nextIndex = Random.Range(0, patrolPoints.Length);
+                }
             }
+
+            // 이미 시도한 지점은 제외
+            if (triedIndices.Contains(nextIndex))
+            {
+                nextIndex = -1;
+                attempts++;
+                continue;
+            }
+
             // 경로 유효성 체크
             if (IsReachable(patrolPoints[nextIndex].position))
             {
+                foundReachable = true;
                 break;
             }
             else
             {
-                nextIndex = -1; // 다시 선택
+                triedIndices.Add(nextIndex);
+                nextIndex = -1;
             }
             attempts++;
         }
-        // 최근 방문 기록
-        recentPatrolIndices.Enqueue(nextIndex);
-        if (recentPatrolIndices.Count > recentPatrolMemory)
-            recentPatrolIndices.Dequeue();
-        currentPatrolIndex = nextIndex;
-        agent.SetDestination(patrolPoints[currentPatrolIndex].position);
+
+        if (foundReachable && nextIndex != -1)
+        {
+            recentPatrolIndices.Enqueue(nextIndex);
+            if (recentPatrolIndices.Count > recentPatrolMemory)
+                recentPatrolIndices.Dequeue();
+            currentPatrolIndex = nextIndex;
+            agent.SetDestination(patrolPoints[currentPatrolIndex].position);
+            Debug.Log($"[EnemyPatrol] 이동 시도: {patrolPoints[currentPatrolIndex].position}, pathStatus: {agent.pathStatus}, hasPath: {agent.hasPath}, remainingDistance: {agent.remainingDistance}, velocity: {agent.velocity}");
+        }
+        else
+        {
+            // 모든 경로가 실패한 경우, agent를 멈추고 로그 출력
+            agent.isStopped = true;
+            Debug.LogWarning($"[EnemyPatrol] 모든 순찰지점이 막혀있음! {gameObject.name}가 이동 불가 상태. 위치: {transform.position}");
+        }
     }
 
     private void MoveToLightPatrolPoint()
@@ -212,5 +251,30 @@ public class EnemyPatrol : MonoBehaviour
         int index = Random.Range(0, LightOffPoints.Length);
         agent.SetDestination(LightOffPoints[index].position);
         Debug.Log("전등 끄기 특수 지점으로 이동: " + LightOffPoints[index].name);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        DoorController door = other.GetComponent<DoorController>();
+        if (door != null)
+        {
+            var obstacle = door.doorObstacle;
+            float playerDist = player ? Vector3.Distance(transform.position, player.position) : float.MaxValue;
+            if (obstacle != null && obstacle.enabled)
+            {
+                if (playerDist <= 30f)
+                {
+                    // 플레이어가 근처에 있으면 문을 연다
+                    door.ToggleDoor();
+                    Debug.Log($"[EnemyPatrol] OnTrigger 문 열기 시도: {door.gameObject.name}, Obstacle.enabled: {obstacle.enabled}");
+                }
+                else
+                {
+                    // 플레이어가 멀리 있으면 다른 순찰지점으로 이동
+                    Debug.Log($"[EnemyPatrol] OnTrigger 문 닫힘 & 플레이어 멀리 있음: {door.gameObject.name}, 다른 순찰지점 이동");
+                    MoveToNextPatrolPoint();
+                }
+            }
+        }
     }
 }
