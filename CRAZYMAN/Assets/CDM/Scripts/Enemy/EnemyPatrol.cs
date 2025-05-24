@@ -77,11 +77,11 @@ public class EnemyPatrol : MonoBehaviour
 
         if (agent.hasPath && agent.remainingDistance > 0.5f)
         {
-            // 실제로 거의 멈췄는지 velocity로 체크
+            // 실제로 거의 멈췄는지 velocity(속도)로 체크
             if (agent.velocity.magnitude < 0.05f)
             {
                 stuckTimer += Time.deltaTime;
-                if (stuckTimer > 3f && agent.pathStatus != NavMeshPathStatus.PathComplete) // 더 엄격하게
+                if (stuckTimer > 3f && agent.pathStatus != NavMeshPathStatus.PathComplete)
                 {
                     MoveToNextPatrolPoint();
                     stuckTimer = 0f;
@@ -103,7 +103,9 @@ public class EnemyPatrol : MonoBehaviour
     public void Patrol()
     {
         if (agent.speed != normalSpeed)
+        {
             agent.speed = normalSpeed;
+        }
         if (patrolPoints == null || patrolPoints.Length == 0)
         {
             Debug.LogWarning("StartPatrol 실패: patrolPoints가 비어 있음");

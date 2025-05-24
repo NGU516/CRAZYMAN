@@ -83,6 +83,7 @@ public class EnemyChase : MonoBehaviour
                 isChasing = false;
                 isOnCooldown = true;
                 StartCoroutine(ForcePatrolMode());
+                
             }
         }
         else
