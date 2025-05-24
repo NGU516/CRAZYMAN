@@ -65,12 +65,12 @@ public class StaminaSystem : MonoBehaviour
             currentStamina -= staminaDrainRate * Time.deltaTime;
             if (currentStamina < 0)
                 currentStamina = 0;
-            if(!isRecoveryDelayed)
+            if(currentStamina <= 0 && !isRecoveryDelayed && !isExhausted)
             {
                 isExhausted = true;
                 StartCoroutine(DelayRecovery());
             }
-        } else if(!isRecoveryDelayed)
+        } else if(!isRecoveryDelayed && !isExhausted)
         {
             currentStamina += staminaRegenRate * Time.deltaTime;
             if (currentStamina > maxStamina)
