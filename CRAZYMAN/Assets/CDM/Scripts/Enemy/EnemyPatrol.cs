@@ -259,21 +259,10 @@ public class EnemyPatrol : MonoBehaviour
         if (door != null)
         {
             var obstacle = door.doorObstacle;
-            float playerDist = player ? Vector3.Distance(transform.position, player.position) : float.MaxValue;
             if (obstacle != null && obstacle.enabled)
             {
-                if (playerDist <= 30f)
-                {
-                    // 플레이어가 근처에 있으면 문을 연다
-                    door.ToggleDoor();
-                    Debug.Log($"[EnemyPatrol] OnTrigger 문 열기 시도: {door.gameObject.name}, Obstacle.enabled: {obstacle.enabled}");
-                }
-                else
-                {
-                    // 플레이어가 멀리 있으면 다른 순찰지점으로 이동
-                    Debug.Log($"[EnemyPatrol] OnTrigger 문 닫힘 & 플레이어 멀리 있음: {door.gameObject.name}, 다른 순찰지점 이동");
-                    MoveToNextPatrolPoint();
-                }
+                door.ToggleDoor();
+                Debug.Log($"[EnemyPatrol] OnTrigger 문 열기 시도: {door.gameObject.name}, Obstacle.enabled: {obstacle.enabled}");
             }
         }
     }
