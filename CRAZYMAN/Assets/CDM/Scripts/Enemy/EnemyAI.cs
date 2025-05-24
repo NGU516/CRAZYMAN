@@ -12,6 +12,7 @@ public class EnemyAI : MonoBehaviour
     private EnemyChase chase;   // 추적
     private EnemyAttack attack; // 공격 
     private MentalGauge mentalGauge; // 정신 게이지
+    private NavMeshAgent agent;
 
     public Transform player;
     public float chaseRange = 5f;
@@ -36,6 +37,7 @@ public class EnemyAI : MonoBehaviour
         patrol = GetComponent<EnemyPatrol>();
         chase = GetComponent<EnemyChase>();
         attack = GetComponent<EnemyAttack>();
+        agent = GetComponent<NavMeshAgent>();
 
         if (patrol == null || chase == null)
         {
@@ -53,6 +55,11 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
         if (player == null) return;
+        
+        if (agent != null)
+        {
+            Debug.Log($"괴인 현재 속도: {agent.velocity.magnitude:F2} (실제 이동 속도)");
+        }
 
         // 공격 조건
         if (attack != null && attack.IsPlayerInAttackCone())
@@ -63,7 +70,7 @@ public class EnemyAI : MonoBehaviour
                 return;
             }
         }
-
+        
         // 시야 내 감지 → 추적
         bool playerInSight = attack != null && attack.IsPlayerInSight(attack.viewDistance); // viewDistance를 EnemyAttack에서 가져옴
         EnemyState nextState = playerInSight ? EnemyState.Chase : EnemyState.Patrol;
@@ -87,6 +94,7 @@ public class EnemyAI : MonoBehaviour
     void SetState(EnemyState newState)
     {
         currentState = newState;
+        Debug.Log($"괴인 상태 변경: {currentState}");
         EnemyAnimator.SetInteger("EnemyState", (int)newState);
 
         switch (newState)
