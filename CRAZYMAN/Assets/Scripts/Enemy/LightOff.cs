@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LightOff : MonoBehaviour
@@ -7,6 +8,8 @@ public class LightOff : MonoBehaviour
     public GameObject lampRoot;              // Lamp GameObject를 넣는 슬롯
     // 제어할 Light 컴포넌트
     public Light[] allLight;
+
+    public Renderer[] lampRenderers; // Emission 제어 대상 (램프 메쉬들)
 
     // 몬스터 감지 범위
     public float detectionRadius = 5f;
@@ -29,6 +32,15 @@ public class LightOff : MonoBehaviour
         if ((allLight == null || allLight.Length == 0) && lampRoot != null)
         {
             allLight = lampRoot.GetComponentsInChildren<Light>();
+        }
+    }
+
+    void Awake()
+    {
+        if (lampRenderers == null || lampRenderers.Length == 0)
+        {
+            lampRenderers = lampRoot.GetComponentsInChildren<Renderer>();
+            Debug.Log($"✅ 자동으로 렌더러 {lampRenderers.Length}개 할당됨");
         }
     }
 
@@ -64,6 +76,9 @@ public class LightOff : MonoBehaviour
         {
             if (light != null) light.enabled = false;
         }
+        
+        TurnOffEmission(); // Emission 꺼짐
+
         isLightOn = false;
     }
 
@@ -73,6 +88,9 @@ public class LightOff : MonoBehaviour
         {
             if (light != null) light.enabled = true;
         }
+
+        TurnOnEmission(); // Emission 켜짐
+
         isLightOn = true;
     }
 
@@ -108,6 +126,39 @@ public class LightOff : MonoBehaviour
         // 플레이어 상호작용 범위
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, interactionRadius);
+    }
+
+    private void TurnOffEmission()
+    {
+        foreach (Renderer r in lampRenderers)
+        {
+            foreach (Material mat in r.materials)
+            {
+                if (mat.IsKeywordEnabled("_EMISSION"))
+                {
+                    mat.DisableKeyword("_EMISSION");
+                    mat.SetColor("_EmissionColor", Color.black);
+                    DynamicGI.SetEmissive(r, Color.black);
+                }
+            }
+        }
+    }
+
+    private void TurnOnEmission()
+    {
+        foreach (Renderer r in lampRenderers)
+        {
+            Material[] mats = r.materials; // 인스턴스 복사본 확보
+
+            for (int i = 0; i < mats.Length; i++)
+            {
+                mats[i].EnableKeyword("_EMISSION");
+                mats[i].SetColor("_EmissionColor", Color.white * 1.5f); // 밝기 조절 가능
+                DynamicGI.SetEmissive(r, Color.white * 1.5f);
+            }
+
+            r.materials = mats; // 변경 적용 다시 할당
+        }
     }
 
 #if UNITY_EDITOR

@@ -20,11 +20,11 @@ public class ShowBrightnessValue : MonoBehaviour
         slider.onValueChanged.AddListener(Function_Slider);
     }
 
-    private void Function_Slider(float _value)//추후 정수 1~100으로 수정
+    private void Function_Slider(float _value)
     {
         float tmp_value;
         tmp_value = _value * 50f;
-        message.text = tmp_value.ToString("F0");//tmp_value.ToString("F2")
+        message.text = tmp_value.ToString("F0");
         Debug.Log("Slider Dragging!\n" + _value);
     }
 

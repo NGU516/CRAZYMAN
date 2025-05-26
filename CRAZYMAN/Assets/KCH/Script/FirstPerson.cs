@@ -5,7 +5,7 @@ using UnityEngine;
 public class FirstPerson : MonoBehaviour
 {
     public Transform playerBody;
-    public float mouseSensitivity = 1000f;
+    public float mouseSensitivity = 250f;
     private float xRotation = 0f;
     private float yRotation = 0f;
 

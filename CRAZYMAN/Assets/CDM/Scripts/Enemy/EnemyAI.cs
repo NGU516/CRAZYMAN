@@ -12,6 +12,7 @@ public class EnemyAI : MonoBehaviour
     private EnemyChase chase;   // 추적
     private EnemyAttack attack; // 공격 
     private MentalGauge mentalGauge; // 정신 게이지
+    private NavMeshAgent agent;
 
     public Transform player;
     public float chaseRange = 5f;
@@ -36,6 +37,7 @@ public class EnemyAI : MonoBehaviour
         patrol = GetComponent<EnemyPatrol>();
         chase = GetComponent<EnemyChase>();
         attack = GetComponent<EnemyAttack>();
+        agent = GetComponent<NavMeshAgent>();
 
         if (patrol == null || chase == null)
         {
@@ -53,31 +55,30 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
         if (player == null) return;
+        
+        if (agent != null)
+        {
+            // Debug.Log($"괴인 현재 속도: {agent.velocity.magnitude:F2} (실제 이동 속도)");
+        }
 
-        // 부채꼴 공격 판정 검사 (EnemyAttack.cs에서 구현)
+        // 공격 조건
         if (attack != null && attack.IsPlayerInAttackCone())
         {
-            // 쿨타임이 지났다면 공격 상태로
             if (Time.time - lastAttackTime >= attackCooldown)
             {
                 SetState(EnemyState.Attack);
-                return;  
+                return;
             }
         }
-
-        // 추적/순찰 상태 판별
-        // (공격 조건 아니거나 쿨타임 중이면)
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-        EnemyState nextState = (distanceToPlayer <= chaseRange)
-            ? EnemyState.Chase
-            : EnemyState.Patrol;
+        
+        // 시야 내 감지 → 추적
+        bool playerInSight = attack != null && attack.IsPlayerInSight(attack.viewDistance); // viewDistance를 EnemyAttack에서 가져옴
+        EnemyState nextState = playerInSight ? EnemyState.Chase : EnemyState.Patrol;
 
         if (currentState != nextState)
-        {
             SetState(nextState);
-        }
 
-        // 상태별 매 프레임 동작
+        // 상태별 처리
         switch (currentState)
         {
             case EnemyState.Patrol:
@@ -93,6 +94,7 @@ public class EnemyAI : MonoBehaviour
     void SetState(EnemyState newState)
     {
         currentState = newState;
+        Debug.Log($"괴인 상태 변경: {currentState}");
         EnemyAnimator.SetInteger("EnemyState", (int)newState);
 
         switch (newState)
@@ -122,16 +124,25 @@ public class EnemyAI : MonoBehaviour
     // 충돌 감지
     private void OnTriggerEnter(Collider other)
     {
-
         if (other.CompareTag("Player"))
         {
             // mentalGauge.TriggerDeath("플레이어 사망");
+            // 기존 플레이어 충돌 처리
             StartCoroutine(patrol.WaitAtPatrolPoint());
         }
-
-        else
+        else if (other.GetComponent<DoorController>() != null)
         {
-            // Debug.Log($"{other.gameObject.name}와 충돌.");
+            DoorController door = other.GetComponent<DoorController>();
+            // 플레이어가 문 근처에 있으면 문 열기
+            if (door.IsPlayerInRange && !door.isOpen && !door.isLocked)
+            {
+                door.ToggleDoor();
+            }
+            // 플레이어가 근처에 없고 문이 닫혀 있으면 다른 곳 순찰
+            else if (!door.isOpen)
+            {
+                patrol.Patrol();
+            }
         }
     }
 

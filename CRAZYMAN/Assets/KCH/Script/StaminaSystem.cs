@@ -26,6 +26,36 @@ public class StaminaSystem : MonoBehaviour
             staminaSlider.maxValue = maxStamina;
             staminaSlider.value = currentStamina;
         }
+        else
+        {
+            Debug.LogError("StaminaSlider is not assigned in the Inspector! Attempting to find it automatically.");
+            StartCoroutine(WaitForSliderAndInitialize());
+        }
+    }
+
+    private IEnumerator WaitForSliderAndInitialize()
+    {
+        // 슬라이더가 Instantiate될 때까지 대기
+        while (staminaSlider == null)
+        {
+            Debug.Log("Stamina_Slider 연결 중");
+            Slider[] allSliders = GameObject.FindObjectsOfType<Slider>(true); // 비활성 포함
+            foreach (Slider s in allSliders)
+            {
+                if (s.name == "Stamina_Slider")
+                {
+                    staminaSlider = s;
+                    Debug.Log("Stamina_Slider 자동 연결 완료!");
+                    break;
+                }
+            }
+
+            yield return null; // 다음 프레임까지 대기
+        }
+
+        currentStamina = maxStamina;
+        staminaSlider.maxValue = maxStamina;
+        staminaSlider.value = currentStamina;
     }
 
     void Update()
@@ -35,12 +65,12 @@ public class StaminaSystem : MonoBehaviour
             currentStamina -= staminaDrainRate * Time.deltaTime;
             if (currentStamina < 0)
                 currentStamina = 0;
-            if(!isRecoveryDelayed)
+            if(currentStamina <= 0 && !isRecoveryDelayed && !isExhausted)
             {
                 isExhausted = true;
                 StartCoroutine(DelayRecovery());
             }
-        } else if(!isRecoveryDelayed)
+        } else if(!isRecoveryDelayed && !isExhausted)
         {
             currentStamina += staminaRegenRate * Time.deltaTime;
             if (currentStamina > maxStamina)

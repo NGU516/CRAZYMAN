@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.AI; // NavMesh 관련 기능을 사용하기 위해 추가
 
 public class Control : MonoBehaviour
 {
     public float v = 0.0f;
     public float h = 0.0f;
-    public float moveSpeed = 5.0f;
-    private float defaultSpeed = 5.0f;
-    private float runSpeed = 10.0f;
-    private float crouchSpeed = 2.0f;
-    private float exhaustedSpeed = 3.0f; // 스테미나 소진 시 속도
+    public float moveSpeed = 2.5f;
+    private float defaultSpeed = 2.5f;
+    private float runSpeed = 5.0f;
+    private float crouchSpeed = 1.0f;
+    private float exhaustedSpeed = 1.5f; // 스테미나 소진 시 속도
     //public Transform PlayerTr;
     private Rigidbody rb;
     public Transform cameraTransform;
@@ -25,7 +26,7 @@ public class Control : MonoBehaviour
 
     private StaminaSystem staminaSystem;
     // Start is called before the first frame update
-    void Start()
+    IEnumerator Start()
     {
         //PlayerTr = GetComponent<Transform>();
         rb = GetComponent<Rigidbody>();
@@ -36,16 +37,11 @@ public class Control : MonoBehaviour
         {
             cameraTransform = Camera.main.transform;
         }
-        mentalGauge = FindObjectOfType<MentalGauge>();
-        gameManager = FindObjectOfType<GameManager>();
-
-        if(mentalGauge == null)
+        while (mentalGauge == null || gameManager == null)
         {
-            Debug.LogError("MentalGauge is not assigned in Control! Please assign it in the Inspector.");
-        }
-        if(gameManager == null)
-        {
-            Debug.LogError("MentalGauge is not assigned in Control! Please assign it in the Inspector.");
+            mentalGauge = FindObjectOfType<MentalGauge>();
+            gameManager = FindObjectOfType<GameManager>();
+            yield return null;
         }
     }
 
@@ -117,8 +113,20 @@ public class Control : MonoBehaviour
         camRight.Normalize();
 
         Vector3 move = (camRight * h + camForward * v).normalized;
+        Vector3 targetPosition = rb.position + move * moveSpeed * Time.fixedDeltaTime;
 
-        rb.MovePosition(rb.position + move * moveSpeed * Time.fixedDeltaTime);
+        // NavMesh 위에 있는지 확인
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(targetPosition, out hit, 0.1f, NavMesh.AllAreas))
+        {
+            // NavMesh 위에 있다면 이동
+            rb.MovePosition(targetPosition);
+        }
+        else
+        {
+            // NavMesh 위에 없다면 현재 위치 유지
+            rb.MovePosition(rb.position);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -131,6 +139,13 @@ public class Control : MonoBehaviour
                 mentalGauge.TriggerDeath("EnemyCollision");
                 gameManager.RequestDeath("EnemyCollision");
             }
+        }
+        // 문 상호작용 디버그
+        DoorController door = other.GetComponent<DoorController>();
+        if (door != null)
+        {
+            var obstacle = door.doorObstacle;
+            Debug.Log($"[Control] 플레이어가 상호작용한 문: {door.gameObject.name}, Obstacle.enabled: {obstacle?.enabled}");
         }
     }
 
