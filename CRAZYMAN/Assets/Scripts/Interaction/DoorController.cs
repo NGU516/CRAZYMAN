@@ -14,7 +14,6 @@ public class DoorController : MonoBehaviour
     public NavMeshObstacle doorObstacle;    // 문 장애물 처리 컴포넌트
 
     [Header("Interaction Settings")]
-    public float interactionRadius = 1f;    // 상호작용 가능 거리
     public string playerTag = "Player";     // 플레이어 태그
     public KeyCode interactionKey = KeyCode.F; // 상호작용 키
     public string lockedMessage = "문이 잠겨있습니다."; // 잠긴 문 메시지
@@ -36,11 +35,18 @@ public class DoorController : MonoBehaviour
             doorRoot = this.gameObject;
         }
 
-        // doorObjects가 비어 있으면 자동으로 자식에서 이름이 'Door'인 오브젝트만 찾아서 할당
-        if (doorObjects == null || doorObjects.Length == 0)
+        // doorObjects가 비어 있거나 None(Transform)이 들어가 있으면 자동 할당
+        bool needsAutoAssign = (doorObjects == null || doorObjects.Length == 0 || (doorObjects.Length == 1 && doorObjects[0] == null));
+        if (needsAutoAssign)
         {
             var allChildren = doorRoot.GetComponentsInChildren<Transform>(true);
-            doorObjects = System.Array.FindAll(allChildren, t => t.name == "Door" && t != doorRoot.transform);
+            var found = System.Array.FindAll(allChildren, t => t.name == "Door" && t != doorRoot.transform);
+            if (found.Length == 0) {
+                // 자식이 없으면 자기 자신을 DoorObjects로 할당
+                doorObjects = new Transform[] { doorRoot.transform };
+            } else {
+                doorObjects = found;
+            }
         }
 
         // 각 문의 초기 회전값 및 목표 회전값 설정
@@ -60,14 +66,16 @@ public class DoorController : MonoBehaviour
         {
             audioEventRX = gameObject.AddComponent<AudioEventRX>();
         }
-        // Collider가 없으면 자동으로 추가
-        if (GetComponent<Collider>() == null)
-        {
-            BoxCollider collider = gameObject.AddComponent<BoxCollider>();
+        // 항상 BoxCollider를 붙인다 (이미 있으면 중복 추가 안 됨)
+        BoxCollider collider = GetComponent<BoxCollider>();
+        if (collider == null) {
+            collider = gameObject.AddComponent<BoxCollider>();
             collider.isTrigger = true;
-            collider.size = new Vector3(interactionRadius * 2, 2f, interactionRadius * 2);
-            collider.center = new Vector3(0, 1f, 0);
+            // 원하는 크기와 위치로 설정 (예시)
+            collider.size = new Vector3(0.1f, 2f, 1f);   // x, y, z 크기
+            collider.center = new Vector3(0f, 1f, 0f);   // x, y, z 중심 위치
         }
+        // collider.size, collider.center는 Inspector에서 직접 조절도 가능
     }
 
     void Update()
@@ -172,14 +180,6 @@ public class DoorController : MonoBehaviour
         }
         if (doorObstacle != null)
             doorObstacle.enabled = !isOpen;
-    }
-
-    // 디버깅용 Gizmo
-    void OnDrawGizmosSelected()
-    {
-        // 상호작용 범위 표시
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, interactionRadius);
     }
 
 #if UNITY_EDITOR
