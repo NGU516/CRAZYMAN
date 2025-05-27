@@ -488,6 +488,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ItemSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 2981391821972242804, guid: 7fd06e85c84fbfc438d36257358c1b3c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8656556001314686789, guid: 7fd06e85c84fbfc438d36257358c1b3c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.7959652
@@ -549,7 +553,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &205834715
 Transform:
   m_ObjectHideFlags: 0
@@ -768,6 +772,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: KeySpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 2169921188062422660, guid: 7698767d3fffb444f89914c849f245f7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4562864658944405744, guid: 7698767d3fffb444f89914c849f245f7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -12.673762
@@ -961,7 +969,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &577222968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1483,7 +1491,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &887644799
 GameObject:
   m_ObjectHideFlags: 0
@@ -2272,7 +2280,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1226133169
 Transform:
   m_ObjectHideFlags: 0
@@ -3719,7 +3727,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1996686216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4441,6 +4449,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 506443766317340540, guid: 1900be3e568a92543a46ccfba4297007, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1892758239735321406, guid: 1900be3e568a92543a46ccfba4297007, type: 3}
       propertyPath: player
       value: 
@@ -4761,6 +4773,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lamps - Test
       objectReference: {fileID: 0}
+    - target: {fileID: 9201180039390543863, guid: f2dbb586500530a4eb215037503fd349, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4840,7 +4856,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6136895626311582129, guid: c75ecb5f14a04cf46883f652015ad095, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7508357041466334132, guid: c75ecb5f14a04cf46883f652015ad095, type: 3}
       propertyPath: m_Radius
@@ -7470,6 +7486,10 @@ PrefabInstance:
     - target: {fileID: 3725523360285457613, guid: cde6b76cdd7d224408f56c04eb646941, type: 3}
       propertyPath: m_Name
       value: 1 Floor_Test_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3725523360285457613, guid: cde6b76cdd7d224408f56c04eb646941, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3725523360285457613, guid: cde6b76cdd7d224408f56c04eb646941, type: 3}
       propertyPath: m_StaticEditorFlags
