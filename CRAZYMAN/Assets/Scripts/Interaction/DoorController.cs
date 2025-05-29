@@ -134,7 +134,7 @@ public class DoorController : MonoBehaviour
             audioEventRX.PlayDoorinteractSound();
         }
         if (doorObstacle != null)
-            doorObstacle.enabled = isOpen;
+            doorObstacle.enabled = !isOpen;
     }
 
     private void OnTriggerEnter(Collider other)

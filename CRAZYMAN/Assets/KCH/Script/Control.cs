@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.AI; // NavMesh 관련 기능을 사용하기 위해 추가
 
 public class Control : MonoBehaviour
 {
@@ -112,8 +113,20 @@ public class Control : MonoBehaviour
         camRight.Normalize();
 
         Vector3 move = (camRight * h + camForward * v).normalized;
+        Vector3 targetPosition = rb.position + move * moveSpeed * Time.fixedDeltaTime;
 
-        rb.MovePosition(rb.position + move * moveSpeed * Time.fixedDeltaTime);
+        // NavMesh 위에 있는지 확인
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(targetPosition, out hit, 0.1f, NavMesh.AllAreas))
+        {
+            // NavMesh 위에 있다면 이동
+            rb.MovePosition(targetPosition);
+        }
+        else
+        {
+            // NavMesh 위에 없다면 현재 위치 유지
+            rb.MovePosition(rb.position);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -126,6 +139,13 @@ public class Control : MonoBehaviour
                 mentalGauge.TriggerDeath("EnemyCollision");
                 gameManager.RequestDeath("EnemyCollision");
             }
+        }
+        // 문 상호작용 디버그
+        DoorController door = other.GetComponent<DoorController>();
+        if (door != null)
+        {
+            var obstacle = door.doorObstacle;
+            Debug.Log($"[Control] 플레이어가 상호작용한 문: {door.gameObject.name}, Obstacle.enabled: {obstacle?.enabled}");
         }
     }
 

@@ -9,7 +9,7 @@ public class KeyTextManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for(int i = 0; i<txt.Length; i++)
+        for (int i = 0; i < txt.Length; i++)
             txt[i].text = KeySetting.keys[(KeyInput)i].ToString();
     }
 

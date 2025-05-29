@@ -874,6 +874,7 @@ GameObject:
   - component: {fileID: 7508357041466334132}
   - component: {fileID: 2422370400021847639}
   - component: {fileID: 1706280180039987058}
+  - component: {fileID: 4488609611529822028}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -986,10 +987,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.27267933
   m_Height: 1.7489326
   m_Direction: 1
-  m_Center: {x: 0, y: 0.8744663, z: -0}
+  m_Center: {x: 0, y: 0.8744663, z: 0.22732067}
 --- !u!114 &2422370400021847639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1021,6 +1022,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayer: 1
+--- !u!114 &4488609611529822028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6136895626311582129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 124e2e5fd894e654a8e70c88a660e79c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventorySize: 2
+  items: []
+  itemSlots:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &6169183251169990324
 GameObject:
   m_ObjectHideFlags: 0
