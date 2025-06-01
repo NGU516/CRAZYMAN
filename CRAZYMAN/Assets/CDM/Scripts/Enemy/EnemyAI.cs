@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using Photon.Pun;
 
 // 상태 관리 클래스
 public class EnemyAI : MonoBehaviour
@@ -13,12 +14,13 @@ public class EnemyAI : MonoBehaviour
     private EnemyAttack attack; // 공격 
     private MentalGauge mentalGauge; // 정신 게이지
     private NavMeshAgent agent;
+    private PhotonView photonView;
 
     public Transform player;
     public float chaseRange = 5f;
     public float attackCooldown = 2f;
     private float lastAttackTime;
-
+    private float health = 100f;
 
     private enum EnemyState
     {
@@ -38,6 +40,7 @@ public class EnemyAI : MonoBehaviour
         chase = GetComponent<EnemyChase>();
         attack = GetComponent<EnemyAttack>();
         agent = GetComponent<NavMeshAgent>();
+        photonView = GetComponent<PhotonView>();
 
         if (patrol == null || chase == null)
         {
@@ -114,10 +117,22 @@ public class EnemyAI : MonoBehaviour
                 EnemyAnimator.SetInteger("AttackIndex", randomAttack); // 먼저 설정
                 EnemyAnimator.SetTrigger("Attack");                    // 마지막에 트리거
                 lastAttackTime = Time.time;
-                // mentalGauge.TriggerDeath("플레이어 사망");
+                if (mentalGauge != null)
+                {
+                    mentalGauge.TriggerDeath("플레이어 사망");
+                }
                 break;
             case EnemyState.Blind:
                 break;
+        }
+    }
+
+    // 데미지 처리 메서드
+    public void TakeDamage(float damage, int attackerViewID)
+    {
+        if (mentalGauge != null)
+        {
+            mentalGauge.TriggerDeath("플레이어 사망");
         }
     }
 
@@ -126,7 +141,10 @@ public class EnemyAI : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // mentalGauge.TriggerDeath("플레이어 사망");
+            if (mentalGauge != null)
+            {
+                mentalGauge.TriggerDeath("플레이어 사망");
+            }
             // 기존 플레이어 충돌 처리
             StartCoroutine(patrol.WaitAtPatrolPoint());
         }
@@ -151,5 +169,5 @@ public class EnemyAI : MonoBehaviour
     {
         SetState(EnemyState.Patrol);
     }
-    
+
 }
