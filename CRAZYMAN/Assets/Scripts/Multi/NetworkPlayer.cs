@@ -83,6 +83,7 @@
 //             // 데이터 전송
 //             stream.SendNext(transform.position);
 //             stream.SendNext(transform.rotation);
+//             // 스테미나, 정신력 변수 public으로 변경 필요
 //             if (staminaSystem != null) stream.SendNext(staminaSystem.currentStamina);
 //             if (mentalGauge != null) stream.SendNext(mentalGauge.currentMental);
 //             if (playerControl != null)
@@ -135,7 +136,7 @@
 //         if (photonView.IsMine)
 //         {
 //             // 사망 시 재스폰 요청
-//             NetworkManager.Instance.RequestRespawn();
+//             // NetworkManager.Instance.RequestRespawn();
 //         }
 //     }
 // } 
