@@ -258,6 +258,7 @@ MonoBehaviour:
   enemySpawnPoints:
   - {fileID: 488033013}
   gameVersion: 1.0
+  roomName: Multi_DM
 --- !u!4 &452268991
 Transform:
   m_ObjectHideFlags: 0
@@ -452,18 +453,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f01595093e549a419b7d8578cf22bf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPrefabs:
-  - {fileID: 5549177836221807981, guid: 4216cf2d1b608ea4b9499b40b8679370, type: 3}
-  - {fileID: 2587189800911802554, guid: 565d02cb34b31bd46aed3e766b5bc279, type: 3}
-  - {fileID: 6340669163403641209, guid: 31cf086ef6d77af40b995e1511a67ebd, type: 3}
-  - {fileID: 3198727993985584918, guid: b2bf6cec30216e341b1b8d527b347520, type: 3}
-  - {fileID: 4207235180437207434, guid: bad7b20ac38483b4ba51e35dbfbfbc25, type: 3}
-  - {fileID: 47235544966343999, guid: 6d24f55bfa933c44596925d675b36aff, type: 3}
-  - {fileID: 5075283811659437101, guid: 06f3f5091ba4dc54b9083fb5cbe80fc0, type: 3}
-  - {fileID: 5800587187113145179, guid: c52368b348ccfef4b91c721e7fea7211, type: 3}
-  - {fileID: 5794061605855586677, guid: c0639ead141703443938e2ed7eabf8aa, type: 3}
-  - {fileID: 4747109114146717751, guid: 0661dae74ccd211469dd2518b32700f1, type: 3}
-  itemSpawnerParent: {fileID: 0}
 --- !u!4 &751392634
 Transform:
   m_ObjectHideFlags: 0

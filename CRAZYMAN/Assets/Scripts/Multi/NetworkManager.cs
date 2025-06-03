@@ -6,14 +6,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 {
     public static NetworkManager Instance { get; private set; }
 
-    //[SerializeField] private GameObject playerPrefab;
-    //[SerializeField] private Transform[] spawnPoints;
-    //[SerializeField] private string gameVersion = "1.0";
-
     [Header("Enemy Settings")]
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private Transform[] enemySpawnPoints;
     [SerializeField] private string gameVersion = "1.0";
+
+    [Header("Room Settings")]
+    [SerializeField] private string roomName = "MyCustomRoom";
 
     private void Awake()
     {
@@ -29,13 +28,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         PhotonNetwork.AutomaticallySyncScene = false;
         PhotonNetwork.GameVersion = gameVersion;
-        Debug.Log("[PHOTON] Awake: NetworkManager initialized");
+        Debug.Log("[PHOTON] 포톤 네트워크 초기화");
     }
 
     private void Start()
     {
-        Debug.Log($"[PHOTON] Start: Attempting to connect to Photon");
-        Debug.Log($"[PHOTON] IsMasterClient: {PhotonNetwork.IsMasterClient}");
+        Debug.Log($"[PHOTON] 포톤 네트워크 시작");
+        Debug.Log($"[PHOTON] 마스터 클라이언트: {PhotonNetwork.IsMasterClient}");
         ConnectToPhoton();
     }
 
@@ -43,27 +42,29 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         if (!PhotonNetwork.IsConnected)
         {
-            Debug.Log("[PHOTON] Connecting to Photon...");
+            Debug.Log("[PHOTON] 포톤 연결 시도 중...");
+            // Photon 서버 연결
             PhotonNetwork.ConnectUsingSettings();
         }
         else
         {
-            Debug.Log("[PHOTON] Already connected to Photon");
+            Debug.Log("[PHOTON] 이미 포톤 연결됨");
         }
     }
 
     public override void OnConnectedToMaster()
     {
-        Debug.Log("[PHOTON] Connected to Photon Master Server");
-        PhotonNetwork.JoinRandomRoom();
+        Debug.Log("[PHOTON] 포톤 마스터 서버 연결 완료");
+        PhotonNetwork.JoinRoom(roomName);
     }
 
-    public override void OnJoinRandomFailed(short returnCode, string message)
+    public override void OnJoinRoomFailed(short returnCode, string message)
     {
-        Debug.LogWarning($"[PHOTON] Failed to join random room: {message} (code: {returnCode})");
+        Debug.LogWarning($"[PHOTON] 방 참여 실패: {message} (code: {returnCode})");
         CreateRoom();
     }
 
+    // 방 생성
     private void CreateRoom()
     {
         RoomOptions roomOptions = new RoomOptions
@@ -73,15 +74,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             IsOpen = true
         };
 
-        Debug.Log("[PHOTON] Creating new room...");
-        PhotonNetwork.CreateRoom(null, roomOptions);
+        Debug.Log($"[PHOTON] 새로운 방 생성: {roomName}");
+        PhotonNetwork.CreateRoom(roomName, roomOptions);
     }
 
     public override void OnJoinedRoom()
     {
-        Debug.Log($"[PHOTON] Joined Room: {PhotonNetwork.CurrentRoom.Name}");
-        Debug.Log($"[PHOTON] Room player count: {PhotonNetwork.CurrentRoom.PlayerCount}");
-        
+        Debug.Log($"[PHOTON] 방 참여: {PhotonNetwork.CurrentRoom.Name}");
+        Debug.Log($"[PHOTON] 방 인원: {PhotonNetwork.CurrentRoom.PlayerCount}");
+        Debug.Log($"[PHOTON] 마스터 클라이언트: {PhotonNetwork.IsMasterClient}");
         if (PhotonNetwork.IsMasterClient)
         {
             SpawnEnemies();
@@ -118,12 +119,4 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log($"[PHOTON] Player {otherPlayer.NickName} left the room");
     }
 
-    // 플레이어 재스폰 요청
-    //public void RequestRespawn()
-    //{
-    //    if (PhotonNetwork.IsConnected)
-    //    {
-    //        SpawnPlayer();
-    //    }
-    //}
 }
