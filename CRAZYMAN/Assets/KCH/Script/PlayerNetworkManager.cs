@@ -28,8 +28,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
 
         PhotonNetwork.PhotonServerSettings.AppSettings.UseNameServer = true;
-        PhotonNetwork.PhotonServerSettings.AppSettings.FixedRegion = "kr";
+        // PhotonNetwork.PhotonServerSettings.AppSettings.FixedRegion = "asia";
         PhotonNetwork.PhotonServerSettings.AppSettings.Protocol = ExitGames.Client.Photon.ConnectionProtocol.Udp;
+
+        PhotonNetwork.NetworkingClient.LoadBalancingPeer.DebugOut = ExitGames.Client.Photon.DebugLevel.ALL;
 
         PhotonNetwork.AutomaticallySyncScene = false;
         PhotonNetwork.GameVersion = gameVersion;
@@ -39,9 +41,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
+        Debug.Log("[PHOTON] Connecting to Photon...");
         if (!PhotonNetwork.IsConnected)
         {
-            PhotonNetwork.ConnectUsingSettings();
+            // PhotonNetwork.ConnectUsingSettings();
+            ConnectToPhoton();
+            Debug.Log("[PHOTON] App ID : " + PhotonNetwork.PhotonServerSettings.AppSettings.AppIdRealtime);
+            Debug.Log("[PHOTON] Region : " + PhotonNetwork.CloudRegion);
         }
     }
 

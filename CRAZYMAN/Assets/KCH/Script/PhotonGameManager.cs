@@ -14,7 +14,7 @@ public class PhotonGameManager : MonoBehaviour
     {
         if (PhotonNetwork.IsConnectedAndReady)
         {
-            PhotonNetwork.Instantiate("prefabs/Player", new Vector3(0, 1, 0), Quaternion.identity);
+            PhotonNetwork.Instantiate("prefabs/Player_Object", new Vector3(0, 1, 0), Quaternion.identity);
         }
 
         while (mentalGauge == null)
@@ -41,8 +41,6 @@ public class PhotonGameManager : MonoBehaviour
 
         isGameOver = true;
         Debug.Log($"player Died! Cause: {cause}");
-// ���� ���� UI ǥ�� (���߿� �߰�)
-// ��: gameOverUI.SetActive(true);
     }
 
     private void RestartGame()

@@ -24,19 +24,37 @@ public class PhotonControl : MonoBehaviourPun
     public GameManager gameManager;
 
     private StaminaSystem staminaSystem;
+    public Camera myCam;
 
-    IEnumerator Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         staminaSystem = GetComponent<StaminaSystem>();
+
+        if (cameraTransform == null)
+        {
+            Camera cam = GetComponentInChildren<Camera>(true);
+            if (cam != null)
+            {
+                cameraTransform = cam.transform;
+                Debug.Log("[PhotonControl] cameraTransform assigned: " + cameraTransform.name);
+            } else
+            {
+                Debug.LogError("No camera found in player prefab");
+            }
+        }
+    }
+
+    IEnumerator Start()
+    {
 
         // 내 플레이어라면 레이어 변경, 카메라 설정
         if (photonView.IsMine)
         {
             // SetLayerRecursively(gameObject, LayerMask.NameToLayer("head"));
 
-            Camera myCam = GetComponentInChildren<Camera>();
+            myCam = transform.parent.GetComponentInChildren<Camera>();
             if (myCam != null)
             {
                 myCam.enabled = true;
@@ -47,6 +65,8 @@ public class PhotonControl : MonoBehaviourPun
                 if (camScript != null)
                 {
                     camScript.SetTarget(this.transform);
+
+                    myCam.transform.position = this.transform.position + Vector3.up * 1.6f;
                 }
                 else
                 {
@@ -65,19 +85,6 @@ public class PhotonControl : MonoBehaviourPun
             if (otherCam != null) otherCam.enabled = false; // 다른 플레이어의 카메라 비활성화
             AudioListener listener = GetComponentInChildren<AudioListener>();
             if (listener != null) listener.enabled = false;
-        }
-
-        if (cameraTransform == null)
-        {
-            Camera cam = GetComponentInChildren<Camera>();
-            if (cam != null)
-            {
-                cameraTransform = cam.transform;
-            }
-            else
-            {
-                Debug.LogError("No camera found in player prefab");
-            }
         }
 
         while (mentalGauge == null || gameManager == null)
