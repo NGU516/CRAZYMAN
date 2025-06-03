@@ -145,7 +145,6 @@ public class Control : MonoBehaviour
         if (door != null)
         {
             var obstacle = door.doorObstacle;
-            Debug.Log($"[Control] 플레이어가 상호작용한 문: {door.gameObject.name}, Obstacle.enabled: {obstacle?.enabled}");
         }
     }
 

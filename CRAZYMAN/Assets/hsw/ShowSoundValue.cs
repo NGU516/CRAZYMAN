@@ -25,8 +25,10 @@ public class ShowSoundValue : MonoBehaviour
 
     private void Function_Slider(float _value)
     {
-        message.text = _value.ToString();
-        Debug.Log("Slider Dragging!\n" + _value);//추후 수정
+        float tmp_value;
+        tmp_value = (_value + 40f) * 2.5f;
+        message.text = tmp_value.ToString("F0");
+        Debug.Log("Slider Dragging!\n" + tmp_value);
     }
 
     public void ResetFunction_UI()

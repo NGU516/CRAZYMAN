@@ -28,7 +28,7 @@ public class UIMain : UIPopup
         BindButton(typeof(Buttons));
 
         GetButton((int)Buttons.GameStartButton).gameObject.BindEvent(OnClickStartButton);
-        GetButton((int)Buttons.SettingButton).gameObject.BindEvent(OnClickScoreBoardButton);
+        GetButton((int)Buttons.SettingButton).gameObject.BindEvent(OnClickSettingButton);
 
         GetText((int)Texts.GameTitle).text = "CRAZY MAN";
 
@@ -44,25 +44,11 @@ public class UIMain : UIPopup
         Managers.UI.ShowCharacterIdleScene();
     }
 
-    void OnClickScoreBoardButton()
+    void OnClickSettingButton()
     {
         Managers.UI.ClosePopupUI(this);
 
-        // UIScoreBoard 보여주기
-        //var uiScoreBoard = Managers.UI.ShowPopupUI<UIScoreBoard>();
-
-       /* uiScoreBoard.SetBoardDialog(
-            () => {
-                Managers.UI.ClosePopupUI(this);
-                Managers.UI.ShowPopupUI<UIMain>();
-            },
-            null,
-            "점수",
-            "",
-            "메인 메뉴",
-            "재시작",
-            true
-            );*/
+        Managers.UI.ShowSettingPopup();
     }
 
     void OnComplete()

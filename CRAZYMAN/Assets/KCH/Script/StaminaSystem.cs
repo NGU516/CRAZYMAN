@@ -38,7 +38,7 @@ public class StaminaSystem : MonoBehaviour
         // 슬라이더가 Instantiate될 때까지 대기
         while (staminaSlider == null)
         {
-            Debug.Log("Stamina_Slider 연결 중");
+        //     Debug.Log("Stamina_Slider 연결 중");
             Slider[] allSliders = GameObject.FindObjectsOfType<Slider>(true); // 비활성 포함
             foreach (Slider s in allSliders)
             {
