@@ -29,9 +29,6 @@ public class UISettingPopup : UIPopup
 
     enum Buttons
     {
-        ButtonGameStart,
-        ButtonSettings,
-        ButtonQuit,
         ButtonBackToMain,
         ButtonUp,
         ButtonDown,
@@ -73,9 +70,6 @@ public class UISettingPopup : UIPopup
         BindButton(typeof(Buttons));
         BindObject(typeof(GameObjects));
 
-        GetButton((int)Buttons.ButtonGameStart).gameObject.BindEvent(OnClickStartButton);
-        GetButton((int)Buttons.ButtonSettings).gameObject.BindEvent(OnClickScoreBoardButton);//OnClickSettingsButton
-        GetButton((int)Buttons.ButtonQuit).gameObject.BindEvent(OnClickQuitButton);
         GetButton((int)Buttons.ButtonBackToMain).gameObject.BindEvent(OnClickBackToMainButton);
         GetButton((int)Buttons.ButtonUp).gameObject.BindEvent(OnClickUpButton);
         GetButton((int)Buttons.ButtonDown).gameObject.BindEvent(OnClickDownButton);
