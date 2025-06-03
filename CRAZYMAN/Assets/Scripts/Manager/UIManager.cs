@@ -130,6 +130,24 @@ public class UIManager
         ShowPopupUI<UICharacterIdleScene>("UICharacterIdle");
     }
 
+    public void ShowSettingPopup()
+    {
+        Debug.Log("설정 창 활성화");
+        CloseAllPopupUI();
+
+        if (SceneUI != null)
+        {
+            SceneUI.CloseUI();
+
+            // 이전 SceneUI 게임 오브젝트 파괴
+            Managers.Resource.Destroy(SceneUI.gameObject);
+
+            SceneUI = null;
+        }
+
+        ShowPopupUI<UISettingPopup>("UISettingPopup");
+    }
+
     public void ClosePopupUI(UIPopup popup)
     {
         if (_popupStack.Count == 0)
