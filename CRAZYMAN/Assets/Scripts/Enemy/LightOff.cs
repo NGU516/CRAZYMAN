@@ -40,7 +40,6 @@ public class LightOff : MonoBehaviour
         if (lampRenderers == null || lampRenderers.Length == 0)
         {
             lampRenderers = lampRoot.GetComponentsInChildren<Renderer>();
-            Debug.Log($"✅ 자동으로 렌더러 {lampRenderers.Length}개 할당됨");
         }
     }
 
@@ -70,7 +69,7 @@ public class LightOff : MonoBehaviour
         }
     }
 
-    void TurnOffLight()
+    public void TurnOffLight()
     {
         foreach (var light in allLight)
         {
@@ -82,7 +81,7 @@ public class LightOff : MonoBehaviour
         isLightOn = false;
     }
 
-    void TurnOnLight()
+    public void TurnOnLight()
     {
         foreach (var light in allLight)
         {
@@ -128,7 +127,7 @@ public class LightOff : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, interactionRadius);
     }
 
-    private void TurnOffEmission()
+    public void TurnOffEmission()
     {
         foreach (Renderer r in lampRenderers)
         {
@@ -144,7 +143,7 @@ public class LightOff : MonoBehaviour
         }
     }
 
-    private void TurnOnEmission()
+    public void TurnOnEmission()
     {
         foreach (Renderer r in lampRenderers)
         {

@@ -4,42 +4,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
 // 순찰 담당 클래스
 public class EnemyPatrol : MonoBehaviour
 {
-    public Transform[] patrolPoints; // 순찰 지점 목록
-    public Transform[] LightOffPoints; // 전등 끄기 지점 목록
+    [Header("Patrol Settings")]
     public float waitTimeAtPatrol = 1f; // 순찰 지점 대기 시간
     public float patrolPriorityRange = 10f; // 우선 순찰 거리
-    public float lightOffTime = 180f; // 전등 끄기 대기 시간
+    public float lightOffTime = 10f; // 전등 끄기 대기 시간
     public float normalSpeed = 3.5f; // 순찰 속도
+    public float pressureDuration = 15f; // 플레이어 압박 시간
+    public float relaxDuration = 10f;    // 휴식 시간
+    public float pressureRange = 15f;    // 압박 모드에서의 플레이어 감지 거리
+    public float relaxRange = 5f;        // 휴식 모드에서의 플레이어 감지 거리
+    public float doorInteractionRange = 5f; // 문 상호작용 가능 거리
+    public float playerDetectionRange = 10f; // 플레이어 감지 거리
+    public int recentPatrolMemory = 3;
+    public LightOff specialLightTarget; // ElectoPanel의 LightOff를 자동 할당
 
+    private Transform[] patrolPoints; // 순찰 지점 목록
     private NavMeshAgent agent;
     private int currentPatrolIndex;
     private bool isWaiting = false;
     private float lightOffTimer = 0f; // 전등 끄기 타이머
-    private Transform player; // 플레이어 참조 (Transform player의 경우 Unity내에서 참조?)
+    private Transform player; // 플레이어 참조
     private float stuckTimer = 0f;
     private Vector3 lastPosition;
     private float stuckThreshold = 0.1f; // 위치 변화 허용 오차
     private float stuckTimeLimit = 5f;   // 5초
-    // 압박/휴식 시스템
     private float pressureTimer = 0f;
-    public float pressureDuration = 15f; // 플레이어 압박 시간
-    public float relaxDuration = 10f;    // 휴식 시간
     private bool isPressuringPlayer = true;
-    // 최근 방문 순찰지점 메모리
-    private Queue<int> recentPatrolIndices = new Queue<int>();
-    public int recentPatrolMemory = 3;
-
-    public float doorInteractionRange = 5f; // 문 상호작용 가능 거리
-    public float playerDetectionRange = 10f; // 플레이어 감지 거리
-    private float doorStuckTimer = 0f; // 문 앞에서 멈춰있는 시간
-    private Vector3 lastDoorPosition; // 마지막으로 시도한 문의 위치
-    private float doorRetryTime = 5f; // 문 재시도 대기 시간
-
-    public float pressureRange = 15f;    // 압박 모드에서의 플레이어 감지 거리
-    public float relaxRange = 5f;        // 휴식 모드에서의 플레이어 감지 거리
+    private Queue<int> recentPatrolIndices = new Queue<int>();  // 최근 방문 기록
 
     void Start()
     {
@@ -47,6 +42,44 @@ public class EnemyPatrol : MonoBehaviour
         agent.isStopped = false;
         agent.enabled = true; // NavMeshAgent 활성화
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
+
+        // 자동으로 특수 순찰 목표 LightOff 할당
+        specialLightTarget = FindObjectOfType<LightOff>();
+        if (specialLightTarget != null)
+            Debug.Log($"[EnemyPatrol] 자동 할당된 특수 순찰 목표: {specialLightTarget.name}");
+        else
+            Debug.LogWarning("[EnemyPatrol] LightOff 오브젝트를 찾지 못했습니다!");
+
+        // 자동으로 PatrolPoints 찾기
+        GameObject patrolPointsParent = GameObject.Find("PatrolPoints");
+        if (patrolPointsParent != null)
+        {
+            int childCount = patrolPointsParent.transform.childCount;
+            if (childCount > 0)
+            {
+                patrolPoints = new Transform[childCount];
+                for (int i = 0; i < childCount; i++)
+                {
+                    patrolPoints[i] = patrolPointsParent.transform.GetChild(i);
+                }
+            }
+            else
+            {
+                patrolPoints = new Transform[0];
+            }
+        }
+        else
+        {
+            patrolPoints = new Transform[0];
+        }
+
+        // 초기 순찰 시작
+        if (patrolPoints.Length > 0)
+        {
+            MoveToNextPatrolPoint();
+        }
+
+        lightOffTimer = 0f; // Start에서 명시적으로 0으로 초기화
     }
 
     void Update()
@@ -57,23 +90,40 @@ public class EnemyPatrol : MonoBehaviour
         {
             isPressuringPlayer = false;
             pressureTimer = 0f;
-            Debug.Log("휴식 모드로 전환");
         }
         else if (!isPressuringPlayer && pressureTimer > relaxDuration)
         {
             isPressuringPlayer = true;
             pressureTimer = 0f;
-            Debug.Log("압박 모드로 전환");
         }
 
-        // 타이머 갱신
+        // 10초마다 특수 순찰 목표로 이동
         lightOffTimer += Time.deltaTime;
-
-        // 특정시간 경과 시 언제든지 특수 지점으로 강제 이동
-        if (lightOffTimer >= lightOffTime && !isWaiting && !agent.pathPending)
+        if (lightOffTimer >= lightOffTime && specialLightTarget == null)
         {
-            MoveToLightPatrolPoint();
-            lightOffTimer = 0f;
+            specialLightTarget = FindObjectOfType<LightOff>();
+            if (specialLightTarget != null)
+            {
+                Debug.Log($"[EnemyPatrol] lightOfftime 경과, ElectoPanel 특수 순찰 시작: {specialLightTarget.name}");
+                agent.SetDestination(specialLightTarget.transform.position);
+            }
+            else
+            {
+                Debug.LogWarning("[EnemyPatrol] 특수 순찰 목표(LightOff) 없음");
+            }
+        }
+
+        // 특수 순찰 목표가 있을 때 계속 이동만 시도 (도달 체크 X)
+        if (specialLightTarget != null)
+        {
+            if (!agent.pathPending && (agent.pathStatus != NavMeshPathStatus.PathComplete || agent.remainingDistance > 1.0f))
+            {
+                agent.SetDestination(specialLightTarget.transform.position);
+            }
+        }
+        else
+        {
+            Patrol(); // 일반 순찰
         }
 
         // 위치 변화량 체크 (stuckTimer)
@@ -82,7 +132,6 @@ public class EnemyPatrol : MonoBehaviour
             stuckTimer += Time.deltaTime;
             if (stuckTimer > stuckTimeLimit)
             {
-                Debug.Log($"[EnemyPatrol] stuck! {gameObject.name}가 {stuckTimeLimit}초 동안 위치 {transform.position}에서 멈춤. 다른 순찰지점으로 이동");
                 MoveToNextPatrolPoint();
                 stuckTimer = 0f;
             }
@@ -116,7 +165,6 @@ public class EnemyPatrol : MonoBehaviour
         }
         if (patrolPoints == null || patrolPoints.Length == 0)
         {
-            Debug.LogWarning("StartPatrol 실패: patrolPoints가 비어 있음");
             return;
         }
 
@@ -153,7 +201,6 @@ public class EnemyPatrol : MonoBehaviour
     {
         if (patrolPoints == null || patrolPoints.Length == 0)
         {
-            Debug.LogWarning("순찰 지점 미설정: patrolPoints Array is empty.");
             return;
         }
 
@@ -231,30 +278,34 @@ public class EnemyPatrol : MonoBehaviour
                 recentPatrolIndices.Dequeue();
             currentPatrolIndex = nextIndex;
             agent.SetDestination(patrolPoints[currentPatrolIndex].position);
-            Debug.Log($"[EnemyPatrol] 이동 시도: {patrolPoints[currentPatrolIndex].position}, pathStatus: {agent.pathStatus}, hasPath: {agent.hasPath}, remainingDistance: {agent.remainingDistance}, velocity: {agent.velocity}");
         }
         else
         {
             // 모든 경로가 실패한 경우, agent를 멈추고 로그 출력
             agent.isStopped = true;
-            Debug.LogWarning($"[EnemyPatrol] 모든 순찰지점이 막혀있음! {gameObject.name}가 이동 불가 상태. 위치: {transform.position}");
         }
-    }
-
-    private void MoveToLightPatrolPoint()
-    {
-        if (LightOffPoints == null || LightOffPoints.Length == 0)
-        {
-            return;
-        }
-
-        int index = Random.Range(0, LightOffPoints.Length);
-        agent.SetDestination(LightOffPoints[index].position);
-        Debug.Log("전등 끄기 특수 지점으로 이동: " + LightOffPoints[index].name);
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        // ElectoPanel(특수 순찰 목표)와 충돌 시에만 상태 리셋
+        if (specialLightTarget != null && other.gameObject == specialLightTarget.gameObject)
+        {
+            NetworkLight networkLight = specialLightTarget.GetComponent<NetworkLight>();
+            if (networkLight != null && Photon.Pun.PhotonNetwork.IsMasterClient)
+            {
+                networkLight.RequestTurnOffLight();
+            }
+            else if (specialLightTarget != null)
+            {
+                specialLightTarget.TurnOffLight();
+            }
+            specialLightTarget = null;
+            lightOffTimer = 0f;
+            MoveToNextPatrolPoint();
+            return;
+        }
+        // 기존 문 충돌 등은 그대로 유지
         DoorController door = other.GetComponent<DoorController>();
         if (door != null)
         {
@@ -262,18 +313,19 @@ public class EnemyPatrol : MonoBehaviour
             float playerDist = player ? Vector3.Distance(transform.position, player.position) : float.MaxValue;
             if (obstacle != null && obstacle.enabled)
             {
-                if (playerDist <= 30f)
+                NetworkDoor networkDoor = door.GetComponent<NetworkDoor>();
+                if (networkDoor != null)
                 {
-                    // 플레이어가 근처에 있으면 문을 연다
-                    door.ToggleDoor();
-                    Debug.Log($"[EnemyPatrol] OnTrigger 문 열기 시도: {door.gameObject.name}, Obstacle.enabled: {obstacle.enabled}");
+                    networkDoor.RequestToggleDoor(Vector3.zero);
                 }
                 else
                 {
-                    // 플레이어가 멀리 있으면 다른 순찰지점으로 이동
-                    Debug.Log($"[EnemyPatrol] OnTrigger 문 닫힘 & 플레이어 멀리 있음: {door.gameObject.name}, 다른 순찰지점 이동");
-                    MoveToNextPatrolPoint();
+                    door.ToggleDoor(); // fallback (싱글플레이 등)
                 }
+            }
+            else
+            {
+                MoveToNextPatrolPoint();
             }
         }
     }
