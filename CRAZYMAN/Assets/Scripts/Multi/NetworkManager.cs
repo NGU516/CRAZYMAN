@@ -13,6 +13,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     [Header("Room Settings")]
     [SerializeField] private string roomName = "MyCustomRoom";
+    [SerializeField] private int maxPlayers = 4;
+
+    [Header("Item Settings")]
+    [SerializeField] private GameObject itemSpawnerPrefab;
+    [SerializeField] private GameObject keySpawnerPrefab;
 
     private void Awake()
     {
@@ -86,6 +91,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             SpawnEnemies();
+            SpawnItems();
         }
     }
 
@@ -106,6 +112,63 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         else
         {
             Debug.LogError("[PHOTON] Enemy prefab or spawn points not set!");
+        }
+    }
+
+    void SpawnItems()
+    {
+        // ItemSpawner 프리팹이 할당되었는지 확인
+        if (itemSpawnerPrefab != null)
+        {
+            // ItemSpawner 생성 (위치는 (0, 0, 0)으로 설정!)
+            GameObject itemSpawner = PhotonNetwork.Instantiate(
+                "Prefabs/Items/"+ itemSpawnerPrefab.name,
+                Vector3.zero,  // 위치는 (0, 0, 0)으로 설정!
+                Quaternion.identity
+            );
+
+            // ItemSpawner 스크립트 가져오기
+            ItemSpawner spawner = itemSpawner.GetComponent<ItemSpawner>();
+            if (spawner != null)
+            {
+                // ItemSpawner에게 아이템 생성하도록 시킴
+                spawner.SpawnItems();
+            }
+            else
+            {
+                Debug.LogError("ItemSpawner 프리팹에 ItemSpawner 스크립트가 없습니다!");
+            }
+        }
+        else
+        {
+            Debug.LogError("ItemSpawner 프리팹이 할당되지 않았습니다!");
+        }
+
+        // KeySpawner 프리팹이 할당되었는지 확인
+        if (keySpawnerPrefab != null)
+        {
+            // ItemSpawner 생성 (위치는 (0, 0, 0)으로 설정!)
+            GameObject itemSpawner = PhotonNetwork.Instantiate(
+                "Prefabs/Items/" + keySpawnerPrefab.name,
+                Vector3.zero,  // 위치는 (0, 0, 0)으로 설정!
+                Quaternion.identity
+            );
+
+            // ItemSpawner 스크립트 가져오기
+            ItemSpawner spawner = itemSpawner.GetComponent<ItemSpawner>();
+            if (spawner != null)
+            {
+                // ItemSpawner에게 아이템 생성하도록 시킴
+                spawner.SpawnItems();
+            }
+            else
+            {
+                Debug.LogError("ItemSpawner 프리팹에 ItemSpawner 스크립트가 없습니다!");
+            }
+        }
+        else
+        {
+            Debug.LogError("ItemSpawner 프리팹이 할당되지 않았습니다!");
         }
     }
 
