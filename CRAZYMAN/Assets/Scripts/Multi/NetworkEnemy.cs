@@ -6,7 +6,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(PhotonView))]
 public class NetworkEnemy : MonoBehaviourPunCallbacks, IPunObservable
 {
-    // 네트워크 동기화를 위한 상태 enum
+    // 네트워크 동기화를 위한 괴인 상태 enum
     private enum NetworkState
     {
         Idle,
@@ -59,6 +59,12 @@ public class NetworkEnemy : MonoBehaviourPunCallbacks, IPunObservable
             networkPosition = transform.position;
             networkRotation = transform.rotation;
             networkState = NetworkState.Idle;
+
+            GameObject localPlayer = GameObject.FindGameObjectWithTag("Player");
+            if (localPlayer != null)
+            {
+                photonView.RPC("SetTarget", RpcTarget.AllBuffered, localPlayer.GetComponent<PhotonView>().ViewID);
+            }
         }
     }
 
@@ -128,10 +134,9 @@ public class NetworkEnemy : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     public void SetState(int newState)
     {
-        if (PhotonNetwork.IsMasterClient && enemyAI != null)
+        // 원격 클라이언트가 받은 상태를 저장만 함 (AI 비활성화 상태에서)
+        if (!PhotonNetwork.IsMasterClient)
         {
-            // EnemyAI의 ChangeState 메서드 호출
-            SendMessage("ChangeState", newState, SendMessageOptions.DontRequireReceiver);
             networkState = (NetworkState)newState;
         }
     }

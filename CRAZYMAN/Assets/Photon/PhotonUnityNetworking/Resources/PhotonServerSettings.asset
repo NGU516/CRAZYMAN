@@ -39,19 +39,15 @@ MonoBehaviour:
   - DestroySpaceship
   - Fire
   - RespawnSpaceship
-
-  DisableAutoOpenWizard: 1
-  ShowSettings: 1
-  DevRegionSetOnce: 0
-  - DropItem
-  - OnMonsterDeath
-  - PickupItem
+  - 
   - SetState
   - SetTarget
   - SyncAttack
-  - TakeDamage
-  - TriggerAttack
   - SyncDoorState
   - SyncLightState
   - SyncLockState
-  - RPC_MoveToLightPatrolPoint
+  - TakeDamage
+  - TriggerAttack
+  DisableAutoOpenWizard: 1
+  ShowSettings: 0
+  DevRegionSetOnce: 0
