@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3714166665667147969}
   - component: {fileID: 1168378337037702658}
   - component: {fileID: 6301040895156312208}
+  - component: {fileID: 7773875700092649360}
   m_Layer: 0
   m_Name: bandage
   m_TagString: Untagged
@@ -99,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2105ab1cbe14c4082c7b3d43e31a5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemType: 4
+  itemType: 3
   itemName: "\uBD95\uB300"
   inventoryIcon: {fileID: 21300000, guid: 9e3235dd77419cb4fad779675e271d33, type: 3}
 --- !u!114 &3714166665667147969
@@ -163,3 +164,25 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.06549591, y: 0.028337438, z: 0.1388565}
   m_Center: {x: -0.000038748607, y: 0.0010641483, z: -0.000112213194}
+--- !u!114 &7773875700092649360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5549177836221807981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

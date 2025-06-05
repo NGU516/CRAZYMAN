@@ -2,15 +2,25 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Photon.Pun;
 
 public class Inventory : MonoBehaviour
 {
-    public int inventorySize = 2; // 인벤토리 크기
-    public List<Item> items = new List<Item>(); // 인벤토리 아이템 리스트
-    public GameObject[] itemSlots; // 인벤토리 슬롯 (UI)
+    public int inventorySize = 2;
+    public List<ItemDataForInventory> items = new List<ItemDataForInventory>();
+    public GameObject[] itemSlots;
+    private PhotonView playerPhotonView;
+
+    private void Start()
+    {
+        playerPhotonView = GetComponent<PhotonView>();
+        UpdateUI();
+    }
 
     private void Update()
     {
+        if (playerPhotonView == null || !playerPhotonView.IsMine) return;
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             UseItem(0);
@@ -24,72 +34,114 @@ public class Inventory : MonoBehaviour
 
     void UseItem(int slotIndex)
     {
-        if (slotIndex >= 0 && slotIndex < items.Count)
+        if (playerPhotonView == null || !playerPhotonView.IsMine) return;
+
+        if (slotIndex < 0 || slotIndex >= items.Count || items[slotIndex] == null) return;
+
+        ItemDataForInventory itemDataToUse = items[slotIndex];
+        ApplyLocalItemEffect(itemDataToUse);
+        playerPhotonView.RPC("UseItemRPC", RpcTarget.All, (int)itemDataToUse.itemType, playerPhotonView.ViewID);
+
+        items.RemoveAt(slotIndex);
+        UpdateUI();
+    }
+
+    void ApplyLocalItemEffect(ItemDataForInventory itemData)
+    {
+        switch (itemData.itemType)
         {
-            Item itemToUse = items[slotIndex];
+            case ItemType.pills:
+            case ItemType.bandage:
+            case ItemType.Battery:
+                break;
+        }
+    }
 
-            bool itemConsumed = itemToUse.Use(); // Use() 메소드가 아이템 제거 여부 반환
+    [PunRPC]
+    void UseItemRPC(int itemTpyeInt, int senderViewID, PhotonMessageInfo info)
+    {
+        ItemType usedItemType = (ItemType)itemTpyeInt;
+        PhotonView senderPV = PhotonView.Find(senderViewID)?.gameObject.GetComponent<PhotonView>();
 
-            if (itemConsumed)
-            {
-                Debug.Log($"{itemToUse.itemName} 아이템 사용");
+        if (senderPV == null) return;
 
-                items.RemoveAt(slotIndex );
+        switch (usedItemType)
+        {
+            case ItemType.Camera:
+                break;
 
-                UpdateUI();
-            }
+            case ItemType.pills:
+                break;
         }
     }
 
     // 아이템 획득
-    public void AddItem(Item item)
+    public bool AddItem(ItemDataForInventory itemData)
     {
+        if (itemData == null) return false;
+
         if (items.Count < inventorySize)
         {
             Debug.Log("아이템 획득");
-            items.Add(item);
+            items.Add(itemData);
             UpdateUI();
-            Destroy(item.gameObject); // 획득한 아이템은 씬에서 제거
+            return true;
         }
         else
         {
             Debug.Log("인벤토리가 가득 찼습니다!");
+            return false;
         }
     }
 
     public void SetItemSlots(GameObject[] slots)
     {
+        Debug.Log("Inventory.SetItemSlots() 호출됨"); // SetItemSlots 호출 로그
         if (slots != null && slots.Length > 0)
         {
             itemSlots = slots;
-            Debug.Log($"Inventory: Received {itemSlots.Length} item slots!");
-
-            UpdateUI();
+            Debug.Log($"Inventory: 아이템 슬롯 설정 완료! 슬롯 개수: {itemSlots.Length}");
+            UpdateUI(); // 슬롯 설정 후 UI 업데이트
         }
         else
         {
-            Debug.LogError("Inventory: Attempted to set null or empty item slots!");
+            Debug.LogError("Inventory: 유효하지 않은 슬롯이 전달됨!");
         }
     }
 
-    // UI 업데이트
-    void UpdateUI()
+    // UI 업데이트 (UI 슬롯에 아이콘 표시)
+    public void UpdateUI()
     {
+        Debug.Log("Inventory.UpdateUI() 호출됨"); // UpdateUI 호출 로그
+
+        if (itemSlots == null)
+        {
+            Debug.LogError("ItemSlots 배열이 null입니다!");
+            return;
+        }
+
         for (int i = 0; i < itemSlots.Length; i++)
         {
-            Image slotImage = itemSlots[i].GetComponent<Image>();
-
-            slotImage.preserveAspect = true;
-
-            if (i < items.Count)
+            if (itemSlots[i] != null)
             {
-                slotImage.sprite = items[i].inventoryIcon;
-                slotImage.enabled = true;
-            }
-            else
-            {
-                slotImage.sprite = null;
-                slotImage.enabled = false;
+                Image slotImage = itemSlots[i].GetComponent<Image>();
+                if (slotImage != null)
+                {
+                    if (i < items.Count && items[i] != null)
+                    {
+                        slotImage.sprite = items[i].inventoryIcon;
+                        slotImage.enabled = true;
+                    }
+                    else
+                    {
+                        slotImage.sprite = null;
+                        slotImage.enabled = false;
+                    }
+                }
+                else
+                {
+                    Debug.LogError($"itemSlots[{i}]에 Image 컴포넌트가 없습니다.");
+                }
             }
         }
     }
