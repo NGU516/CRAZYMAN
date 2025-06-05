@@ -57,11 +57,28 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
-        if (player == null) return;
+        
+        if (player == null)
+        {
+            GameObject found = GameObject.FindGameObjectWithTag("Player");
+            if (found != null)
+            {
+                player = found.transform;
+            }
+            else
+            {
+                return; // 아직 못 찾았으면 동작 보류
+            }
+        }
         
         if (agent != null)
         {
             // Debug.Log($"괴인 현재 속도: {agent.velocity.magnitude:F2} (실제 이동 속도)");
+        }
+
+        if (attack != null && attack.player == null)
+        {
+            attack.player = player;
         }
 
         // 공격 조건
@@ -100,6 +117,14 @@ public class EnemyAI : MonoBehaviour
         Debug.Log($"괴인 상태 변경: {currentState}");
         EnemyAnimator.SetInteger("EnemyState", (int)newState);
 
+        // 
+        if (PhotonNetwork.IsMasterClient)
+        {
+            NetworkEnemy network = GetComponent<NetworkEnemy>();
+            if (network != null)
+                network.photonView.RPC("SetState", RpcTarget.Others, (int)newState);
+        }
+
         switch (newState)
         {
             case EnemyState.Patrol:
@@ -125,6 +150,12 @@ public class EnemyAI : MonoBehaviour
             case EnemyState.Blind:
                 break;
         }
+    }
+
+    // 플레이어 타겟 설정 메서드
+    public void SetTarget(Transform target)
+    {
+        player = target;
     }
 
     // 데미지 처리 메서드

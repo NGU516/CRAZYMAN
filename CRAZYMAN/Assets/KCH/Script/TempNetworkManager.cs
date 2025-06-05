@@ -1,177 +1,177 @@
-using UnityEngine;
-using Photon.Pun;
-using Photon.Realtime;
-using System.Collections.Generic;
+// using UnityEngine;
+// using Photon.Pun;
+// using Photon.Realtime;
+// using System.Collections.Generic;
 
-public class TempNetworkManager : MonoBehaviourPunCallbacks
-{
-    public static TempNetworkManager Instance { get; private set; }
+// public class TempNetworkManager : MonoBehaviourPunCallbacks
+// {
+//     public static TempNetworkManager Instance { get; private set; }
 
-    [Header("Enemy Settings")]
-    [SerializeField] private GameObject enemyPrefab;
-    [SerializeField] private Transform[] enemySpawnPoints;
-    [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private Transform[] playerSpawnPoints;
-    [SerializeField] private string gameVersion = "1.0";
+//     [Header("Enemy Settings")]
+//     [SerializeField] private GameObject enemyPrefab;
+//     [SerializeField] private Transform[] enemySpawnPoints;
+//     [SerializeField] private GameObject playerPrefab;
+//     [SerializeField] private Transform[] playerSpawnPoints;
+//     [SerializeField] private string gameVersion = "1.0";
 
-    [Header("Room Settings")]
-    [SerializeField] private string roomName = "MyCustomRoom";
+//     [Header("Room Settings")]
+//     [SerializeField] private string roomName = "MyCustomRoom";
 
-    [Header("Player Settings")]
-    private Dictionary<int, int> playerNumbers = new Dictionary<int, int>(); // ActorNumber -> PlayerNumber
-    private int nextPlayerNumber = 1;
+//     [Header("Player Settings")]
+//     private Dictionary<int, int> playerNumbers = new Dictionary<int, int>(); // ActorNumber -> PlayerNumber
+//     private int nextPlayerNumber = 1;
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        } else
-        {
-            Destroy(gameObject);
-        }
+//     private void Awake()
+//     {
+//         if (Instance == null)
+//         {
+//             Instance = this;
+//             DontDestroyOnLoad(gameObject);
+//         } else
+//         {
+//             Destroy(gameObject);
+//         }
 
-        PhotonNetwork.AutomaticallySyncScene = false;
-        PhotonNetwork.GameVersion = gameVersion;
-        Debug.Log("[PHOTON] Æ÷Åæ ³×Æ®¿öÅ© ÃÊ±âÈ­");
-    }
+//         PhotonNetwork.AutomaticallySyncScene = false;
+//         PhotonNetwork.GameVersion = gameVersion;
+//         Debug.Log("[PHOTON] ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½Å© ï¿½Ê±ï¿½È­");
+//     }
 
-    private void Start()
-    {
-        Debug.Log($"[PHOTON] Æ÷Åæ ³×Æ®¿öÅ© ½ÃÀÛ");
-        Debug.Log($"[PHOTON] ¸¶½ºÅÍ Å¬¶óÀÌ¾ðÆ®: {PhotonNetwork.IsMasterClient}");
-        ConnectToPhoton();
-    }
+//     private void Start()
+//     {
+//         Debug.Log($"[PHOTON] ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½");
+//         Debug.Log($"[PHOTON] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®: {PhotonNetwork.IsMasterClient}");
+//         ConnectToPhoton();
+//     }
 
-    private void ConnectToPhoton()
-    {
-        if (!PhotonNetwork.IsConnected)
-        {
-            Debug.Log("[PHOTON] Æ÷Åæ ¿¬°á ½Ãµµ Áß...");
-            // Photon ¼­¹ö ¿¬°á
-            PhotonNetwork.ConnectUsingSettings();
-        } else
-        {
-            Debug.Log("[PHOTON] ÀÌ¹Ì Æ÷Åæ ¿¬°áµÊ");
-        }
-    }
+//     private void ConnectToPhoton()
+//     {
+//         if (!PhotonNetwork.IsConnected)
+//         {
+//             Debug.Log("[PHOTON] ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ãµï¿½ ï¿½ï¿½...");
+//             // Photon ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+//             PhotonNetwork.ConnectUsingSettings();
+//         } else
+//         {
+//             Debug.Log("[PHOTON] ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½");
+//         }
+//     }
 
-    public override void OnConnectedToMaster()
-    {
-        Debug.Log("[PHOTON] Æ÷Åæ ¸¶½ºÅÍ ¼­¹ö ¿¬°á ¿Ï·á");
-        PhotonNetwork.JoinRoom(roomName);
-    }
+//     public override void OnConnectedToMaster()
+//     {
+//         Debug.Log("[PHOTON] ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½");
+//         PhotonNetwork.JoinRoom(roomName);
+//     }
 
-    public override void OnJoinRoomFailed(short returnCode, string message)
-    {
-        Debug.LogWarning($"[PHOTON] ¹æ Âü¿© ½ÇÆÐ: {message} (code: {returnCode})");
-        CreateRoom();
-    }
+//     public override void OnJoinRoomFailed(short returnCode, string message)
+//     {
+//         Debug.LogWarning($"[PHOTON] ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: {message} (code: {returnCode})");
+//         CreateRoom();
+//     }
 
-    // ¹æ »ý¼º
-    private void CreateRoom()
-    {
-        RoomOptions roomOptions = new RoomOptions
-        {
-            MaxPlayers = 4,
-            IsVisible = true,
-            IsOpen = true
-        };
+//     // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+//     private void CreateRoom()
+//     {
+//         RoomOptions roomOptions = new RoomOptions
+//         {
+//             MaxPlayers = 4,
+//             IsVisible = true,
+//             IsOpen = true
+//         };
 
-        Debug.Log($"[PHOTON] »õ·Î¿î ¹æ »ý¼º: {roomName}");
-        PhotonNetwork.CreateRoom(roomName, roomOptions);
-    }
+//         Debug.Log($"[PHOTON] ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: {roomName}");
+//         PhotonNetwork.CreateRoom(roomName, roomOptions);
+//     }
 
-    public override void OnJoinedRoom()
-    {
-        Debug.Log($"[PHOTON] ¹æ Âü¿©: {PhotonNetwork.CurrentRoom.Name}");
-        Debug.Log($"[PHOTON] ¹æ ÀÎ¿ø: {PhotonNetwork.CurrentRoom.PlayerCount}");
-        Debug.Log($"[PHOTON] ¸¶½ºÅÍ Å¬¶óÀÌ¾ðÆ®: {PhotonNetwork.IsMasterClient}");
-        SpawnPlayer();
+//     public override void OnJoinedRoom()
+//     {
+//         Debug.Log($"[PHOTON] ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: {PhotonNetwork.CurrentRoom.Name}");
+//         Debug.Log($"[PHOTON] ï¿½ï¿½ ï¿½Î¿ï¿½: {PhotonNetwork.CurrentRoom.PlayerCount}");
+//         Debug.Log($"[PHOTON] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®: {PhotonNetwork.IsMasterClient}");
+//         SpawnPlayer();
 
-        if (PhotonNetwork.IsMasterClient)
-        {
-            SpawnEnemies();
-            AssignPlayerNumbers();
-        }
-    }
+//         if (PhotonNetwork.IsMasterClient)
+//         {
+//             SpawnEnemies();
+//             AssignPlayerNumbers();
+//         }
+//     }
 
-    private void AssignPlayerNumbers()
-    {
-        // ¸ðµç ÇÃ·¹ÀÌ¾î¿¡°Ô ¼ø¼­´ë·Î ¹øÈ£ ÇÒ´ç
-        foreach (Player player in PhotonNetwork.PlayerList)
-        {
-            if (!playerNumbers.ContainsKey(player.ActorNumber))
-            {
-                playerNumbers[player.ActorNumber] = nextPlayerNumber++;
-                Debug.Log($"[PHOTON] Player {player.NickName} (ID: {player.ActorNumber}) assigned number: {playerNumbers[player.ActorNumber]}");
-            }
-        }
-    }
+//     private void AssignPlayerNumbers()
+//     {
+//         // ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ ï¿½Ò´ï¿½
+//         foreach (Player player in PhotonNetwork.PlayerList)
+//         {
+//             if (!playerNumbers.ContainsKey(player.ActorNumber))
+//             {
+//                 playerNumbers[player.ActorNumber] = nextPlayerNumber++;
+//                 Debug.Log($"[PHOTON] Player {player.NickName} (ID: {player.ActorNumber}) assigned number: {playerNumbers[player.ActorNumber]}");
+//             }
+//         }
+//     }
 
-    private void SpawnEnemies()
-    {
-        if (enemyPrefab != null && enemySpawnPoints.Length > 0)
-        {
-            foreach (Transform spawnPoint in enemySpawnPoints)
-            {
-                Debug.Log($"[PHOTON] Spawning enemy at {spawnPoint.position}");
-                PhotonNetwork.Instantiate(
-                    "Prefabs/" + enemyPrefab.name,
-                    spawnPoint.position,
-                    spawnPoint.rotation
-                );
-            }
-        } else
-        {
-            Debug.LogError("[PHOTON] Enemy prefab or spawn points not set!");
-        }
-    }
+//     private void SpawnEnemies()
+//     {
+//         if (enemyPrefab != null && enemySpawnPoints.Length > 0)
+//         {
+//             foreach (Transform spawnPoint in enemySpawnPoints)
+//             {
+//                 Debug.Log($"[PHOTON] Spawning enemy at {spawnPoint.position}");
+//                 PhotonNetwork.Instantiate(
+//                     "Prefabs/" + enemyPrefab.name,
+//                     spawnPoint.position,
+//                     spawnPoint.rotation
+//                 );
+//             }
+//         } else
+//         {
+//             Debug.LogError("[PHOTON] Enemy prefab or spawn points not set!");
+//         }
+//     }
 
-    public override void OnPlayerEnteredRoom(Player newPlayer)
-    {
-        Debug.Log($"[PHOTON] Player {newPlayer.NickName} joined the room");
+//     public override void OnPlayerEnteredRoom(Player newPlayer)
+//     {
+//         Debug.Log($"[PHOTON] Player {newPlayer.NickName} joined the room");
 
-        // »õ·Î µé¾î¿Â ÇÃ·¹ÀÌ¾î¿¡°Ô ¹øÈ£ ÇÒ´ç
-        if (PhotonNetwork.IsMasterClient)
-        {
-            playerNumbers[newPlayer.ActorNumber] = nextPlayerNumber++;
-            Debug.Log($"[PHOTON] New Player {newPlayer.NickName} assigned number: {playerNumbers[newPlayer.ActorNumber]}");
+//         // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î¿¡ï¿½ï¿½ ï¿½ï¿½È£ ï¿½Ò´ï¿½
+//         if (PhotonNetwork.IsMasterClient)
+//         {
+//             playerNumbers[newPlayer.ActorNumber] = nextPlayerNumber++;
+//             Debug.Log($"[PHOTON] New Player {newPlayer.NickName} assigned number: {playerNumbers[newPlayer.ActorNumber]}");
 
-        }
-    }
+//         }
+//     }
 
-    public override void OnPlayerLeftRoom(Player otherPlayer)
-    {
-        Debug.Log($"[PHOTON] Player {otherPlayer.NickName} left the room");
+//     public override void OnPlayerLeftRoom(Player otherPlayer)
+//     {
+//         Debug.Log($"[PHOTON] Player {otherPlayer.NickName} left the room");
 
-        // ³ª°£ ÇÃ·¹ÀÌ¾îÀÇ ¹øÈ£ Á¦°Å
-        if (playerNumbers.ContainsKey(otherPlayer.ActorNumber))
-        {
-            Debug.Log($"[PHOTON] Removed player number {playerNumbers[otherPlayer.ActorNumber]} for {otherPlayer.NickName}");
-            playerNumbers.Remove(otherPlayer.ActorNumber);
-        }
-    }
+//         // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½
+//         if (playerNumbers.ContainsKey(otherPlayer.ActorNumber))
+//         {
+//             Debug.Log($"[PHOTON] Removed player number {playerNumbers[otherPlayer.ActorNumber]} for {otherPlayer.NickName}");
+//             playerNumbers.Remove(otherPlayer.ActorNumber);
+//         }
+//     }
 
-    // ÇÃ·¹ÀÌ¾î ¹øÈ£ °¡Á®¿À±â
-    public int GetPlayerNumber(int actorNumber)
-    {
-        if (playerNumbers.ContainsKey(actorNumber))
-        {
-            return playerNumbers[actorNumber];
-        }
-        return -1; // ¹øÈ£°¡ ÇÒ´çµÇÁö ¾ÊÀº °æ¿ì
-    }
+//     // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//     public int GetPlayerNumber(int actorNumber)
+//     {
+//         if (playerNumbers.ContainsKey(actorNumber))
+//         {
+//             return playerNumbers[actorNumber];
+//         }
+//         return -1; // ï¿½ï¿½È£ï¿½ï¿½ ï¿½Ò´ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+//     }
 
-    private void SpawnPlayer()
-    {
-        if (playerPrefab != null && playerSpawnPoints.Length > 0)
-        {
-            int spawnIndex = Random.Range(0, playerSpawnPoints.Length);
-            Transform spawnPoint = playerSpawnPoints[spawnIndex];
+//     private void SpawnPlayer()
+//     {
+//         if (playerPrefab != null && playerSpawnPoints.Length > 0)
+//         {
+//             int spawnIndex = Random.Range(0, playerSpawnPoints.Length);
+//             Transform spawnPoint = playerSpawnPoints[spawnIndex];
 
-            PhotonNetwork.Instantiate("Prefabs/Player_Object", spawnPoint.position, spawnPoint.rotation);
-        }
-    }
-}
+//             PhotonNetwork.Instantiate("Prefabs/Player_Object", spawnPoint.position, spawnPoint.rotation);
+//         }
+//     }
+// }

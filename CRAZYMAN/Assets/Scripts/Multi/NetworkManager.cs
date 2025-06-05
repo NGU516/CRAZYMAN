@@ -10,6 +10,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [Header("Enemy Settings")]
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private Transform[] enemySpawnPoints;
+    [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private Transform[] playerSpawnPoints;
     [SerializeField] private string gameVersion = "1.0";
 
     [Header("Room Settings")]
@@ -94,6 +96,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         {
             AssignPlayerNumbers();
             SpawnEnemies();
+            SpawnPlayer();
         }
     }
 
@@ -113,7 +116,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log($"[PHOTON] Player {newPlayer.NickName} (ID: {newPlayer.ActorNumber}) joined the room");
-        
+
         // 새로 들어온 플레이어에게 번호 할당
         if (PhotonNetwork.IsMasterClient)
         {
@@ -125,7 +128,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         Debug.Log($"[PHOTON] Player {otherPlayer.NickName} (ID: {otherPlayer.ActorNumber}) left the room");
-        
+
         // 나간 플레이어의 번호 제거
         if (playerNumbers.ContainsKey(otherPlayer.ActorNumber))
         {
@@ -161,6 +164,17 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         else
         {
             Debug.LogError("[PHOTON] Enemy prefab or spawn points not set!");
+        }
+    }
+    
+    private void SpawnPlayer()
+    {
+        if (playerPrefab != null && playerSpawnPoints.Length > 0)
+        {
+            int spawnIndex = Random.Range(0, playerSpawnPoints.Length);
+            Transform spawnPoint = playerSpawnPoints[spawnIndex];
+
+            PhotonNetwork.Instantiate("Prefabs/Player_Object", spawnPoint.position, spawnPoint.rotation);
         }
     }
 
