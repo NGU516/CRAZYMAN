@@ -23,6 +23,14 @@ public class UICreateRoom : UIPopup
         Player
     }
 
+    public string RoomKeyValue { get; private set; }
+
+    public void SetRoomKeyValue(string key)
+    {
+        RoomKeyValue = key;
+        Debug.Log("방 코드(RoomKeyValue): " + RoomKeyValue);
+    }
+
     public override bool Init()
     {
         if (base.Init() == false)
@@ -31,6 +39,17 @@ public class UICreateRoom : UIPopup
         BindText(typeof(Texts));
         BindButton(typeof(Buttons));
         BindObject(typeof(GameObjects));
+
+        // RoomKeyValue 오브젝트에 roomCode 표시
+        var roomKeyValueObj = GameObject.Find("RoomKeyValue");
+        if (roomKeyValueObj != null)
+        {
+            var text = roomKeyValueObj.GetComponent<TMP_Text>();
+            if (text != null)
+            {
+                text.text = NetworkManager.Instance.LastRoomKeyValue;
+            }
+        }
 
         GetButton((int)Buttons.StartButton).gameObject.BindEvent(OnClickStartButton);
 
