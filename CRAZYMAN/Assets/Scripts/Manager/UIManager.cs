@@ -127,7 +127,7 @@ public class UIManager
 
         // 캐릭터 대기 화면 UI 로드
         // UI_CharacterIdleScene -> 캐릭터 대기 화면 UI 프리팹 이름임!!!
-        ShowPopupUI<UICharacterIdleScene>("UICharacterIdle");
+        ShowPopupUI<UICreateRoom>("UICreateRoom");
     }
 
     public void ShowSettingPopup()

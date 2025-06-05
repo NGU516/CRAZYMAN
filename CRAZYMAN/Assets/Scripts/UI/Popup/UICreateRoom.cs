@@ -6,7 +6,7 @@ using TMPro;
 using System;
 using UnityEngine.SceneManagement;
 
-public class UICharacterIdleScene : UIPopup
+public class UICreateRoom : UIPopup
 {
     enum Texts
     {
