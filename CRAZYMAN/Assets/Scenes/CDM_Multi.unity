@@ -250,6 +250,9 @@ MonoBehaviour:
   - {fileID: 1303144806}
   gameVersion: 1.0
   roomName: MyCustomRoom
+  maxPlayers: 4
+  itemSpawnerPrefab: {fileID: 0}
+  keySpawnerPrefab: {fileID: 0}
 --- !u!4 &452268991
 Transform:
   m_ObjectHideFlags: 0
@@ -1409,10 +1412,6 @@ MonoBehaviour:
   - {fileID: 5800587187113145179, guid: c52368b348ccfef4b91c721e7fea7211, type: 3}
   - {fileID: 5794061605855586677, guid: c0639ead141703443938e2ed7eabf8aa, type: 3}
   numberOfItemsToSpawn: 3
-  spawnSpots:
-  - {fileID: 8781864690295186542}
-  - {fileID: 3708003343298436575}
-  - {fileID: 3907205302414930454}
 --- !u!1 &524088033766941187
 GameObject:
   m_ObjectHideFlags: 0
@@ -2169,13 +2168,6 @@ MonoBehaviour:
   - {fileID: 4207235180437207434, guid: bad7b20ac38483b4ba51e35dbfbfbc25, type: 3}
   - {fileID: 47235544966343999, guid: 6d24f55bfa933c44596925d675b36aff, type: 3}
   numberOfItemsToSpawn: 6
-  spawnSpots:
-  - {fileID: 1695542706223172035}
-  - {fileID: 8873351318763073444}
-  - {fileID: 6461501074183918192}
-  - {fileID: 9000759552255910448}
-  - {fileID: 2787018395188071713}
-  - {fileID: 304531270770017760}
 --- !u!4 &3907205302414930454
 Transform:
   m_ObjectHideFlags: 0

@@ -16,12 +16,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     [Header("Room Settings")]
     [SerializeField] private string roomName = "MyCustomRoom";
-
     [SerializeField] private int maxPlayers = 4;
 
     [Header("Item Settings")]
     [SerializeField] private GameObject itemSpawnerPrefab;
     [SerializeField] private GameObject keySpawnerPrefab;
+
+    [Header("Player Settings")]
+    private Dictionary<int, int> playerNumbers = new Dictionary<int, int>(); // ActorNumber -> PlayerNumber
+    private int nextPlayerNumber = 1;
 
     private void Awake()
     {
@@ -78,7 +81,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         RoomOptions roomOptions = new RoomOptions
         {
-            MaxPlayers = 4,
+            MaxPlayers = maxPlayers,
             IsVisible = true,
             IsOpen = true
         };
@@ -170,17 +173,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public override void OnPlayerEnteredRoom(Player newPlayer)
-    {
-        if (playerPrefab != null && playerSpawnPoints.Length > 0)
-        {
-            int spawnIndex = Random.Range(0, playerSpawnPoints.Length);
-            Transform spawnPoint = playerSpawnPoints[spawnIndex];
-
-            PhotonNetwork.Instantiate("Prefabs/Player_Object", spawnPoint.position, spawnPoint.rotation);
-        }
-    }
-
     void SpawnItems()
     {
         // ItemSpawner 프리팹이 할당되었는지 확인
@@ -236,6 +228,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         {
             Debug.LogError("ItemSpawner 프리팹이 할당되지 않았습니다!");
         }
+    }
     
     private void SpawnPlayer()
     {
