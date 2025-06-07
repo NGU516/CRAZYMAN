@@ -54,16 +54,18 @@ public class PhotonControl : MonoBehaviourPun
         {
             // SetLayerRecursively(gameObject, LayerMask.NameToLayer("head"));
 
-            myCam = transform.parent.GetComponentInChildren<Camera>();
+            myCam = transform.parent.GetComponentInChildren<Camera>(true);
             if (myCam != null)
             {
                 myCam.enabled = true;
                 myCam.cullingMask &= ~(1 << LayerMask.NameToLayer("head"));
+                myCam.tag = "MainCamera";
                 // myCam.tag = "MainCamera";
 
                 PhotonCameraMove camScript = myCam.GetComponent<PhotonCameraMove>();
                 if (camScript != null)
                 {
+                    camScript.enabled = true;
                     camScript.SetTarget(this.transform);
 
                     myCam.transform.position = this.transform.position + Vector3.up * 1.6f;
@@ -81,8 +83,19 @@ public class PhotonControl : MonoBehaviourPun
         else
         {
             // 다른 유저의 카메라/오디오 제거
-            Camera otherCam = GetComponentInChildren<Camera>();
-            if (otherCam != null) otherCam.enabled = false; // 다른 플레이어의 카메라 비활성화
+            Camera otherCam = transform.parent.GetComponentInChildren<Camera>();
+            if (otherCam != null)
+            {
+                otherCam.enabled = false; // 다른 플레이어의 카메라 비활성화
+                otherCam.tag = "Untagged";
+
+                PhotonCameraMove camScript = otherCam.GetComponent<PhotonCameraMove>();
+                if(camScript != null)
+                {
+                    camScript.enabled = false;
+                }
+            }
+
             AudioListener listener = GetComponentInChildren<AudioListener>();
             if (listener != null) listener.enabled = false;
         }

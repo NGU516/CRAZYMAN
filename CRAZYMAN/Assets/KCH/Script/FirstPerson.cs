@@ -1,8 +1,9 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FirstPerson : MonoBehaviour
+public class FirstPerson : MonoBehaviourPun
 {
     public Transform playerBody;
     public float mouseSensitivity = 250f;
@@ -26,16 +27,18 @@ public class FirstPerson : MonoBehaviour
     {
         if (mentalGauge != null && mentalGauge.isDeath)
             return;
+    if (photonView.IsMine)
+        {
+            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+            xRotation -= mouseY;
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+            yRotation += mouseX;
 
-        yRotation += mouseX;
-
-        transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
-        playerBody.rotation = Quaternion.Euler(0f, yRotation, 0f);
+            transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
+            playerBody.rotation = Quaternion.Euler(0f, yRotation, 0f);
+        }
     }
 }
