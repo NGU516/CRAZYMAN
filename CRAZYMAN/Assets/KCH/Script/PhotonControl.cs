@@ -29,6 +29,8 @@ public class PhotonControl : MonoBehaviourPun
 
     private bool isDead = false;
 
+    private bool isSettingActive = false;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -116,7 +118,7 @@ public class PhotonControl : MonoBehaviourPun
                 }
             }
 
-            AudioListener listener = GetComponentInChildren<AudioListener>();
+            AudioListener listener = transform.parent.GetComponentInChildren<AudioListener>();
             if (listener != null) listener.enabled = false;
         }
     }
@@ -205,6 +207,18 @@ public class PhotonControl : MonoBehaviourPun
         animator.SetFloat("v", v);
         animator.SetBool("canRun", canRun && hasEnoughStamina);
         animator.SetBool("canCrouch", canCrouch);
+
+        if (Input.GetKey(KeyCode.Escape) && isSettingActive == false)
+        {
+            isSettingActive = true;
+            Managers.UI.ShowPopupUI<UISettingPopup>("UISettingPopup");
+        }
+
+        if (Input.GetKey(KeyCode.Escape) && isSettingActive == true)
+        {
+            isSettingActive = false;
+            Managers.UI.ClosePopupUI();
+        }
     }
 
     void FixedUpdate()
