@@ -10,9 +10,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [Header("Enemy Settings")]
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private Transform[] enemySpawnPoints;
-    [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private Transform[] playerSpawnPoints;
-    [SerializeField] private string gameVersion = "1.0";
+
+    [Header("UI Settings")]
+    [SerializeField] private GameObject uiInGamePrefab;
 
     [Header("Room Settings")]
     [SerializeField] public string roomName = "MyCustomRoom";
@@ -23,6 +23,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject keySpawnerPrefab;
 
     [Header("Player Settings")]
+    [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private Transform[] playerSpawnPoints;
+    [SerializeField] private string gameVersion = "1.0";
     private Dictionary<int, int> playerNumbers = new Dictionary<int, int>(); // ActorNumber -> PlayerNumber
     private int nextPlayerNumber = 1;
 
@@ -270,6 +273,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
             Debug.Log($"[PHOTON] Spawning player at {spawnPoint.position}");
             GameObject player = PhotonNetwork.Instantiate("Prefabs/Player_Object", spawnPoint.position, spawnPoint.rotation);
+            SpawnPlayerUI(player);
+            Debug.Log($"[PHOTON] Player spawned: {player.name} at {spawnPoint.position}");
             
             if (player == null)
             {
@@ -285,5 +290,17 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public void JoinRoom(string roomName)
     {
         PhotonNetwork.JoinRoom(roomName);
+    }
+
+    private void SpawnPlayerUI(GameObject playerObject)
+    {
+        Debug.Log($"[PHOTON] 플레이어 오브젝트 '{playerObject.name}' 에 UIInGame 팝업 생성 시도.");
+
+        if (uiInGamePrefab == null)
+        {
+            Debug.LogError("[PHOTON] UIInGame 팝업 프리팹이 NetworkManager에 연결되지 않았습니다! UI 생성 불가.");
+            return;
+        }
+        GameObject playerUI = Instantiate(uiInGamePrefab, playerObject.transform); // 플레이어 오브젝트의 자식으로 생성
     }
 }

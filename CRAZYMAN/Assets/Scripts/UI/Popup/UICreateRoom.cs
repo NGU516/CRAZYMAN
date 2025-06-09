@@ -84,7 +84,7 @@ public class UICreateRoom : UIPopup
             }
         }
 
-        Managers.UI.ShowPopupUI<UIInGame>("UIInGame");
+        //Managers.UI.ShowPopupUI<UIInGame>("UIInGame");
 
         Time.timeScale = 1;
     }
