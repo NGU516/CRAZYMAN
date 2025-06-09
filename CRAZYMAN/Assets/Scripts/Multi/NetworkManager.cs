@@ -98,13 +98,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log($"[PHOTON] 방 인원: {PhotonNetwork.CurrentRoom.PlayerCount}");
         Debug.Log($"[PHOTON] 마스터 클라이언트: {PhotonNetwork.IsMasterClient}");
 
-        // 마스터 클라이언트가 플레이어 번호 할당
+        // 모든 플레이어가 자신의 캐릭터를 스폰
+        SpawnPlayer();
+
+        // 마스터 클라이언트만 적과 아이템 스폰
         if (PhotonNetwork.IsMasterClient)
         {
             AssignPlayerNumbers();
             SpawnEnemies();
             SpawnItems();
-            SpawnPlayer();
         }
     }
 
@@ -239,7 +241,17 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             int spawnIndex = Random.Range(0, playerSpawnPoints.Length);
             Transform spawnPoint = playerSpawnPoints[spawnIndex];
 
-            PhotonNetwork.Instantiate("Prefabs/Player_Object", spawnPoint.position, spawnPoint.rotation);
+            Debug.Log($"[PHOTON] Spawning player at {spawnPoint.position}");
+            GameObject player = PhotonNetwork.Instantiate("Prefabs/Player_Object", spawnPoint.position, spawnPoint.rotation);
+            
+            if (player == null)
+            {
+                Debug.LogError("[PHOTON] Failed to instantiate player prefab!");
+            }
+        }
+        else
+        {
+            Debug.LogError("[PHOTON] Player prefab or spawn points not set!");
         }
     }
 

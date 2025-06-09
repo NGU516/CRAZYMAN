@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using Photon.Pun;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourPun
 {
     public MentalGauge mentalGauge;
     private bool isGameOver = false;
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
             RestartGame();
         }
     }
+
     private void HandleDeath(string cause)
     {
         if (isGameOver)
@@ -35,15 +37,35 @@ public class GameManager : MonoBehaviour
 
         isGameOver = true;
         Debug.Log($"player Died! Cause: {cause}");
-// ���� ���� UI ǥ�� (���߿� �߰�)
-// ��: gameOverUI.SetActive(true);
+        
+        // 네트워크 상의 모든 클라이언트에게 죽음 상태를 동기화
+        photonView.RPC("SyncDeathState", RpcTarget.All, cause);
+    }
+
+    [PunRPC]
+    private void SyncDeathState(string cause)
+    {
+        isGameOver = true;
+        Debug.Log($"Player died on all clients! Cause: {cause}");
+        
+        // 게임 오버 UI 표시 (나중에 추가)
+        // 예: gameOverUI.SetActive(true);
     }
 
     private void RestartGame()
     {
+        photonView.RPC("SyncRestartGame", RpcTarget.All);
+    }
+
+    [PunRPC]
+    private void SyncRestartGame()
+    {
         isGameOver = false;
-        mentalGauge.ResetMentalGauge();
-        Debug.Log("Game Restarted!");
+        if (mentalGauge != null)
+        {
+            mentalGauge.ResetMentalGauge();
+        }
+        Debug.Log("Game Restarted on all clients!");
     }
 
     public void RequestDeath(string cause)

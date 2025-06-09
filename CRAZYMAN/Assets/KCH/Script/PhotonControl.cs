@@ -1,7 +1,9 @@
+// 멀티 플레이어 카메라, 정신력, 스테미너 게이지 UI 연결
 using System.Collections;
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class PhotonControl : MonoBehaviourPun
 {
@@ -22,9 +24,10 @@ public class PhotonControl : MonoBehaviourPun
 
     public MentalGauge mentalGauge;
     public GameManager gameManager;
-
     private StaminaSystem staminaSystem;
     public Camera myCam;
+
+    private bool isDead = false;
 
     private void Awake()
     {
@@ -48,26 +51,21 @@ public class PhotonControl : MonoBehaviourPun
 
     IEnumerator Start()
     {
-
         // 내 플레이어라면 레이어 변경, 카메라 설정
         if (photonView.IsMine)
         {
-            // SetLayerRecursively(gameObject, LayerMask.NameToLayer("head"));
-
             myCam = transform.parent.GetComponentInChildren<Camera>(true);
             if (myCam != null)
             {
                 myCam.enabled = true;
                 myCam.cullingMask &= ~(1 << LayerMask.NameToLayer("head"));
                 myCam.tag = "MainCamera";
-                // myCam.tag = "MainCamera";
 
                 PhotonCameraMove camScript = myCam.GetComponent<PhotonCameraMove>();
                 if (camScript != null)
                 {
                     camScript.enabled = true;
                     camScript.SetTarget(this.transform);
-
                     myCam.transform.position = this.transform.position + Vector3.up * 1.6f;
                 }
                 else
@@ -79,6 +77,46 @@ public class PhotonControl : MonoBehaviourPun
             {
                 Debug.LogError("Camera component not found in player prefab!");
             }
+
+            // 정신력, 스테미너, UI 캔버스 생성
+            GameObject canvasObj = new GameObject("PlayerUI");
+            Canvas canvas = canvasObj.AddComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceCamera;
+            canvas.worldCamera = myCam;
+            canvas.planeDistance = 1f; 
+            canvasObj.AddComponent<CanvasScaler>();
+            canvasObj.AddComponent<GraphicRaycaster>();
+            canvasObj.layer = LayerMask.NameToLayer("UI");
+
+            // MentalGauge 생성 및 Canvas에 붙이기
+            GameObject mentalGaugePrefab = Resources.Load<GameObject>("Prefabs/Player/Mental_Slider");
+            if (mentalGaugePrefab != null)
+            {
+                GameObject mentalGaugeObj = Instantiate(mentalGaugePrefab, canvasObj.transform);
+                mentalGauge = mentalGaugeObj.GetComponent<MentalGauge>();
+            }
+
+            // StaminaSystem 생성 및 Canvas에 붙이기
+            GameObject staminaPrefab = Resources.Load<GameObject>("Prefabs/Player/Stamina_Slider");
+            if (staminaPrefab != null)
+            {
+                GameObject staminaObj = Instantiate(staminaPrefab, canvasObj.transform);
+                staminaSystem = staminaObj.GetComponent<StaminaSystem>();
+            }
+
+            // UI 활성화
+            if (mentalGauge != null) mentalGauge.gameObject.SetActive(true);
+            if (staminaSystem != null) staminaSystem.gameObject.SetActive(true);
+
+            // GameManager 찾기
+            int attempts = 0;
+            while (gameManager == null)
+            {
+                gameManager = FindObjectOfType<GameManager>();
+                attempts++;
+                if (attempts > 100) break;
+                yield return null;
+            }
         }
         else
         {
@@ -86,11 +124,11 @@ public class PhotonControl : MonoBehaviourPun
             Camera otherCam = transform.parent.GetComponentInChildren<Camera>();
             if (otherCam != null)
             {
-                otherCam.enabled = false; // 다른 플레이어의 카메라 비활성화
+                otherCam.enabled = false;
                 otherCam.tag = "Untagged";
 
                 PhotonCameraMove camScript = otherCam.GetComponent<PhotonCameraMove>();
-                if(camScript != null)
+                if (camScript != null)
                 {
                     camScript.enabled = false;
                 }
@@ -99,19 +137,50 @@ public class PhotonControl : MonoBehaviourPun
             AudioListener listener = GetComponentInChildren<AudioListener>();
             if (listener != null) listener.enabled = false;
         }
-
-        while (mentalGauge == null || gameManager == null)
-        {
-            mentalGauge = FindObjectOfType<MentalGauge>();
-            gameManager = FindObjectOfType<GameManager>();
-            yield return null;
-        }
     }
 
     void Update()
     {
         if (!photonView.IsMine) return;
-        if (mentalGauge != null && mentalGauge.isDeath) return;
+
+        // 죽음 상태 체크
+        if (mentalGauge != null)
+        {
+            
+            if (mentalGauge.isDeath)
+            {
+                if (!isDead)
+                {
+                    isDead = true;
+                    Debug.Log("[PhotonControl] Player is now dead - Initializing death state");
+                    // 죽음 상태일 때 모든 입력과 움직임을 중지
+                    v = 0f;
+                    h = 0f;
+                    moveSpeed = 0f;
+                    canRun = false;
+                    canCrouch = false;
+                    
+                    // 애니메이션 업데이트
+                    animator.SetBool("isMoving", false);
+                    animator.SetFloat("v", 0f);
+                    animator.SetBool("canRun", false);
+                    animator.SetBool("canCrouch", false);
+
+                    // Rigidbody 정지
+                    if (rb != null)
+                    {
+                        rb.velocity = Vector3.zero;
+                        rb.angularVelocity = Vector3.zero;
+                        Debug.Log("[PhotonControl] Rigidbody movement stopped");
+                    }
+                }
+                return;
+            }
+        }
+        else
+        {
+            Debug.LogWarning("[PhotonControl] MentalGauge is null!");
+        }
 
         v = Input.GetAxis("Vertical");
         h = Input.GetAxis("Horizontal");
@@ -179,10 +248,24 @@ public class PhotonControl : MonoBehaviourPun
 
         if (other.CompareTag("Monster"))
         {
-            if (mentalGauge != null && gameManager != null)
+            if (mentalGauge != null)
             {
+                Debug.Log("[PhotonControl] Triggering death through MentalGauge");
                 mentalGauge.TriggerDeath("EnemyCollision");
+            }
+            else
+            {
+                Debug.LogError("[PhotonControl] MentalGauge is null!");
+            }
+
+            if (gameManager != null)
+            {
+                Debug.Log("[PhotonControl] Requesting death through GameManager");
                 gameManager.RequestDeath("EnemyCollision");
+            }
+            else
+            {
+                Debug.LogError("[PhotonControl] GameManager is null!");
             }
         }
     }
