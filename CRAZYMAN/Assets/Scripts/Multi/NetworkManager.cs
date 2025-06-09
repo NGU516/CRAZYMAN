@@ -15,7 +15,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [SerializeField] private string gameVersion = "1.0";
 
     [Header("Room Settings")]
-    [SerializeField] private string roomName = "MyCustomRoom";
+    [SerializeField] public string roomName = "MyCustomRoom";
     [SerializeField] private int maxPlayers = 4;
 
     [Header("Item Settings")]
@@ -78,9 +78,21 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         CreateRoom(roomName);
     }
 
+    // 6자리 랜덤 코드 생성
+    private string GenerateRoomCode()
+    {
+        // Networkmanager roomname에 6자리 코드 저장
+        this.roomName = UnityEngine.Random.Range(100000, 1000000).ToString();
+        return this.roomName;
+    }
+
     // 방 생성
     public void CreateRoom(string roomName)
     {
+        // 방 생성 시 6자리 코드 생성
+        string roomCode = GenerateRoomCode();
+        this.roomName = roomCode;
+
         RoomOptions roomOptions = new RoomOptions
         {
             MaxPlayers = maxPlayers,
@@ -88,8 +100,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             IsOpen = true
         };
 
-        Debug.Log($"[PHOTON] 새로운 방 생성: {roomName}");
-        PhotonNetwork.CreateRoom(roomName, roomOptions);
+        Debug.Log($"[PHOTON] 새로운 방 생성: {roomCode}");
+        PhotonNetwork.CreateRoom(roomCode, roomOptions);
     }
 
     public override void OnJoinedRoom()

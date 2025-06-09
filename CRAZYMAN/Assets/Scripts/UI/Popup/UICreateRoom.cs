@@ -47,7 +47,9 @@ public class UICreateRoom : UIPopup
             var text = roomKeyValueObj.GetComponent<TMP_Text>();
             if (text != null)
             {
-                text.text = NetworkManager.Instance.LastRoomKeyValue;
+                // NetworkManager의 roomName 사용
+                text.text = NetworkManager.Instance.roomName;
+                SetRoomKeyValue(NetworkManager.Instance.roomName);
             }
         }
 
@@ -62,11 +64,23 @@ public class UICreateRoom : UIPopup
 
         Managers.UI.ClosePopupUI(this);
 
-        GameObject playerObject = GameObject.Find("Player_Camera");
+        // GameObject playerObject = GameObject.Find("Player_Camera");
 
-        FirstPerson firstPersonScript = playerObject.GetComponent<FirstPerson>();
+        // FirstPerson firstPersonScript = playerObject.GetComponent<FirstPerson>();
 
-        firstPersonScript.enabled = true;
+        // firstPersonScript.enabled = true;
+
+        // 모든 Player_Camera 오브젝트 찾기
+        GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject playerObject in playerObjects)
+        {
+            // 각 플레이어의 Control 스크립트 활성화
+            Control controlScript = playerObject.GetComponent<Control>();
+            if (controlScript != null)
+            {
+                controlScript.enabled = true;
+            }
+        }
 
         Managers.UI.ShowPopupUI<UIInGame>("UIInGame");
 
