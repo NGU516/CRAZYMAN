@@ -89,6 +89,21 @@ public class StaminaSystem : MonoBehaviour
         isExhausted = false;
     }
 
+    public void RecoverStamina(float amount)
+    {
+        currentStamina += amount;
+        currentStamina = Mathf.Min(currentStamina, maxStamina);
+
+        isRecoveryDelayed = false;
+        isExhausted = false;
+
+        // UI 슬라이더도 바로 업데이트
+        if (staminaSlider != null)
+            staminaSlider.value = currentStamina;
+
+        Debug.Log($"StaminaSystem: 스테미너 회복됨! 현재 스테미너: {currentStamina}");
+    }
+
     public void StartDraining() => isDraining = true;
     public void StopDraining() => isDraining = false;
     public bool HasEnoughStamina(float amount = 0.1f) => currentStamina >= amount;

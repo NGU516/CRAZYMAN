@@ -48,11 +48,39 @@ public class Inventory : MonoBehaviour
 
     void ApplyLocalItemEffect(ItemDataForInventory itemData)
     {
+        PhotonControl playerControl = GetComponent<PhotonControl>();
+        // 가져온 스크립트가 null인지 확인 (플레이어 오브젝트에 해당 스크립트가 붙어있는지 확인!)
+        if (playerControl == null) // 또는 playerStats == null
+        {
+            Debug.LogError("Inventory.ApplyLocalItemEffect: 플레이어에게서 스탯/회복 스크립트(PhotonControl 또는 PlayerStats)를 찾을 수 없습니다! 스탯 회복 불가.");
+            return; // 스크립트 없으면 회복 불가
+        }
+
+        // ItemType enum을 사용하여 switch 문으로 효과 분기
         switch (itemData.itemType)
         {
             case ItemType.pills:
-            case ItemType.bandage:
-            case ItemType.Battery:
+                Debug.Log($"Inventory.ApplyLocalItemEffect: Player used Pills. Calling Player's Recover functions. Stamina: {itemData.RecoveryStamina}, Sanity: {itemData.RecoveryMental}");
+                
+                playerControl.RecoverStamina(itemData.RecoveryStamina);
+                playerControl.RecoverMental(itemData.RecoveryMental);
+                break;
+
+            case ItemType.bandage: // 붕대
+                                   // TODO: 로컬 플레이어 체력 회복 로직 구현 (itemData.healthRecoveryAmount 사용)
+                Debug.Log("Inventory.ApplyLocalItemEffect: Player used Bandage. Healing player health locally.");
+                // 예: playerControl.RecoverHealth(itemData.healthRecoveryAmount); // PhotonControl에 체력 회복 함수 추가 필요
+                break;
+
+            case ItemType.Battery: // 배터리
+                                   // TODO: 로컬 플레이어 손전등 회복 로직 구현 (itemData.batteryChargeAmount 사용)
+                Debug.Log("Inventory.ApplyLocalItemEffect: Player used Battery. Restoring flashlight charge locally.");
+                // 예: playerControl.RestoreFlashlightCharge(itemData.batteryChargeAmount); // PhotonControl 또는 다른 스크립트에 함수 추가 필요
+                break;
+
+            // 다른 아이템의 로컬 효과가 있다면 여기에 추가
+            default:
+                Debug.Log($"Inventory.ApplyLocalItemEffect: No specific local effect defined for Item Type: {itemData.itemType}.");
                 break;
         }
     }
@@ -61,7 +89,9 @@ public class Inventory : MonoBehaviour
     void UseItemRPC(int itemTpyeInt, int senderViewID, PhotonMessageInfo info)
     {
         ItemType usedItemType = (ItemType)itemTpyeInt;
-        PhotonView senderPV = PhotonView.Find(senderViewID)?.gameObject.GetComponent<PhotonView>();
+        PhotonView senderPV = PhotonView.Find(senderViewID);
+
+        GameObject senderObject = senderPV?.gameObject;
 
         if (senderPV == null) return;
 

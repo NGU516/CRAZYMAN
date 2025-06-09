@@ -83,22 +83,18 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         // Networkmanager roomname에 6자리 코드 저장
         this.roomName = UnityEngine.Random.Range(100000, 1000000).ToString().Trim();
+        Debug.Log("roomName: " + this.roomName);
+        
         return this.roomName;
     }
 
     // 방 생성
     public void CreateRoom(string roomName)
     {
-        if (string.IsNullOrEmpty(roomName))
-        {
-            roomName = GenerateRoomCode();
-        }
-        else
-        {
-            roomName = roomName.Trim();
-        }
-        this.roomName = roomName;
-
+        // 방 생성 시 6자리 코드 생성
+        string roomCode = GenerateRoomCode();
+        this.roomName = roomCode;
+        Debug.Log($"[PHOTON] 새로운 방 생성: {roomCode}");
         RoomOptions roomOptions = new RoomOptions
         {
             MaxPlayers = maxPlayers,
@@ -106,12 +102,22 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             IsOpen = true
         };
 
-        Debug.Log($"[PHOTON] 새로운 방 생성: {roomName}");
-        PhotonNetwork.CreateRoom(roomName, roomOptions);
+        PhotonNetwork.CreateRoom(roomCode, roomOptions);
+    }
+
+    public override void OnCreatedRoom()
+    {
+        Debug.Log("[PHOTON] OnCreatedRoom 호출됨");
+    }
+
+    public override void OnCreateRoomFailed(short returnCode, string message)
+    {
+        Debug.LogWarning($"[PHOTON] 방 생성 실패: {message} (code: {returnCode})");
     }
 
     public override void OnJoinedRoom()
     {
+        Debug.Log("[PHOTON] OnJoinedRoom 호출됨");
         Debug.Log($"[PHOTON] 방 참여: {PhotonNetwork.CurrentRoom.Name}");
         Debug.Log($"[PHOTON] 방 인원: {PhotonNetwork.CurrentRoom.PlayerCount}");
         Debug.Log($"[PHOTON] 마스터 클라이언트: {PhotonNetwork.IsMasterClient}");
