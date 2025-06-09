@@ -32,7 +32,7 @@ public class UIInGame : UIPopup
         BindText(typeof(Texts));
         BindObject(typeof(GameObjects));
 
-        Inventory inventory = FindObjectOfType<Inventory>();
+        Inventory inventory = GetComponentInParent<Inventory>();
 
         // 인벤토리 UI 슬롯을 가져와서 Inventory에 설정
         GameObject[] itemImageSlots = new GameObject[2]; // 슬롯 개수에 맞춰 배열 생성
