@@ -34,7 +34,8 @@ public class UIJoin : UIPopup
 
     void OnClickJoin()
     {
-        string roomCode = GetObject((int)GameObjects.InputKey).GetComponent<TMP_InputField>().text;
+        string roomCode = GetObject((int)GameObjects.InputKey).GetComponent<TMP_InputField>().text.Trim();
+        Debug.Log("roomCode: " + roomCode);
 
         if (string.IsNullOrEmpty(roomCode))
         {
@@ -49,15 +50,12 @@ public class UIJoin : UIPopup
             return;
         }
 
+        Managers.UI.ClosePopupUI(this);
+
         // roomCode를 NetworkManager의 roomName으로 설정
         NetworkManager.Instance.roomName = roomCode;
 
-        // 네트워크 방 생성/참가
-        if (isCreateMode)
-            NetworkManager.Instance.CreateRoom(roomCode);
-        else
-            NetworkManager.Instance.JoinRoom(roomCode);
-
-        Managers.UI.ClosePopupUI(this);
+        // 네트워크 방 참가
+        NetworkManager.Instance.JoinRoom(roomCode);
     }
 }
