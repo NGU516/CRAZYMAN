@@ -82,16 +82,22 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     private string GenerateRoomCode()
     {
         // Networkmanager roomname에 6자리 코드 저장
-        this.roomName = UnityEngine.Random.Range(100000, 1000000).ToString();
+        this.roomName = UnityEngine.Random.Range(100000, 1000000).ToString().Trim();
         return this.roomName;
     }
 
     // 방 생성
     public void CreateRoom(string roomName)
     {
-        // 방 생성 시 6자리 코드 생성
-        string roomCode = GenerateRoomCode();
-        this.roomName = roomCode;
+        if (string.IsNullOrEmpty(roomName))
+        {
+            roomName = GenerateRoomCode();
+        }
+        else
+        {
+            roomName = roomName.Trim();
+        }
+        this.roomName = roomName;
 
         RoomOptions roomOptions = new RoomOptions
         {
@@ -100,8 +106,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             IsOpen = true
         };
 
-        Debug.Log($"[PHOTON] 새로운 방 생성: {roomCode}");
-        PhotonNetwork.CreateRoom(roomCode, roomOptions);
+        Debug.Log($"[PHOTON] 새로운 방 생성: {roomName}");
+        PhotonNetwork.CreateRoom(roomName, roomOptions);
     }
 
     public override void OnJoinedRoom()
