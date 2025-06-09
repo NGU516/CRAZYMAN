@@ -42,18 +42,22 @@ public class UIJoin : UIPopup
             return;
         }
 
+        // 6자리 숫자 확인
+        if (roomCode.Length != 6 || !int.TryParse(roomCode, out _))
+        {
+            Debug.LogWarning("6자리 숫자 코드를 입력하세요.");
+            return;
+        }
+
+        // roomCode를 NetworkManager의 roomName으로 설정
+        NetworkManager.Instance.roomName = roomCode;
+
         // 네트워크 방 생성/참가
         if (isCreateMode)
             NetworkManager.Instance.CreateRoom(roomCode);
         else
             NetworkManager.Instance.JoinRoom(roomCode);
 
-        // roomCode는 NetworkManager에 저장
-        NetworkManager.Instance.LastRoomKeyValue = roomCode;
-
         Managers.UI.ClosePopupUI(this);
-
-        // UICreateRoom으로 이동
-        Managers.UI.ShowCharacterIdleScene();
     }
 }

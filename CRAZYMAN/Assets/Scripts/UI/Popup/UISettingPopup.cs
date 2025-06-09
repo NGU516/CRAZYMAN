@@ -118,7 +118,9 @@ public class UISettingPopup : UIPopup
     }
     void OnClickBackToMainButton()
     {
-        //@
+        // UI 메인으로 돌아가기
+        Managers.UI.ClosePopupUI(this);
+        Managers.UI.ShowPopupUI<UIMain>("UIMain");
     }
     void OnClickUpButton()
     {

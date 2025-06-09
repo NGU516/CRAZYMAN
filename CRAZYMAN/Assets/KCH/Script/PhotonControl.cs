@@ -56,6 +56,7 @@ public class PhotonControl : MonoBehaviourPunCallbacks
         // 내 플레이어라면 레이어 변경, 카메라 설정
         if (photonView.IsMine)
         {
+            SetLayerRecursively(gameObject, LayerMask.NameToLayer("head"));
             myCam = transform.parent.GetComponentInChildren<Camera>(true);
             if (myCam != null)
             {
@@ -80,38 +81,18 @@ public class PhotonControl : MonoBehaviourPunCallbacks
                 Debug.LogError("Camera component not found in player prefab!");
             }
 
-            // 정신력, 스테미너, UI 캔버스 생성
-            GameObject canvasObj = new GameObject("PlayerUI");
-            Canvas canvas = canvasObj.AddComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceCamera;
-            canvas.worldCamera = myCam;
-            canvas.planeDistance = 1f; 
-            canvasObj.AddComponent<CanvasScaler>();
-            canvasObj.AddComponent<GraphicRaycaster>();
-            canvasObj.layer = LayerMask.NameToLayer("UI");
-
-            // MentalGauge 생성 및 Canvas에 붙이기
-            GameObject mentalGaugePrefab = Resources.Load<GameObject>("Prefabs/Player/Mental_Slider");
-            if (mentalGaugePrefab != null)
+            // MentalGauge 찾기
+            int attempts = 0;
+            while (mentalGauge == null)
             {
-                GameObject mentalGaugeObj = Instantiate(mentalGaugePrefab, canvasObj.transform);
-                mentalGauge = mentalGaugeObj.GetComponent<MentalGauge>();
+                mentalGauge = FindObjectOfType<MentalGauge>();
+                attempts++;
+                if (attempts > 100) break;
+                yield return null;
             }
-
-            // StaminaSystem 생성 및 Canvas에 붙이기
-            GameObject staminaPrefab = Resources.Load<GameObject>("Prefabs/Player/Stamina_Slider");
-            if (staminaPrefab != null)
-            {
-                GameObject staminaObj = Instantiate(staminaPrefab, canvasObj.transform);
-                staminaSystem = staminaObj.GetComponent<StaminaSystem>();
-            }
-
-            // UI 활성화
-            if (mentalGauge != null) mentalGauge.gameObject.SetActive(true);
-            if (staminaSystem != null) staminaSystem.gameObject.SetActive(true);
 
             // GameManager 찾기
-            int attempts = 0;
+            attempts = 0;
             while (gameManager == null)
             {
                 gameManager = FindObjectOfType<GameManager>();
@@ -122,6 +103,7 @@ public class PhotonControl : MonoBehaviourPunCallbacks
         }
         else
         {
+            SetLayerRecursively(gameObject, LayerMask.NameToLayer("Default"));
             // 다른 유저의 카메라/오디오 제거
             Camera otherCam = transform.parent.GetComponentInChildren<Camera>();
             if (otherCam != null)

@@ -23,12 +23,15 @@ public class UISelect : UIPopup
     // 방 생성
     void OnClickCreate()
     {
-        Managers.UI.ShowPopupUI<UIJoin>("UIJoin").SetMode(true); 
+        Managers.UI.ClosePopupUI(this);
+        NetworkManager.Instance.CreateRoom(""); // 내부에서 랜덤 코드 생성
+        Managers.UI.ShowPopupUI<UICreateRoom>("UICreateRoom");
     }
 
     // 방 참가
     void OnClickJoin()
     {
-        Managers.UI.ShowPopupUI<UIJoin>("UIJoin").SetMode(false); 
+        Managers.UI.ClosePopupUI(this);
+        Managers.UI.ShowPopupUI<UIJoin>("UIJoin").SetMode(false);
     }
 }
