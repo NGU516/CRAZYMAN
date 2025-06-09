@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8994806188053083948
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3662938143395689689}
+  - component: {fileID: 8367786830290569910}
+  m_Layer: 0
+  m_Name: NetworkManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3662938143395689689
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8994806188053083948}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.6711693, y: 2.4117508, z: -9.282472}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8367786830290569910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8994806188053083948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ca099a6f4c9c8347bde08e55342af5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 2489547667624659669, guid: 2257f23f28c2ad34e9a3d6a74511213f, type: 3}
+  enemySpawnPoints:
+  - {fileID: 0}
+  roomName: MyCustomRoom
+  maxPlayers: 4
+  itemSpawnerPrefab: {fileID: 2981391821972242804, guid: 7fd06e85c84fbfc438d36257358c1b3c, type: 3}
+  keySpawnerPrefab: {fileID: 2169921188062422660, guid: 7698767d3fffb444f89914c849f245f7, type: 3}
+  playerPrefab: {fileID: 5630242708213502781, guid: 61a150fb58cfa443b93a08c9a2d1b8fa, type: 3}
+  playerSpawnPoints:
+  - {fileID: 0}
+  gameVersion: 1.0

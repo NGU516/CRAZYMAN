@@ -11,9 +11,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private Transform[] enemySpawnPoints;
 
-    [Header("UI Settings")]
-    [SerializeField] private GameObject uiInGamePrefab;
-
     [Header("Room Settings")]
     [SerializeField] public string roomName = "MyCustomRoom";
     [SerializeField] private int maxPlayers = 4;
@@ -273,7 +270,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
             Debug.Log($"[PHOTON] Spawning player at {spawnPoint.position}");
             GameObject player = PhotonNetwork.Instantiate("Prefabs/Player_Object", spawnPoint.position, spawnPoint.rotation);
-            SpawnPlayerUI(player);
+            //SpawnPlayerUI(player);
             Debug.Log($"[PHOTON] Player spawned: {player.name} at {spawnPoint.position}");
             
             if (player == null)
@@ -292,7 +289,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinRoom(roomName);
     }
 
-    private void SpawnPlayerUI(GameObject playerObject)
+    /*private void SpawnPlayerUI(GameObject playerObject)
     {
         Debug.Log($"[PHOTON] 플레이어 오브젝트 '{playerObject.name}' 에 UIInGame 팝업 생성 시도.");
 
@@ -302,5 +299,5 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             return;
         }
         GameObject playerUI = Instantiate(uiInGamePrefab, playerObject.transform); // 플레이어 오브젝트의 자식으로 생성
-    }
+    }*/
 }
