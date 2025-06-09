@@ -26,6 +26,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     private Dictionary<int, int> playerNumbers = new Dictionary<int, int>(); // ActorNumber -> PlayerNumber
     private int nextPlayerNumber = 1;
 
+    public bool IsPhotonReady { get; private set; } = false;
+
+
     public string LastRoomKeyValue { get; set; }
 
     private void Awake()
@@ -69,7 +72,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         Debug.Log("[PHOTON] 마스터에 연결됨 - UI 흐름에 따라 JoinRoom을 수동으로 호출해야 합니다.");
-        JoinRoom(roomName);
+        IsPhotonReady = true;
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)

@@ -1,10 +1,27 @@
 using UnityEngine;
+using Photon.Pun;
+using System.Collections;
 
 public class MainSceneInitializer : MonoBehaviour
 {
-    void Start()
+    IEnumerator Start()
     {
         Debug.Log("메인 씬 초기화");
+
+        // Photon 연결 완료까지 대기
+        float timeout = 10f;
+        float elapsed = 0f;
+        while (!NetworkManager.Instance.IsPhotonReady && elapsed < timeout)
+        {
+            yield return null;
+            elapsed += Time.unscaledDeltaTime;
+        }
+
+        if (!NetworkManager.Instance.IsPhotonReady)
+        {
+            Debug.LogError("Photon 서버 연결 실패 (타임아웃)");
+            yield break;
+        }
 
         Time.timeScale = 0;
 
