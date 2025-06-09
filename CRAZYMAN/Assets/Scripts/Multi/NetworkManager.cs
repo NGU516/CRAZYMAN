@@ -26,6 +26,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     private Dictionary<int, int> playerNumbers = new Dictionary<int, int>(); // ActorNumber -> PlayerNumber
     private int nextPlayerNumber = 1;
 
+    public string LastRoomKeyValue { get; set; }
+
     private void Awake()
     {
         if (Instance == null)
@@ -73,11 +75,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
         Debug.LogWarning($"[PHOTON] 방 참여 실패: {message} (code: {returnCode})");
-        CreateRoom();
+        CreateRoom(roomName);
     }
 
     // 방 생성
-    private void CreateRoom()
+    public void CreateRoom(string roomName)
     {
         RoomOptions roomOptions = new RoomOptions
         {
@@ -239,5 +241,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
             PhotonNetwork.Instantiate("Prefabs/Player_Object", spawnPoint.position, spawnPoint.rotation);
         }
+    }
+
+    public void JoinRoom(string roomName)
+    {
+        PhotonNetwork.JoinRoom(roomName);
     }
 }

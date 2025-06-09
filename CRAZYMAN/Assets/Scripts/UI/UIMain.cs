@@ -41,7 +41,10 @@ public class UIMain : UIPopup
 
         Managers.UI.ClosePopupUI(this);
         
-        Managers.UI.ShowCharacterIdleScene();
+        // 기존에 바로 캐릭터 씬으로 넘어감
+        // Managers.UI.ShowCharacterIdleScene();
+        // 로비(UISelect)로 넘어감
+        Managers.UI.ShowPopupUI<UISelect>("UISelect");
     }
 
     void OnClickSettingButton()
