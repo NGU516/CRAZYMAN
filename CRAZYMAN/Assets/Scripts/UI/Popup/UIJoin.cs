@@ -57,5 +57,7 @@ public class UIJoin : UIPopup
 
         // 네트워크 방 참가
         NetworkManager.Instance.JoinRoom(roomCode);
+
+        Managers.UI.ShowPopupUI<UICreateRoom>();
     }
 }

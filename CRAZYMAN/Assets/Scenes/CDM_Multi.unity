@@ -245,14 +245,15 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2489547667624659669, guid: 2257f23f28c2ad34e9a3d6a74511213f, type: 3}
   enemySpawnPoints:
   - {fileID: 488033013}
-  playerPrefab: {fileID: 5630242708213502781, guid: 61a150fb58cfa443b93a08c9a2d1b8fa, type: 3}
-  playerSpawnPoints:
-  - {fileID: 1303144806}
-  gameVersion: 1.0
+  uiInGamePrefab: {fileID: 7199469408359406051, guid: 40b05a713efc33a40b0ec9ae804db13f, type: 3}
   roomName: MyCustomRoom
   maxPlayers: 4
   itemSpawnerPrefab: {fileID: 0}
   keySpawnerPrefab: {fileID: 0}
+  playerPrefab: {fileID: 5630242708213502781, guid: 61a150fb58cfa443b93a08c9a2d1b8fa, type: 3}
+  playerSpawnPoints:
+  - {fileID: 1303144806}
+  gameVersion: 1.0
 --- !u!4 &452268991
 Transform:
   m_ObjectHideFlags: 0
