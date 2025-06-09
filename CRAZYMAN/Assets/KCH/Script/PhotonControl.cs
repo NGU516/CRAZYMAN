@@ -5,7 +5,7 @@ using Photon.Pun;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-public class PhotonControl : MonoBehaviourPun
+public class PhotonControl : MonoBehaviourPunCallbacks
 {
     public float v = 0.0f;
     public float h = 0.0f;
@@ -293,6 +293,42 @@ public class PhotonControl : MonoBehaviourPun
         {
             if (child == null) continue;
             SetLayerRecursively(child.gameObject, newLayer);
+        }
+    }
+
+    public void RecoverStamina(float amount)
+    {
+        if (photonView == null || !photonView.IsMine)
+        {
+            return;
+        }
+        Debug.Log($"PhotonControl: 스테미너 회복 요청 받음! 양: {amount}");
+
+        if (staminaSystem != null)
+        {
+            staminaSystem.RecoverStamina(amount); // StaminaSystem 스크립트의 RecoverStamina 함수 호출!
+        }
+        else
+        {
+            Debug.LogError("PhotonControl: StaminaSystem 스크립트 참조가 null입니다! 스테미너 회복 불가.");
+        }
+    }
+
+    public void RecoverMental(float amount)
+    {
+        if (photonView == null || !photonView.IsMine)
+        {
+            return;
+        }
+        Debug.Log($"PhotonControl: 정신력 회복 요청 받음! 양: {amount}");
+
+        if (mentalGauge != null)
+        {
+            mentalGauge.RecoveryMental(amount); // 예: MentalGauge 스크립트에 RecoverSanity 함수가 있다면 호출
+        }
+        else
+        {
+            Debug.LogError("PhotonControl: MentalGauge 스크립트 참조가 null입니다! 정신력 회복 불가.");
         }
     }
 }
