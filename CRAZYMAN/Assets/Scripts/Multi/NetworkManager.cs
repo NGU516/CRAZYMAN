@@ -269,7 +269,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             Transform spawnPoint = playerSpawnPoints[spawnIndex];
 
             Debug.Log($"[PHOTON] Spawning player at {spawnPoint.position}");
-            GameObject player = PhotonNetwork.Instantiate("Prefabs/Player_Object", spawnPoint.position, spawnPoint.rotation);
+            GameObject player = PhotonNetwork.Instantiate("Prefabs/Player_Object_UIInGame", spawnPoint.position, spawnPoint.rotation);
             //SpawnPlayerUI(player);
             Debug.Log($"[PHOTON] Player spawned: {player.name} at {spawnPoint.position}");
             
