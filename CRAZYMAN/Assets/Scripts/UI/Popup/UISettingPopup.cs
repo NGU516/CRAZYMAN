@@ -43,7 +43,8 @@ public class UISettingPopup : UIPopup
 
     enum GameObjects
     {
-        SettingWindow,
+        MainCameraTmp,
+        CameraTmp,
         Scroll_Keyboard,
         BackGround,
         Sound,
