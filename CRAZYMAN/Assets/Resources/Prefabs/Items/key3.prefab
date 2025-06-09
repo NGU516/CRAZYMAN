@@ -113,9 +113,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2105ab1cbe14c4082c7b3d43e31a5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemType: 2
+  itemType: 1
   itemName: "\uD0A43"
   inventoryIcon: {fileID: 21300000, guid: 14f43b38c87524046a82b253be39ab0f, type: 3}
+  staminaRecoveryAmount: 0
+  sanityRecoveryAmount: 0
 --- !u!65 &-6431786371784508976
 BoxCollider:
   m_ObjectHideFlags: 0

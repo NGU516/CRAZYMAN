@@ -75,6 +75,19 @@ public class MentalGauge : MonoBehaviour
         mentalSlider.value = currentMental / maxMental;
     }
 
+    public void RecoveryMental(float amount)
+    {
+        Debug.Log($"MentalGauge: RecoveryMental 호출됨. 양: {amount}");
+        currentMental += amount; // 전달받은 양만큼 정신력 즉시 증가
+        currentMental = Mathf.Clamp(currentMental, 0, maxMental); // 0과 maxMental 사이로 제한
+
+        // UI 슬라이더 업데이트
+        if (mentalSlider != null)
+            mentalSlider.value = currentMental / maxMental; // 0~1 값으로 슬라이더 업데이트
+
+        Debug.Log($"MentalGauge: RecoveryMental - 현재 정신력: {currentMental}");
+    }
+
     public void ResetMentalGauge()
     {
         currentMental = maxMental;
