@@ -68,8 +68,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        Debug.Log("[PHOTON] 포톤 마스터 서버 연결 완료");
-        PhotonNetwork.JoinRoom(roomName);
+        Debug.Log("[PHOTON] 마스터에 연결됨 - UI 흐름에 따라 JoinRoom을 수동으로 호출해야 합니다.");
+        JoinRoom(roomName);
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)

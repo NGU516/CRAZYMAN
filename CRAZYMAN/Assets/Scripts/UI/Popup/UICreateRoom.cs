@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 public class UICreateRoom : UIPopup
 {
@@ -62,13 +63,14 @@ public class UICreateRoom : UIPopup
     {
         Debug.Log("게임 시작");
 
+        // 명시적 Join (이미 방에 들어가 있지 않다면)
+        if (!PhotonNetwork.InRoom)
+        {
+            Debug.Log("방 참가 시도: " + RoomKeyValue);
+            NetworkManager.Instance.JoinRoom(RoomKeyValue);
+        }
+
         Managers.UI.ClosePopupUI(this);
-
-        // GameObject playerObject = GameObject.Find("Player_Camera");
-
-        // FirstPerson firstPersonScript = playerObject.GetComponent<FirstPerson>();
-
-        // firstPersonScript.enabled = true;
 
         // 모든 Player_Camera 오브젝트 찾기
         GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
