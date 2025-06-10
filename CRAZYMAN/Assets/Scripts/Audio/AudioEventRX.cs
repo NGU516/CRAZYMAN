@@ -85,4 +85,9 @@ public class AudioEventRX : MonoBehaviour
     {
         Managers.SoundManager.Play(Define.Sound.UseCamera);
     }
+
+    public void PlayGateOpenSound()
+    {
+        Managers.SoundManager.Play(Define.Sound.GateOpen);
+    }
 } 

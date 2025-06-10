@@ -3,9 +3,10 @@
 // This script is attached to child light of the Electric Torch
 // and takes the emission material in conjunction with the light
 
+using Photon.Pun;
 using UnityEngine;
 
-public class EmissionMaterialGlassTorchFadeOut : MonoBehaviour
+public class EmissionMaterialGlassTorchFadeOut : MonoBehaviourPun, IPunObservable
 {
     private Renderer _mat;
     private float _intensity = 0;
@@ -23,8 +24,6 @@ public class EmissionMaterialGlassTorchFadeOut : MonoBehaviour
 
         if (_torchLight != null) {_torchOnOff = _torchLight.GetComponent<ElectricTorchOnOff>();}
         if (_torchLight == null) {Debug.Log("Cannot find 'ElectricTorchOnOff' script");}
-
-        _intensity = _torchOnOff.intensityLight;
     }
 
     private void Update()
@@ -34,21 +33,62 @@ public class EmissionMaterialGlassTorchFadeOut : MonoBehaviour
 
     public void TimeEmission(float t)
     {
-        _intensity -= t * Time.deltaTime;
-        _mat.material.SetColor("_EmissionColor", _alphaStart * _intensity);
+        if (photonView.IsMine)
+        {
+            _intensity -= t * Time.deltaTime;
+            photonView.RPC("UpdateEmissionIntensity", RpcTarget.All, _intensity);
+        }
+    }
+
+    [PunRPC]
+    private void UpdateEmissionIntensity(float intensity)
+    {
+        _intensity = intensity;
         if (_intensity < 0)
         {
             _intensity = 0;
         }
+        _mat.material.SetColor("_EmissionColor", _alphaStart * _intensity);
     }
 
     public void OffEmission()
     {
-        _mat.material.SetColor("_EmissionColor", _alphaStart * Color.black);
-    }    
-    public void OnEmission()
-    {
-        _mat.material.SetColor("_EmissionColor", _alphaStart * _intensity);
+        if (photonView.IsMine)
+        {
+            photonView.RPC("SetEmissionOff", RpcTarget.All);
+        }
     }
 
+    [PunRPC]
+    private void SetEmissionOff()
+    {
+        _mat.material.SetColor("_EmissionColor", _alphaStart * Color.black);
+    }    
+
+    public void OnEmission()
+    {
+        if (photonView.IsMine)
+        {
+            photonView.RPC("SetEmissionOn", RpcTarget.All, _torchOnOff.intensityLight);
+        }
+    }
+
+    [PunRPC]
+    private void SetEmissionOn(float intensity)
+    {
+        _mat.material.SetColor("_EmissionColor", _alphaStart * intensity);
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(_intensity);
+        }
+        else
+        {
+            _intensity = (float)stream.ReceiveNext();
+            _mat.material.SetColor("_EmissionColor", _alphaStart * _intensity);
+        }
+    }
 }

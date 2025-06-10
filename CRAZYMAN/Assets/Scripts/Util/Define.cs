@@ -33,6 +33,7 @@ public class Define
         UseCamera,
         UsePill,
         swallow,
+        GateOpen,
     }
 
     public enum Item

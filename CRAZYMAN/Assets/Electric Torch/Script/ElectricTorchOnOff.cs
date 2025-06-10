@@ -1,138 +1,130 @@
-﻿// - ElectricTorchOnOff - Script by Marcelli Michele
-
-// This script is attached in primary model (default) of the Electric Torch.
-// You can On/Off the light and choose any letter on the keyboard to control it
-// Use the "battery" or no and the duration time
-// Change the intensity of the light
-
-using Photon.Pun;
+﻿using Photon.Pun;
 using UnityEngine;
 
-public class ElectricTorchOnOff : MonoBehaviourPun
+public class ElectricTorchOnOff : MonoBehaviourPun, IPunObservable
 {
-	private PhotonView photonView;
-	EmissionMaterialGlassTorchFadeOut _emissionMaterialFade;
-	BatteryPowerPickup _batteryPower;
-	//
+    private PhotonView photonView;
+    private Light _light;
+    EmissionMaterialGlassTorchFadeOut _emissionMaterialFade;
+    BatteryPowerPickup _batteryPower;
 
-	public enum LightChoose
+    public enum LightChoose
     {
-		noBattery,
-		withBattery
+        noBattery,
+        withBattery
     }
 
-	public LightChoose modoLightChoose;
-	[Space]
-	[Space]
-	// public string onOffLightKey = "F";
-	// private KeyCode _kCode;
-	// [Space]
-	// [Space]
-	public bool _PowerPickUp = false;
-	[Space]
-	public float intensityLight = 2.5F;
-	private bool _flashLightOn = true;
-	[SerializeField] float _lightTime = 0.05f;
+    public LightChoose modoLightChoose;
+    public bool _PowerPickUp = false;
+    public float intensityLight = 2.5f;
+    private bool _flashLightOn = true;
+    [SerializeField] float _lightTime = 0.05f;
 
-
-	private void Awake()
+    private void Awake()
     {
-		photonView = GetComponent<PhotonView>();
-		_batteryPower = FindObjectOfType<BatteryPowerPickup>();
-	}
+        photonView = GetComponent<PhotonView>();
+        _batteryPower = FindObjectOfType<BatteryPowerPickup>();
+        _light = GetComponent<Light>();
+    }
+
     void Start()
-	{
-		GameObject _scriptControllerEmissionFade = GameObject.Find("default");
-
-		if (_scriptControllerEmissionFade != null)
-		{
-			_emissionMaterialFade = _scriptControllerEmissionFade.GetComponent<EmissionMaterialGlassTorchFadeOut>();
-		}
-		if (_scriptControllerEmissionFade  == null) {Debug.Log("Cannot find 'EmissionMaterialGlassTorchFadeOut' script");}
-
-		// _kCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), onOffLightKey);
-	}
-
-	void Update()
-	{
-		// detecting parse error keyboard type
-		// if (System.Enum.TryParse(onOffLightKey, out _kCode))
-		// {
-		// 	_kCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), onOffLightKey);
-		// }
-		//
-		if (!photonView.IsMine) return;
-
-        switch (modoLightChoose)
-		{
-			case LightChoose.noBattery:
-				NoBatteryLight();
-				break;
-			case LightChoose.withBattery:
-				WithBatteryLight();
-				break;
-		}
-	}
-
-	void InputKey()
     {
-		// if (Input.GetKeyDown(_kCode) && _flashLightOn == true)
-		if (Input.GetMouseButtonDown(1) && _flashLightOn == true)
-		{
-			_flashLightOn = false;
+        _emissionMaterialFade = GetComponentInChildren<EmissionMaterialGlassTorchFadeOut>();
+        if (_emissionMaterialFade == null)
+        {
+            Debug.LogError("Cannot find 'EmissionMaterialGlassTorchFadeOut' script");
+        }
+    }
 
-		}
-		// else if (Input.GetKeyDown(_kCode) && _flashLightOn == false)
-		else if (Input.GetMouseButtonDown(1) && _flashLightOn == false)
-		{
-			_flashLightOn = true;
-		}
-	}
-
-	void NoBatteryLight()
+    void Update()
     {
-		if (_flashLightOn)
-		{
-			GetComponent<Light>().intensity = intensityLight;
-			_emissionMaterialFade.OnEmission();
-		}
-		else
-		{
-			GetComponent<Light>().intensity = 0.0f;
-			_emissionMaterialFade.OffEmission();
-		}
-		InputKey();
-	}
+        if (photonView.IsMine)
+        {
+            InputKey();
+            UpdateLightLogic();
+        }
 
-	void WithBatteryLight()
+        _ApplyFlashLightState();
+    }
+
+    void UpdateLightLogic()
     {
+        if (_flashLightOn && modoLightChoose == LightChoose.withBattery)
+        {
+            intensityLight -= Time.deltaTime * _lightTime;
+            if (intensityLight < 0) intensityLight = 0;
 
-		if (_flashLightOn)
-		{
-			GetComponent<Light>().intensity = intensityLight;
-			intensityLight -= Time.deltaTime * _lightTime;
-			_emissionMaterialFade.TimeEmission(_lightTime);
-            
-			if (intensityLight < 0)
-            {
-				intensityLight = 0;
-			}
-			if (_PowerPickUp == true)
-			{
-				intensityLight = _batteryPower.PowerIntensityLight;
-			}
-		}
-		else
-		{
-			GetComponent<Light>().intensity = 0.0f;
-			_emissionMaterialFade.OffEmission();
+            if (_PowerPickUp)
+                intensityLight = _batteryPower.PowerIntensityLight;
 
-			if (_PowerPickUp == true)
-			{
-				intensityLight = _batteryPower.PowerIntensityLight;
-			}
-		}
+            _emissionMaterialFade.TimeEmission(_lightTime);
+        }
+    }
 
-		InputKey();
-	}
+    void _ApplyFlashLightState()
+    {
+        if (_flashLightOn)
+        {
+            _light.intensity = intensityLight;
+            if (_emissionMaterialFade != null)
+                _emissionMaterialFade.OnEmission();
+        }
+        else
+        {
+            _light.intensity = 0.0f;
+            if (_emissionMaterialFade != null)
+                _emissionMaterialFade.OffEmission();
+
+            if (_PowerPickUp)
+                intensityLight = _batteryPower.PowerIntensityLight;
+        }
+    }
+
+    void InputKey()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            _flashLightOn = !_flashLightOn;
+            photonView.RPC("SetFlashLightState", RpcTarget.AllBuffered, _flashLightOn, intensityLight);
+            photonView.RPC("SetEmissionState", RpcTarget.AllBuffered, _flashLightOn, intensityLight);
+        }
+    }
+
+    [PunRPC]
+    public void SetEmissionState(bool state, float intensity)
+    {
+        if (_emissionMaterialFade != null)
+        {
+            if (state)
+                _emissionMaterialFade.OnEmission();
+            else
+                _emissionMaterialFade.OffEmission();
+        }
+    }
+
+    [PunRPC]
+    public void SetFlashLightState(bool state, float intensity)
+    {
+        _flashLightOn = state;
+        intensityLight = intensity;
+        _ApplyFlashLightState();
+    }
+
+    // Photon 상태 동기화
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            // 로컬 플레이어가 상태를 전송
+            stream.SendNext(_flashLightOn);
+            stream.SendNext(intensityLight);
+        }
+        else
+        {
+            // 원격 플레이어가 상태를 수신
+            _flashLightOn = (bool)stream.ReceiveNext();
+            intensityLight = (float)stream.ReceiveNext();
+            _ApplyFlashLightState();
+        }
+    }
 }
