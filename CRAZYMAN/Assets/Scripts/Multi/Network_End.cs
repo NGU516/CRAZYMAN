@@ -10,6 +10,7 @@ public class Network_End : MonoBehaviourPun
     void OnTriggerEnter(Collider other)
     {
         PhotonView pv = other.GetComponent<PhotonView>();
+        Debug.Log("게임 끝내기: " + other.name);
         if (pv != null && pv.IsMine && other.CompareTag("Player"))
         {
             playersInZone.Add(pv.OwnerActorNr);
@@ -47,6 +48,17 @@ public class Network_End : MonoBehaviourPun
     [PunRPC]
     void ShowEndingUI()
     {
+        foreach (GameObject obj in FindObjectsOfType<GameObject>())
+        {
+            if (obj == null) continue;
+            if (obj.transform.root.name == "UI_Root") continue; 
+            if (obj.GetComponent<UIEnding>() != null) continue; 
+            if (obj.GetComponent<UnityEngine.EventSystems.EventSystem>() != null) continue; 
+
+            obj.SetActive(false);
+        }
+
+        // 2. 엔딩 팝업 띄우기
         Managers.UI.ShowPopupUI<UIEnding>("UIEnding");
     }
 }
