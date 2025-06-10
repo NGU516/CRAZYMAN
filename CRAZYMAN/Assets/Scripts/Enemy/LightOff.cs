@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Photon.Pun;
 
 public class LightOff : MonoBehaviour
 {
+    private PhotonView photonView;
     public GameObject lampRoot;              // Lamp GameObject를 넣는 슬롯
     // 제어할 Light 컴포넌트
     public Light[] allLight;
@@ -37,6 +39,7 @@ public class LightOff : MonoBehaviour
 
     void Awake()
     {
+        photonView = GetComponent<PhotonView>();
         if (lampRenderers == null || lampRenderers.Length == 0)
         {
             lampRenderers = lampRoot.GetComponentsInChildren<Renderer>();
@@ -50,7 +53,8 @@ public class LightOff : MonoBehaviour
         {
             if (Input.GetKeyDown(interactionKey))
             {
-                TurnOnLight();
+                // TurnOnLight();
+                photonView.RPC("TurnOnLight", RpcTarget.All);
             }
         }
 
@@ -63,24 +67,26 @@ public class LightOff : MonoBehaviour
             if (hitCollider.CompareTag(monster))
             {
                 Debug.Log("몬스터 감지됨, 전등 OFF");
-                TurnOffLight();
+                photonView.RPC("TurnOffLight", RpcTarget.All);
                 break;
             }
         }
     }
 
+    [PunRPC]
     public void TurnOffLight()
     {
         foreach (var light in allLight)
         {
             if (light != null) light.enabled = false;
         }
-        
+
         TurnOffEmission(); // Emission 꺼짐
 
         isLightOn = false;
     }
 
+    [PunRPC]
     public void TurnOnLight()
     {
         foreach (var light in allLight)

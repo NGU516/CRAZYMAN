@@ -5,10 +5,12 @@
 // Use the "battery" or no and the duration time
 // Change the intensity of the light
 
+using Photon.Pun;
 using UnityEngine;
 
-public class ElectricTorchOnOff : MonoBehaviour
+public class ElectricTorchOnOff : MonoBehaviourPun
 {
+	private PhotonView photonView;
 	EmissionMaterialGlassTorchFadeOut _emissionMaterialFade;
 	BatteryPowerPickup _batteryPower;
 	//
@@ -35,6 +37,7 @@ public class ElectricTorchOnOff : MonoBehaviour
 
 	private void Awake()
     {
+		photonView = GetComponent<PhotonView>();
 		_batteryPower = FindObjectOfType<BatteryPowerPickup>();
 	}
     void Start()
@@ -57,17 +60,18 @@ public class ElectricTorchOnOff : MonoBehaviour
 		// {
 		// 	_kCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), onOffLightKey);
 		// }
-        //
+		//
+		if (!photonView.IsMine) return;
 
         switch (modoLightChoose)
-        {
-            case LightChoose.noBattery:
+		{
+			case LightChoose.noBattery:
 				NoBatteryLight();
 				break;
-            case LightChoose.withBattery:
+			case LightChoose.withBattery:
 				WithBatteryLight();
 				break;
-        }
+		}
 	}
 
 	void InputKey()

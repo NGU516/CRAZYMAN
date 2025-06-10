@@ -1368,6 +1368,7 @@ GameObject:
   - component: {fileID: 4002892825761802060}
   - component: {fileID: 3915663965738586199}
   - component: {fileID: 846128459484424473}
+  - component: {fileID: 3441321499519629935}
   m_Layer: 0
   m_Name: Player_Object_UIInGame
   m_TagString: Player
@@ -1446,8 +1447,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowLayerWeightsInspector: 1
   ShowParameterInspector: 1
-  m_SynchronizeParameters: []
-  m_SynchronizeLayers: []
+  m_SynchronizeParameters:
+  - Type: 1
+    SynchronizeType: 2
+    Name: v
+  - Type: 4
+    SynchronizeType: 1
+    Name: canRun
+  - Type: 4
+    SynchronizeType: 1
+    Name: canCrouch
+  - Type: 4
+    SynchronizeType: 1
+    Name: isMoving
+  - Type: 4
+    SynchronizeType: 1
+    Name: isDeath
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
+--- !u!95 &3441321499519629935
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5630242708213502781}
+  m_Enabled: 0
+  m_Avatar: {fileID: 9000000, guid: f73d3e3c5dd3b47a7bc44d4593940f1f, type: 3}
+  m_Controller: {fileID: 9100000, guid: d6def295a6e364bf2883702662c6976d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5700398153495716206
 GameObject:
   m_ObjectHideFlags: 0
@@ -1580,7 +1619,7 @@ MonoBehaviour:
   staminaDrainRate: 25
   staminaRegenRate: 5
   recoveryDelay: 3
-  staminaSlider: {fileID: 0}
+  staminaSlider: {fileID: 8122604748753475321}
 --- !u!114 &2066543612194084729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1613,10 +1652,10 @@ MonoBehaviour:
   h: 0
   moveSpeed: 2.5
   cameraTransform: {fileID: 6543915208730545470}
-  animator: {fileID: 0}
+  animator: {fileID: 1119243231988606340}
   canRun: 0
   canCrouch: 0
-  mentalGauge: {fileID: 0}
+  mentalGauge: {fileID: 240278457444826892}
   gameManager: {fileID: 0}
   myCam: {fileID: 3994195916648990498}
 --- !u!114 &3915151411317302619
@@ -1987,6 +2026,7 @@ GameObject:
   - component: {fileID: 7620678538615338864}
   - component: {fileID: 3712491873472946271}
   - component: {fileID: 931194251005646182}
+  - component: {fileID: 2029747185370734239}
   m_Layer: 0
   m_Name: Torch Light
   m_TagString: Untagged
@@ -2106,6 +2146,28 @@ MonoBehaviour:
   - {fileID: 2800000, guid: ebf46548795c237499ed1e6a6c2a9b22, type: 3}
   - {fileID: 2800000, guid: 450d195e6a6eb4447a4ad8e358c7acfe, type: 3}
   - {fileID: 2800000, guid: f2e70893c414e9744910c67f697d45b7, type: 3}
+--- !u!114 &2029747185370734239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6305879133886577323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &6331593525598717774
 GameObject:
   m_ObjectHideFlags: 0
