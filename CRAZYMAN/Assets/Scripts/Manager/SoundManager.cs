@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    private AudioSource[] _audioSources = new AudioSource[System.Enum.GetValues(typeof(Define.Sound)).Length];
+    public AudioSource[] _audioSources = new AudioSource[System.Enum.GetValues(typeof(Define.Sound)).Length];
     private Dictionary<string, AudioClip> _audioClips = new();
     private GameObject _soundRoot = null;
+
+    void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);   
+    }
 
     // Enum-경로 매핑 딕셔너리
     private Dictionary<Define.Sound, string> _soundPaths = new Dictionary<Define.Sound, string>
@@ -27,6 +32,7 @@ public class SoundManager : MonoBehaviour
         { Define.Sound.UsePill, "pill_cap" }, // 약 캡슐 소리
         { Define.Sound.swallow, "swallow" }, // 정신력 바닥에 가까워지면 환청 들리게? 
         { Define.Sound.GateOpen, "Gate_2"},
+        { Define.Sound.StartBgm, "horror_bgm" },
         // 필요에 따라 추가
         { Define.Sound.Flashlight, "flashlight_on_off" }, // 손전등 on/off 소리
     };
@@ -107,6 +113,7 @@ public class SoundManager : MonoBehaviour
             case Define.Sound.UseCamera:
             case Define.Sound.UsePill:
             case Define.Sound.GateOpen:
+            case Define.Sound.StartBgm:
                 return PlaySoundEffect(audioSource, path, pitch);
 
             default:
@@ -167,6 +174,17 @@ public class SoundManager : MonoBehaviour
 
     private bool PlaySoundEffect(AudioSource audioSource, string path, float pitch)
     {
+        if (!audioSource.enabled)
+        {
+            Debug.LogWarning($"[SoundManager] AudioSource {audioSource.name} is disabled. Enabling...");
+            audioSource.enabled = true;
+        }
+
+        if (!audioSource.gameObject.activeInHierarchy)
+        {
+            Debug.LogError($"[SoundManager] AudioSource GameObject {audioSource.name} is inactive!");
+            return false;
+        }
         AudioClip effectClip = GetAudioClip(path);
         if (effectClip == null)
             return false;
