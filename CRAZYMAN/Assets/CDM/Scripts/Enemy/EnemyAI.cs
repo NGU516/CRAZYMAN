@@ -114,7 +114,7 @@ public class EnemyAI : MonoBehaviour
     void SetState(EnemyState newState)
     {
         currentState = newState;
-        Debug.Log($"괴인 상태 변경: {currentState}");
+        // Debug.Log($"괴인 상태 변경: {currentState}");
         EnemyAnimator.SetInteger("EnemyState", (int)newState);
 
         // 
