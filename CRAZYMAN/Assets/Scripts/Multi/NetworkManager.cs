@@ -102,7 +102,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         {
             MaxPlayers = maxPlayers,
             IsVisible = true,
-            IsOpen = true
+            IsOpen = true  // 초기에는 방을 열어둠
         };
 
         PhotonNetwork.CreateRoom(roomCode, roomOptions);
@@ -301,4 +301,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
         GameObject playerUI = Instantiate(uiInGamePrefab, playerObject.transform); // 플레이어 오브젝트의 자식으로 생성
     }*/
+
+    // 방을 닫는 메서드 추가
+    public void CloseRoom()
+    {
+        if (PhotonNetwork.IsMasterClient && PhotonNetwork.InRoom)
+        {
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+            Debug.Log("[PHOTON] 방이 닫혔습니다.");
+        }
+    }
 }
