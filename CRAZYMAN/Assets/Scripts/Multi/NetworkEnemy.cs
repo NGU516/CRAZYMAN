@@ -48,7 +48,7 @@ public class NetworkEnemy : MonoBehaviourPunCallbacks, IPunObservable
             if (enemyPatrol != null) enemyPatrol.enabled = false;
             if (enemyChase != null) enemyChase.enabled = false;
             if (enemyAttack != null) enemyAttack.enabled = false;
-            if (agent != null) agent.enabled = false;
+            // agent.enabled = false; // NavMeshAgent 비활성화 주석 처리 (테스트용)
         }
     }
 
@@ -72,8 +72,28 @@ public class NetworkEnemy : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (!PhotonNetwork.IsMasterClient)
         {
+            // NavMesh 상태 디버그 로깅 (테스트용)
+            // if (agent != null)
+            // {
+            //     Debug.Log($"[NetworkEnemy] Agent Status - Enabled: {agent.enabled}, " +
+            //              $"IsOnNavMesh: {agent.isOnNavMesh}, " +
+            //              $"Path Status: {agent.pathStatus}, " +
+            //              $"Has Path: {agent.hasPath}");
+            // }
+
+            // NavMesh 위에 있는지 확인하고 보정
+            if (agent != null && !agent.isOnNavMesh)
+            {
+                NavMeshHit hit;
+                if (NavMesh.SamplePosition(transform.position, out hit, 5.0f, NavMesh.AllAreas))
+                {
+                    transform.position = hit.position;
+                }
+            }
+
             // 원격 적 위치 보간
-            transform.position = Vector3.Lerp(transform.position, networkPosition, Time.deltaTime * 10f);
+            float lerpSpeed = agent != null && agent.isOnNavMesh ? 10f : 5f; // NavMesh 상태에 따른 보간 속도 조정
+            transform.position = Vector3.Lerp(transform.position, networkPosition, Time.deltaTime * lerpSpeed);
             transform.rotation = Quaternion.Lerp(transform.rotation, networkRotation, Time.deltaTime * 10f);
 
             // 원격 적 애니메이션 동기화
@@ -94,19 +114,44 @@ public class NetworkEnemy : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (stream.IsWriting)
         {
-            // 데이터 전송
-            stream.SendNext(transform.position);
+            // NavMesh 위의 위치만 전송
+            NavMeshHit hit;
+            Vector3 safePosition = transform.position;
+            if (NavMesh.SamplePosition(transform.position, out hit, 0.1f, NavMesh.AllAreas))
+            {
+                safePosition = hit.position;
+            }
+            
+            stream.SendNext(safePosition);
             stream.SendNext(transform.rotation);
             stream.SendNext(networkHealth);
             stream.SendNext((int)networkState);
         }
         else
         {
-            // 데이터 수신
             networkPosition = (Vector3)stream.ReceiveNext();
             networkRotation = (Quaternion)stream.ReceiveNext();
             networkHealth = (float)stream.ReceiveNext();
             networkState = (NetworkState)stream.ReceiveNext();
+        }
+    }
+
+    // 테스트용 디버그 시각화
+    private void OnDrawGizmos()
+    {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(transform.position, out hit, 5.0f, NavMesh.AllAreas))
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawSphere(hit.position, 0.3f);
+            }
+            else
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawSphere(transform.position, 0.3f);
+            }
         }
     }
 
