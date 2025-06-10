@@ -6,7 +6,8 @@ public class AudioEventRX : MonoBehaviour
     private Control control;
     void Update()
     {
-        if(Input.GetMouseButtonDown(1)) {
+        if (Input.GetMouseButtonDown(1))
+        {
             // 손전등 소리 재생
             PlayFlashlightSound();
         }
@@ -78,5 +79,10 @@ public class AudioEventRX : MonoBehaviour
     public void PlayFlashlightSound()
     {
         Managers.SoundManager.Play(Define.Sound.Flashlight);
+    }
+
+    public void PlayUseCameraSound()
+    {
+        Managers.SoundManager.Play(Define.Sound.UseCamera);
     }
 } 

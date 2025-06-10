@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StaminaSystem : MonoBehaviour
+public class StaminaSystem : MonoBehaviourPun
 {
     [SerializeField] public float maxStamina = 100f;
     [SerializeField] public float currentStamina = 100f;
@@ -20,17 +21,32 @@ public class StaminaSystem : MonoBehaviour
 
     void Start()
     {
+        if (!photonView.IsMine) return;
+
+        if (staminaSlider == null)
+        {
+            Transform found = transform.Find("UIInGame/Stamina_Slider");
+            if (found != null)
+            {
+                staminaSlider = found.GetComponent<Slider>();
+                Debug.Log("Stamina_Slider 바인딩 완료!");
+            }
+            else
+            {
+                Debug.LogError("Stamina_Slider not found");
+            }
+        }
         currentStamina = maxStamina;
         if (staminaSlider != null)
         {
             staminaSlider.maxValue = maxStamina;
             staminaSlider.value = currentStamina;
         }
-        else
-        {
-            Debug.LogError("StaminaSlider is not assigned in the Inspector! Attempting to find it automatically.");
-            StartCoroutine(WaitForSliderAndInitialize());
-        }
+        // else
+        // {
+        //     Debug.LogError("StaminaSlider is not assigned in the Inspector! Attempting to find it automatically.");
+        //     StartCoroutine(WaitForSliderAndInitialize());
+        // }
     }
 
     private IEnumerator WaitForSliderAndInitialize()
@@ -60,17 +76,19 @@ public class StaminaSystem : MonoBehaviour
 
     void Update()
     {
+        if (!photonView.IsMine) return;
         if (isDraining)
         {
             currentStamina -= staminaDrainRate * Time.deltaTime;
             if (currentStamina < 0)
                 currentStamina = 0;
-            if(currentStamina <= 0 && !isRecoveryDelayed && !isExhausted)
+            if (currentStamina <= 0 && !isRecoveryDelayed && !isExhausted)
             {
                 isExhausted = true;
                 StartCoroutine(DelayRecovery());
             }
-        } else if(!isRecoveryDelayed && !isExhausted)
+        }
+        else if (!isRecoveryDelayed && !isExhausted)
         {
             currentStamina += staminaRegenRate * Time.deltaTime;
             if (currentStamina > maxStamina)

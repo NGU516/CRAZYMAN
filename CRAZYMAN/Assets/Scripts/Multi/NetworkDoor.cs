@@ -36,17 +36,11 @@ public class NetworkDoor : MonoBehaviourPunCallbacks
     // 외부에서 호출할 메서드들
     public void RequestToggleDoor(Vector3 playerPosition)
     {
-        if (photonView.IsMine)
-        {
-            photonView.RPC("SyncDoorState", RpcTarget.All, !doorController.isOpen, playerPosition);
-        }
+        photonView.RPC("SyncDoorState", RpcTarget.All, !doorController.isOpen, playerPosition);
     }
 
     public void RequestSetLocked(bool locked)
     {
-        if (photonView.IsMine)
-        {
-            photonView.RPC("SyncLockState", RpcTarget.All, locked);
-        }
+        photonView.RPC("SyncLockState", RpcTarget.All, locked);
     }
 } 
