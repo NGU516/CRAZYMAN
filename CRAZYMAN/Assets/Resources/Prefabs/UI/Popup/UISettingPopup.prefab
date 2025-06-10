@@ -152,7 +152,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2664443615101379789}
   m_Direction: 2
   m_Value: 0.9999968
-  m_Size: 0.6629835
+  m_Size: 0.6629834
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -543,7 +543,7 @@ GameObject:
   - component: {fileID: 2952983492504938168}
   - component: {fileID: 4264561657176204048}
   m_Layer: 5
-  m_Name: Button
+  m_Name: ButtonDown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1172,7 +1172,7 @@ Transform:
   m_GameObject: {fileID: 1388505359659608295}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -51.68659, y: 25.023485, z: 0.452726}
+  m_LocalPosition: {x: -7, y: 3, z: -1107}
   m_LocalScale: {x: 2.630713, y: 2.630713, z: 2.630713}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1631,7 +1631,7 @@ GameObject:
   - component: {fileID: 7685619662252922266}
   - component: {fileID: 5747060776151845226}
   m_Layer: 5
-  m_Name: Button
+  m_Name: ButtonItem2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2517,7 +2517,6 @@ GameObject:
   m_Component:
   - component: {fileID: 936986834036241566}
   - component: {fileID: 3032600195684047017}
-  - component: {fileID: 776990465577877301}
   - component: {fileID: 2778428032426185293}
   m_Layer: 0
   m_Name: CameraTmp
@@ -2535,7 +2534,7 @@ Transform:
   m_GameObject: {fileID: 3829968843891440117}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -233}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2592,14 +2591,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &776990465577877301
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3829968843891440117}
-  m_Enabled: 1
 --- !u!114 &2778428032426185293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2871,7 +2862,7 @@ GameObject:
   - component: {fileID: 4654732765683781661}
   - component: {fileID: 4308748672239534735}
   m_Layer: 5
-  m_Name: Button
+  m_Name: ButtonRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3125,7 +3116,7 @@ GameObject:
   - component: {fileID: 3703723510646042022}
   - component: {fileID: 7098132085843373706}
   m_Layer: 5
-  m_Name: Button
+  m_Name: ButtonSit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3258,7 +3249,7 @@ GameObject:
   - component: {fileID: 2536777826215291331}
   - component: {fileID: 5324530193915794577}
   m_Layer: 5
-  m_Name: Button
+  m_Name: ButtonLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3708,7 +3699,7 @@ GameObject:
   - component: {fileID: 5829818254902745678}
   - component: {fileID: 644454043401750549}
   m_Layer: 5
-  m_Name: Button
+  m_Name: ButtonUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3920,7 +3911,7 @@ GameObject:
   - component: {fileID: 1394258255606433735}
   - component: {fileID: 3804804628786340242}
   m_Layer: 5
-  m_Name: Button
+  m_Name: ButtonRun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5116,7 +5107,7 @@ GameObject:
   - component: {fileID: 8912646274161404360}
   - component: {fileID: 8662540286886316328}
   m_Layer: 5
-  m_Name: Button
+  m_Name: ButtonInteract
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5249,7 +5240,7 @@ GameObject:
   - component: {fileID: 6775370290394182616}
   - component: {fileID: 4514375826168246655}
   m_Layer: 5
-  m_Name: Button
+  m_Name: ButtonItem1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5418,7 +5409,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 3032600195684047017}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -5596,7 +5587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 11400000, guid: e4e01543069af3346a4d6865a5126ea3, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 0e868163beaf4494f84cb68f6e22b4d5, type: 2}
   isGlobal: 1
   blendDistance: 0
   weight: 1
@@ -5628,7 +5619,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brightnessSlider: {fileID: 3665394455852271926}
-  brightnessProfile: {fileID: 11400000, guid: e4e01543069af3346a4d6865a5126ea3, type: 2}
+  brightnessProfile: {fileID: 11400000, guid: 0e868163beaf4494f84cb68f6e22b4d5, type: 2}
   layer: {fileID: 8693094911357647995}
 --- !u!1 &7800018478652932092
 GameObject:
@@ -6261,7 +6252,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -302.01, y: 236.07}
+  m_AnchoredPosition: {x: -324.68, y: 236.07}
   m_SizeDelta: {x: 400, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8597526954241851347

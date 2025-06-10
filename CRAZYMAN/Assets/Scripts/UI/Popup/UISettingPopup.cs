@@ -13,7 +13,6 @@ public class UISettingPopup : UIPopup
 
     enum Texts
     {
-        GameTitle,
         SoundValue,
         BrightnessValue,
         UP,
@@ -82,8 +81,6 @@ public class UISettingPopup : UIPopup
         GetButton((int)Buttons.ButtonItem1).gameObject.BindEvent(OnClickItem1Button);
         GetButton((int)Buttons.ButtonItem2).gameObject.BindEvent(OnClickItem2Button);
 
-        GetText((int)Texts.GameTitle).text = "CRAZY MAN";
-
         if (showSoundValue != null && soundValueText != null)
             showSoundValue.message = soundValueText;
         if (showBrightnessValue != null && brightnessValueText != null)
@@ -91,15 +88,15 @@ public class UISettingPopup : UIPopup
         //GetText((int)Texts.SoundValue).text = "";
         //GetText((int)Texts.BrightnessValue).text = "";
 
-        GetText((int)Texts.UP).text = "UP";
-        GetText((int)Texts.DOWN).text = "DOWN";
-        GetText((int)Texts.LEFT).text = "LEFT";
-        GetText((int)Texts.RIGHT).text = "RIGHT";
-        GetText((int)Texts.INTERACT).text = "INTERACT";
-        GetText((int)Texts.RUN).text = "RUN";
-        GetText((int)Texts.SIT).text = "SIT";
-        GetText((int)Texts.ITEM1).text = "ITEM1";
-        GetText((int)Texts.ITEM2).text = "ITEM2";
+        GetText((int)Texts.UP).text = "Up";
+        GetText((int)Texts.DOWN).text = "Down";
+        GetText((int)Texts.LEFT).text = "Left";
+        GetText((int)Texts.RIGHT).text = "Right";
+        GetText((int)Texts.INTERACT).text = "Interact";
+        GetText((int)Texts.RUN).text = "Run";
+        GetText((int)Texts.SIT).text = "Sit";
+        GetText((int)Texts.ITEM1).text = "Item1";
+        GetText((int)Texts.ITEM2).text = "Item2";
 
         return true;
     }
