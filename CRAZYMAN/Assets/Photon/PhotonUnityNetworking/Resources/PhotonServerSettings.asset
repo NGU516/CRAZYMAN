@@ -56,6 +56,11 @@ MonoBehaviour:
   - TurnOnLight
   - OpenDoorRPC
   - ShowEndingUI
+  - SetEmissionOff
+  - SetEmissionOn
+  - SetEmissionState
+  - SetFlashLightState
+  - UpdateEmissionIntensity
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

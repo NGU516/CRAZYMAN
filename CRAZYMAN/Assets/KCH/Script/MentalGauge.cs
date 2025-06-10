@@ -49,7 +49,6 @@ public class MentalGauge : MonoBehaviour
     }
 
     // Update is called once per frame
-
     void Update()
     {
         if (isDeath)
