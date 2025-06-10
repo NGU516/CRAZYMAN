@@ -103,7 +103,7 @@ MonoBehaviour:
   itemType: 3
   itemName: "\uBD95\uB300"
   inventoryIcon: {fileID: 21300000, guid: 9e3235dd77419cb4fad779675e271d33, type: 3}
-  staminaRecoveryAmount: 0
+  staminaRecoveryAmount: 100
   mentalRecoveryAmount: 0
 --- !u!114 &3714166665667147969
 MonoBehaviour:

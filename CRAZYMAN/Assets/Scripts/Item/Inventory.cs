@@ -4,22 +4,22 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using Photon.Pun;
 
-public class Inventory : MonoBehaviour
+public class Inventory : MonoBehaviourPun
 {
     public int inventorySize = 2;
     public List<ItemDataForInventory> items = new List<ItemDataForInventory>();
     public GameObject[] itemSlots;
-    private PhotonView playerPhotonView;
+    //private PhotonView playerPhotonView;
 
     private void Start()
     {
-        playerPhotonView = GetComponent<PhotonView>();
-        UpdateUI();
+        /*playerPhotonView = GetComponent<PhotonView>();
+        UpdateUI();*/
     }
 
     private void Update()
     {
-        if (playerPhotonView == null || !playerPhotonView.IsMine) return;
+        if (!photonView.IsMine) return;
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -34,19 +34,22 @@ public class Inventory : MonoBehaviour
 
     void UseItem(int slotIndex)
     {
-        if (playerPhotonView == null || !playerPhotonView.IsMine) return;
+        if (!photonView.IsMine) return;
 
         if (slotIndex < 0 || slotIndex >= items.Count || items[slotIndex] == null) return;
 
         ItemDataForInventory itemDataToUse = items[slotIndex];
-        ApplyLocalItemEffect(itemDataToUse);
-        playerPhotonView.RPC("UseItemRPC", RpcTarget.All, (int)itemDataToUse.itemType, playerPhotonView.ViewID);
-
+        //ApplyLocalItemEffect(itemDataToUse);
+        photonView.RPC("UseItemRPC", RpcTarget.All,
+                         (int)itemDataToUse.itemType, // 아이템 종류 (int로 변환)
+                         photonView.ViewID, // 아이템을 사용한 플레이어의 ViewID
+                         itemDataToUse.RecoveryStamina, // ItemDataForInventory의 스테미너 회복량
+                         itemDataToUse.RecoveryMental); // ItemDataForInventory의 정신력 회복량
         items.RemoveAt(slotIndex);
         UpdateUI();
     }
 
-    void ApplyLocalItemEffect(ItemDataForInventory itemData)
+    /*void ApplyLocalItemEffect(ItemDataForInventory itemData)
     {
         PhotonControl playerControl = GetComponent<PhotonControl>();
         // 가져온 스크립트가 null인지 확인 (플레이어 오브젝트에 해당 스크립트가 붙어있는지 확인!)
@@ -62,8 +65,6 @@ public class Inventory : MonoBehaviour
             case ItemType.pills:
                 Debug.Log($"Inventory.ApplyLocalItemEffect: Player used Pills. Calling Player's Recover functions. Stamina: {itemData.RecoveryStamina}, Sanity: {itemData.RecoveryMental}");
                 
-                playerControl.RecoverStamina(itemData.RecoveryStamina);
-                playerControl.RecoverMental(itemData.RecoveryMental);
                 break;
 
             case ItemType.bandage: // 붕대
@@ -83,10 +84,10 @@ public class Inventory : MonoBehaviour
                 Debug.Log($"Inventory.ApplyLocalItemEffect: No specific local effect defined for Item Type: {itemData.itemType}.");
                 break;
         }
-    }
+    }*/
 
     [PunRPC]
-    void UseItemRPC(int itemTpyeInt, int senderViewID, PhotonMessageInfo info)
+    void UseItemRPC(int itemTpyeInt, int senderViewID, float staminaRecover, float mentalRecover, PhotonMessageInfo info)
     {
         ItemType usedItemType = (ItemType)itemTpyeInt;
         PhotonView senderPV = PhotonView.Find(senderViewID);
@@ -96,11 +97,57 @@ public class Inventory : MonoBehaviour
         if (senderPV == null) return;
 
         switch (usedItemType)
-        {
-            case ItemType.Camera:
+        {            
+            case ItemType.pills:
+                MentalGauge mentalGauge = senderObject.GetComponent<MentalGauge>();
+                if (mentalGauge != null)
+                {
+                    mentalGauge.RecoveryMental(mentalRecover); // MentalGauge의 RecoveryMental 함수 호출
+                    Debug.Log($"UseItemRPC: Player {senderViewID} 정신력 {mentalRecover} 회복 완료.");
+                }
+                else
+                {
+                    Debug.LogError($"UseItemRPC: MentalGauge 컴포넌트를 Player {senderViewID}에서 찾을 수 없습니다! 정신력 회복 불가.");
+                }
+                
+            break;
+
+            case ItemType.bandage:
+                StaminaSystem staminaSystemBandage = senderObject.GetComponent<StaminaSystem>();
+                if (staminaSystemBandage != null)
+                {
+                    staminaSystemBandage.RecoverStamina(staminaRecover); // StaminaSystem의 RecoverStamina 함수 호출
+                    Debug.Log($"UseItemRPC: Player {senderViewID} 스테미너 {staminaRecover} 회복 완료 (Bandage).");
+                }
+                else
+                {
+                    Debug.LogError($"UseItemRPC: StaminaSystem 컴포넌트를 Player {senderViewID}에서 찾을 수 없습니다! 스테미너 회복 불가.");
+                }
+                // 붕대 아이템이 정신력도 회복시킨다면 적용 (ItemDataForInventory에 설정된 값 사용)
+                if (mentalRecover > 0)
+                {
+                    MentalGauge mentalGaugeBandage = senderObject.GetComponent<MentalGauge>(); // 해당 플레이어 오브젝트에서 MentalGauge 컴포넌트 찾기
+                    if (mentalGaugeBandage != null)
+                    {
+                        mentalGaugeBandage.RecoveryMental(mentalRecover); // MentalGauge의 RecoveryMental 함수 호출
+                        Debug.Log($"UseItemRPC: Player {senderViewID} 정신력 {mentalRecover} 회복 완료 (Bandage).");
+                    }
+                    else
+                    {
+                        Debug.LogError($"UseItemRPC: MentalGauge 컴포넌트를 Player {senderViewID}에서 찾을 수 없습니다! 정신력 회복 불가.");
+                    }
+                }
+                break;
+            case ItemType.Battery: // 배터리 아이템
+                Debug.Log($"UseItemRPC: Player {senderViewID} used Battery. Battery Charge: {staminaRecover}"); // 배터리 충전량은 ItemDataForInventory의 RecoveryStamina 필드를 사용했을 수도 있습니다.
+                // TODO: 배터리 아이템 효과 구현 (손전등 충전 등)
+                // senderObject에서 손전등 스크립트 찾아서 함수 호출 (예: FlashlightSystem flashlight = senderObject.GetComponent<FlashlightSystem>(); flashlight?.ChargeBattery(staminaRecover);)
                 break;
 
-            case ItemType.pills:
+            case ItemType.Camera: // 카메라 아이템
+                Debug.Log($"UseItemRPC: Player {senderViewID} used Camera.");
+                // TODO: 카메라 아이템 효과 구현 (적 스턴 등)
+                // senderObject 근처의 적을 찾아서 스턴 적용
                 break;
         }
     }
