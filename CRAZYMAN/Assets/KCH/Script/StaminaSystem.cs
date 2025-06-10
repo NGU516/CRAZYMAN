@@ -42,11 +42,11 @@ public class StaminaSystem : MonoBehaviourPun
             staminaSlider.maxValue = maxStamina;
             staminaSlider.value = currentStamina;
         }
-        // else
-        // {
-        //     Debug.LogError("StaminaSlider is not assigned in the Inspector! Attempting to find it automatically.");
-        //     StartCoroutine(WaitForSliderAndInitialize());
-        // }
+        else
+        {
+            Debug.LogError("StaminaSlider is not assigned in the Inspector! Attempting to find it automatically.");
+            StartCoroutine(WaitForSliderAndInitialize());
+        }
     }
 
     private IEnumerator WaitForSliderAndInitialize()
@@ -80,6 +80,8 @@ public class StaminaSystem : MonoBehaviourPun
         if (isDraining)
         {
             currentStamina -= staminaDrainRate * Time.deltaTime;
+            //currentStamina = Mathf.Max(currentStamina, 0);
+            Debug.Log($"스테미너 값 {staminaSlider.value}");
             if (currentStamina < 0)
                 currentStamina = 0;
             if (currentStamina <= 0 && !isRecoveryDelayed && !isExhausted)
