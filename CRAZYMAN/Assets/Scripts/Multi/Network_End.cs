@@ -50,11 +50,7 @@ public class Network_End : MonoBehaviourPun
     {
         foreach (GameObject obj in FindObjectsOfType<GameObject>())
         {
-            if (obj == null) continue;
-            if (obj.transform.root.name == "UI_Root") continue; 
             if (obj.GetComponent<UIEnding>() != null) continue; 
-            if (obj.GetComponent<UnityEngine.EventSystems.EventSystem>() != null) continue; 
-
             obj.SetActive(false);
         }
 
