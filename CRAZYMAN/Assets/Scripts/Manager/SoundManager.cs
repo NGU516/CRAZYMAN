@@ -26,6 +26,7 @@ public class SoundManager : MonoBehaviour
         { Define.Sound.UseCamera, "camera_1" }, // 카메라 소리
         { Define.Sound.UsePill, "pill_cap" }, // 약 캡슐 소리
         { Define.Sound.swallow, "swallow" }, // 정신력 바닥에 가까워지면 환청 들리게? 
+        { Define.Sound.GateOpen, "Gate_2"},
         // 필요에 따라 추가
         { Define.Sound.Flashlight, "flashlight_on_off" }, // 손전등 on/off 소리
     };
@@ -105,6 +106,7 @@ public class SoundManager : MonoBehaviour
             case Define.Sound.Flashlight:
             case Define.Sound.UseCamera:
             case Define.Sound.UsePill:
+            case Define.Sound.GateOpen:
                 return PlaySoundEffect(audioSource, path, pitch);
 
             default:

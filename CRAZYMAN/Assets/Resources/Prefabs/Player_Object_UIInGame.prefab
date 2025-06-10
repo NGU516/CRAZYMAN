@@ -1692,6 +1692,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 5088458261057676641}
   - {fileID: 5821021263416917630}
+  - {fileID: 821840862399814701}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -2163,8 +2164,9 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
+  observableSearch: 0
+  ObservedComponents:
+  - {fileID: 3712491873472946271}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
