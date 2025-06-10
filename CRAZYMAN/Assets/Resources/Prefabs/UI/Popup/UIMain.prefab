@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 2799726630655868450}
   - component: {fileID: 566255453304803701}
   - component: {fileID: 6481087091857180653}
+  - component: {fileID: -6923116242987500384}
   m_Layer: 5
   m_Name: UIMain
   m_TagString: Untagged
@@ -236,6 +237,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841f5927950b5ae4a9d717dad9ab3e31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiAudioListener: {fileID: -6923116242987500384}
+--- !u!81 &-6923116242987500384
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147452344866746234}
+  m_Enabled: 0
 --- !u!1 &2069984872537575811
 GameObject:
   m_ObjectHideFlags: 0

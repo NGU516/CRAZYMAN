@@ -50,11 +50,14 @@ public class Network_End : MonoBehaviourPun
     {
         foreach (GameObject obj in FindObjectsOfType<GameObject>())
         {
-            if (obj.GetComponent<UIEnding>() != null) continue; 
+            if (obj.GetComponent<UIEnding>() != null) continue;
+            if (obj.name == "SoundManager") continue;
+            if (obj.name == "@SoundRoot") continue;
             obj.SetActive(false);
         }
 
         // 2. 엔딩 팝업 띄우기
         Managers.UI.ShowPopupUI<UIEnding>("UIEnding");
+        // Managers.SoundManager.Play(Define.Sound.StartBgm);
     }
 }

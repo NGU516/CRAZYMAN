@@ -7,10 +7,9 @@ public class Network_ExitDoor : MonoBehaviourPun
 {
     public Transform KeySpawner; // 인스펙터에서 KeySpawner 할당
     public Transform doorTransform; // Door 오브젝트 직접 할당 (또는 자동 할당)
-    public AudioSource audioSource; // 문 오디오 소스
-    public AudioClip openSound; // 문 열리는 소리
-    public float openAngle = -90f; // 열릴 각도
-    private bool isOpened = false;
+    
+    public float openAngle = -170f; // 열릴 각도
+    public bool isOpened = false;
 
     // Start is called before the first frame update
     void Start()
@@ -76,8 +75,7 @@ public class Network_ExitDoor : MonoBehaviourPun
         }
 
         // 사운드
-        if (audioSource && openSound)
-            audioSource.PlayOneShot(openSound);
+        Managers.SoundManager.Play(Define.Sound.GateOpen);
 
         Debug.Log("문이 열렸습니다! (모든 플레이어에게 동기화, 자동 열림)");
     }

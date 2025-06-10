@@ -34,6 +34,7 @@ public class Define
         UsePill,
         swallow,
         GateOpen,
+        StartBgm,
     }
 
     public enum Item
