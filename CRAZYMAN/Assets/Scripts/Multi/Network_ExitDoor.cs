@@ -49,7 +49,7 @@ public class Network_ExitDoor : MonoBehaviourPun
     private bool AllKeysCollected()
     {
         // 자식이 하나도 없으면 true
-        if (KeySpawner.childCount == 0)
+        if (KeySpawner.childCount == 3)
             return true;
 
         // 자식이 있지만 모두 비활성화면 true

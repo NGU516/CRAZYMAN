@@ -865,9 +865,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waitTimeAtPatrol: 1
   patrolPriorityRange: 30
-  lightOffTime: 30
-  normalSpeed: 3.5
-  pressureDuration: 15
+  lightOffTime: 100
+  normalSpeed: 2
+  pressureDuration: 10
   relaxDuration: 30
   pressureRange: 15
   relaxRange: 5
