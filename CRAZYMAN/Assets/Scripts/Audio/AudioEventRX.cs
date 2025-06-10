@@ -3,7 +3,7 @@ using UnityEngine;
 public class AudioEventRX : MonoBehaviour
 {
     [SerializeField] private bool isPlayer = true; // 플레이어인지 적인지 구분
-    private Control control;
+
     void Update()
     {
         if (Input.GetMouseButtonDown(1))

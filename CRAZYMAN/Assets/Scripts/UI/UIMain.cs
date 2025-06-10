@@ -19,6 +19,8 @@ public class UIMain : UIPopup
         GameQuitButton
     }
 
+    [SerializeField] private AudioListener uiAudioListener;
+
     public override bool Init()
     {
         if (base.Init() == false)
@@ -32,18 +34,26 @@ public class UIMain : UIPopup
 
         GetText((int)Texts.GameTitle).text = "CRAZY MAN";
 
+        if (uiAudioListener != null)
+            uiAudioListener.enabled = true;
+        Managers.SoundManager.Play(Define.Sound.StartBgm);
+
         return true;
     }
 
     void OnClickStartButton()
     {
-        Debug.Log("°ÔÀÓ ½ÃÀÛ");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+
+        if (uiAudioListener != null)
+            uiAudioListener.enabled = false;
 
         Managers.UI.ClosePopupUI(this);
+        Managers.SoundManager.Clear();
         
-        // ±âÁ¸¿¡ ¹Ù·Î Ä³¸¯ÅÍ ¾ÀÀ¸·Î ³Ñ¾î°¨
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù·ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¨
         // Managers.UI.ShowCharacterIdleScene();
-        // ·Îºñ(UISelect)·Î ³Ñ¾î°¨
+        // ï¿½Îºï¿½(UISelect)ï¿½ï¿½ ï¿½Ñ¾î°¨
         Managers.UI.ShowPopupUI<UISelect>("UISelect");
     }
 
