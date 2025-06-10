@@ -55,6 +55,13 @@ public class KeyManager : MonoBehaviour
                 KeyInput key = keyToRebind.Value;
                 KeyCode newKey = keyEvent.keyCode;
 
+                if (newKey == KeyCode.Escape)
+                {
+                    keyTextChanger.StopBlinking(key, KeySetting.keys[key]); // 원래 키 유지
+                    keyToRebind = null;
+                    return;
+                }
+
                 bool isDuplicate = false;
                 foreach (var kvp in KeySetting.keys)
                 {
