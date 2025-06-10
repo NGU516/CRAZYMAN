@@ -1126,7 +1126,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventorySize: 2
-  items: []
   itemSlots:
   - {fileID: 0}
   - {fileID: 0}

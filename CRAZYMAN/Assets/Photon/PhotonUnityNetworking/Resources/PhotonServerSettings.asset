@@ -55,6 +55,7 @@ MonoBehaviour:
   - TurnOffLight
   - TurnOnLight
   - OpenDoorRPC
+  - ShowEndingUI
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
