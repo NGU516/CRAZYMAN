@@ -16,6 +16,8 @@ public class MentalGauge : MonoBehaviourPun
     public Animator animator; // 플레이어 애니메이터
     public LightOff lightOff; // 손전등 스크립트 참조
 
+    private ElectricTorchOnOff electricTorchOnOff;
+
     public System.Action<string> OnDeathRequest; // 죽음 요청 이벤트
 
     // UIInGame 인스턴스를 저장할 변수 (중복 생성 방지 및 참조용)
@@ -30,6 +32,18 @@ public class MentalGauge : MonoBehaviourPun
         {
             Debug.LogError("[MentalGauge] Awake: Animator is not assigned! Please ensure the player object has the 'Player' tag and an Animator component.");
         }
+
+        electricTorchOnOff = GetComponent<ElectricTorchOnOff>();
+        if (electricTorchOnOff == null)
+        {
+            // 만약 다른 곳에 있다면 아래처럼 FindObjectOfType으로 찾아봐
+            electricTorchOnOff = FindObjectOfType<ElectricTorchOnOff>();
+            if (electricTorchOnOff == null)
+            {
+                Debug.LogError("[MentalGauge] Awake: ElectricTorchOnOff script is not found in the scene or on this GameObject!");
+            }
+        }
+
         // 씬에서 LightOff 스크립트 찾기
         lightOff = FindObjectOfType<LightOff>();
         if (lightOff == null)
@@ -94,9 +108,10 @@ public class MentalGauge : MonoBehaviourPun
         // 슬라이더가 null이 아닐 때만 값 업데이트 시도
         if (mentalSlider != null)
         {
-            if (!(lightOff.isLightOn))
+            if (!(lightOff.isLightOn) && electricTorchOnOff != null && !electricTorchOnOff.IsFlashLightOn)
             {
                 currentMental -= Time.deltaTime * decreaseRate; // 멘탈 감소 로직
+                currentMental = Mathf.Clamp(currentMental, 0, maxMental);
                 if (currentMental <= 0)
                 {
                     currentMental = 0;

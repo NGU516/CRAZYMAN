@@ -6,7 +6,8 @@ public enum ItemType
 {
     Camera,
     Key,
-    Battery,
+    BatteryBig,
+    BatterySmall,
     bandage,
     pills
 }
@@ -25,6 +26,8 @@ public class Item : MonoBehaviour
     [Header("Effect Data - Pills")] // 약 아이템 전용 효과 데이터
     [SerializeField] public float staminaRecoveryAmount = 0f; // 스테미너 회복량 (Inspector에서 설정)
     [SerializeField] public float mentalRecoveryAmount = 0f; // 정신력 회복량 (Inspector에서 설정)
+
+    [SerializeField] public float batteryRecoveryAmount = 0f; // 정신력 회복량 (Inspector에서 설정)
 
     public virtual bool Use()
     {
