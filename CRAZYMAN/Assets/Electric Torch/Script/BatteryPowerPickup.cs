@@ -18,13 +18,13 @@ public class BatteryPowerPickup : MonoBehaviour
     {
         if (other)
         {
-            _torchOnOff._PowerPickUp = true;
-            _torchOnOff.intensityLight = PowerIntensityLight;
+            //_torchOnOff._PowerPickUp = true;
+            //_torchOnOff.intensityLight = PowerIntensityLight;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        _torchOnOff._PowerPickUp = false;
+        //_torchOnOff._PowerPickUp = false;
     }
 }

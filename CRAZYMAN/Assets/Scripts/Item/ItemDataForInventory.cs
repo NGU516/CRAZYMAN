@@ -9,6 +9,7 @@ public class ItemDataForInventory
 
     public float RecoveryStamina; // 스테미너 회복량
     public float RecoveryMental; // 정신력 회복량
+    public float RecoveryBattery; // 배터리 회복량
 
     public ItemDataForInventory(Item item)
     {
@@ -20,6 +21,7 @@ public class ItemDataForInventory
             this.inventoryIcon = null;
             this.RecoveryStamina = 0f;
             this.RecoveryMental = 0f;
+            this.RecoveryBattery = 0f;
             return; // null이면 초기화 실패
         }
 
@@ -29,5 +31,6 @@ public class ItemDataForInventory
 
         this.RecoveryStamina = item.staminaRecoveryAmount;
         this.RecoveryMental = item.mentalRecoveryAmount;
+        this.RecoveryBattery = item.batteryRecoveryAmount;
     }
 }

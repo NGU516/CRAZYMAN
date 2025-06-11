@@ -1816,6 +1816,7 @@ GameObject:
   - component: {fileID: 6755428725241682011}
   - component: {fileID: 819557721272865267}
   - component: {fileID: 2580932128759872668}
+  - component: {fileID: 4834347861471910617}
   - component: {fileID: 2066543612194084729}
   - component: {fileID: 3115548885158269417}
   - component: {fileID: 3915151411317302619}
@@ -1956,6 +1957,20 @@ MonoBehaviour:
   isDeath: 0
   animator: {fileID: 0}
   lightOff: {fileID: 0}
+--- !u!114 &4834347861471910617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5700398153495716206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a21cf89f1d1d3ed4981c6079a2fb990e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  batterySlider: {fileID: 1722423921243925254}
+  maxBattery: 100
 --- !u!114 &2066543612194084729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2623,8 +2638,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73297015d458fd443a63c88af5417169, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modoLightChoose: 0
-  _PowerPickUp: 0
+  _flashlightBatterySlider: {fileID: 1722423921243925254}
+  modoLightChoose: 1
+  _PowerPickUp: 1
+  _maxIntensity: 2.5
   intensityLight: 2.5
   _lightTime: 0.05
 --- !u!114 &931194251005646182
@@ -2664,7 +2681,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 3712491873472946271}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
