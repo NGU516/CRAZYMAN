@@ -96,7 +96,7 @@ public class StaminaSystem : MonoBehaviourPun
         {
             currentStamina -= staminaDrainRate * Time.deltaTime;
             //currentStamina = Mathf.Max(currentStamina, 0);
-            Debug.Log($"스테미너 값 {staminaSlider.value}");
+            // Debug.Log($"스테미너 값 {staminaSlider.value}");
             if (currentStamina < 0)
                 currentStamina = 0;
             if (currentStamina <= 0 && !isRecoveryDelayed && !isExhausted)

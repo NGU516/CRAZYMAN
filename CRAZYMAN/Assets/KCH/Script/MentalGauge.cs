@@ -104,7 +104,7 @@ public class MentalGauge : MonoBehaviourPun
                 }
                 // 멘탈 값 변화에 따라 슬라이더 값 업데이트
                 mentalSlider.value = currentMental; // 0~1 값으로 슬라이더 업데이트
-                Debug.Log(mentalSlider.value);
+//                 Debug.Log(mentalSlider.value);
             }
             // TODO: 빛이 켜져 있을 때 멘탈 회복 로직 추가 (필요하다면)
             // else

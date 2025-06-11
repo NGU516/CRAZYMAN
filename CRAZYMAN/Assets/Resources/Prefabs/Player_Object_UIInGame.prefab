@@ -1933,7 +1933,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStamina: 100
   currentStamina: 100
-  staminaDrainRate: 25
+  staminaDrainRate: 10
   staminaRegenRate: 5
   recoveryDelay: 3
   staminaSlider: {fileID: 3601960092651786341}
@@ -2027,6 +2027,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 5088458261057676641}
   - {fileID: 5821021263416917630}
+  - {fileID: 821840862399814701}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

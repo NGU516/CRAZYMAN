@@ -205,73 +205,52 @@ public class EnemyPatrol : MonoBehaviour
         }
 
         int nextIndex = -1;
-        int attempts = 0;
-        int maxAttempts = patrolPoints.Length * 2;
-        List<int> triedIndices = new List<int>();
-        bool foundReachable = false;
+        List<int> candidates = new List<int>();
 
-        while (attempts < maxAttempts)
+        // 압박 모드일 때는 플레이어 근처의 순찰 지점을 우선적으로 선택
+        if (isPressuringPlayer && IsPlayerInRange(pressureRange))
         {
-            // 압박 모드일 때는 플레이어 근처의 순찰 지점을 우선적으로 선택
-            if (isPressuringPlayer && IsPlayerInRange(pressureRange))
+            for (int i = 0; i < patrolPoints.Length; i++)
             {
-                List<int> priorityIndices = new List<int>();
-                for (int i = 0; i < patrolPoints.Length; i++)
+                float dist = Vector3.Distance(patrolPoints[i].position, player.position);
+                if (dist <= pressureRange && !recentPatrolIndices.Contains(i))
                 {
-                    if (triedIndices.Contains(i)) continue;
-                    float dist = Vector3.Distance(patrolPoints[i].position, player.position);
-                    if (dist <= pressureRange && !recentPatrolIndices.Contains(i))
-                    {
-                        priorityIndices.Add(i);
-                    }
-                }
-                if (priorityIndices.Count > 0)
-                {
-                    nextIndex = priorityIndices[Random.Range(0, priorityIndices.Count)];
+                    candidates.Add(i);
                 }
             }
-
-            // 일반적인 순찰 지점 선택
-            if (nextIndex == -1)
-            {
-                List<int> candidates = new List<int>();
-                for (int i = 0; i < patrolPoints.Length; i++)
-                {
-                    if (!triedIndices.Contains(i) && !recentPatrolIndices.Contains(i))
-                        candidates.Add(i);
-                }
-                if (candidates.Count > 0)
-                    nextIndex = candidates[Random.Range(0, candidates.Count)];
-                else
-                {
-                    // 모든 지점을 시도했다면 최근 방문 기록을 무시하고 랜덤 선택
-                    nextIndex = Random.Range(0, patrolPoints.Length);
-                }
-            }
-
-            // 이미 시도한 지점은 제외
-            if (triedIndices.Contains(nextIndex))
-            {
-                nextIndex = -1;
-                attempts++;
-                continue;
-            }
-
-            // 경로 유효성 체크
-            if (IsReachable(patrolPoints[nextIndex].position))
-            {
-                foundReachable = true;
-                break;
-            }
-            else
-            {
-                triedIndices.Add(nextIndex);
-                nextIndex = -1;
-            }
-            attempts++;
         }
 
-        if (foundReachable && nextIndex != -1)
+        // 일반적인 순찰 지점 선택
+        if (candidates.Count == 0)
+        {
+            for (int i = 0; i < patrolPoints.Length; i++)
+            {
+                if (!recentPatrolIndices.Contains(i))
+                    candidates.Add(i);
+            }
+        }
+
+        // 후보가 없으면 최근 방문 기록을 무시하고 모든 지점을 후보로 추가
+        if (candidates.Count == 0)
+        {
+            for (int i = 0; i < patrolPoints.Length; i++)
+            {
+                candidates.Add(i);
+            }
+        }
+
+        // 후보들 중에서 도달 가능한 첫 번째 지점을 선택
+        foreach (int index in candidates)
+        {
+            if (IsReachable(patrolPoints[index].position))
+            {
+                nextIndex = index;
+                break;
+            }
+        }
+
+        // 도달 가능한 지점을 찾았다면 이동
+        if (nextIndex != -1)
         {
             recentPatrolIndices.Enqueue(nextIndex);
             if (recentPatrolIndices.Count > recentPatrolMemory)
@@ -281,7 +260,7 @@ public class EnemyPatrol : MonoBehaviour
         }
         else
         {
-            // 모든 경로가 실패한 경우, agent를 멈추고 로그 출력
+            // 도달 가능한 지점이 없는 경우, agent를 멈춤
             agent.isStopped = true;
         }
     }
