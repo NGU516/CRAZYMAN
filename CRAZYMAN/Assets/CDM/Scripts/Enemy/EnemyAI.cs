@@ -31,6 +31,7 @@ public class EnemyAI : MonoBehaviour
     }
 
     private EnemyState currentState;
+    private Coroutine blindCoroutine;
 
     // 안정성을 위해 IEnumerator 사용
     IEnumerator Start()
@@ -148,6 +149,8 @@ public class EnemyAI : MonoBehaviour
                 }
                 break;
             case EnemyState.Blind:
+                EnemyAnimator.SetBool("BlindState", true);
+                SetBlind(true);
                 break;
         }
     }
@@ -199,6 +202,41 @@ public class EnemyAI : MonoBehaviour
     public void ForceStateToPatrol()
     {
         SetState(EnemyState.Patrol);
+    }
+
+    public void SetBlind(bool isBlind)
+    {
+        if (isBlind)
+        {
+            SetState(EnemyState.Blind);
+            EnemyAnimator.SetBool("BlindState", true);
+            if (agent != null) agent.isStopped = true; // 움직임 멈춤
+
+            // 이미 코루틴이 돌고 있다면 중지
+            if (blindCoroutine != null)
+                StopCoroutine(blindCoroutine);
+            // 3~5초 랜덤 멈춤
+            blindCoroutine = StartCoroutine(BlindDurationCoroutine());
+        }
+        else
+        {
+            SetState(EnemyState.Patrol); // 필요시 이전 상태로 복귀
+            EnemyAnimator.SetBool("BlindState", false);
+            if (agent != null) agent.isStopped = false; // 다시 움직임
+
+            if (blindCoroutine != null)
+            {
+                StopCoroutine(blindCoroutine);
+                blindCoroutine = null;
+            }
+        }
+    }
+
+    private IEnumerator BlindDurationCoroutine()
+    {
+        float waitTime = Random.Range(3f, 5f);
+        yield return new WaitForSeconds(waitTime);
+        SetBlind(false); // 자동으로 Blind 해제
     }
 
 }

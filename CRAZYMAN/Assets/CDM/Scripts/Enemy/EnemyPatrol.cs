@@ -284,27 +284,32 @@ public class EnemyPatrol : MonoBehaviour
             MoveToNextPatrolPoint();
             return;
         }
-        // 기존 문 충돌 등은 그대로 유지
+
+        // 문 상호작용 로직
         DoorController door = other.GetComponent<DoorController>();
         if (door != null)
         {
             var obstacle = door.doorObstacle;
-            float playerDist = player ? Vector3.Distance(transform.position, player.position) : float.MaxValue;
             if (obstacle != null && obstacle.enabled)
             {
-                NetworkDoor networkDoor = door.GetComponent<NetworkDoor>();
-                if (networkDoor != null)
+                // 문이 닫혀있고, 플레이어가 감지 범위 내에 있을 때만 문을 열 수 있음
+                if (IsPlayerInRange(doorInteractionRange))
                 {
-                    networkDoor.RequestToggleDoor(Vector3.zero);
+                    NetworkDoor networkDoor = door.GetComponent<NetworkDoor>();
+                    if (networkDoor != null)
+                    {
+                        networkDoor.RequestToggleDoor(Vector3.zero);
+                    }
+                    else
+                    {
+                        door.ToggleDoor(); // fallback (싱글플레이 등)
+                    }
                 }
                 else
                 {
-                    door.ToggleDoor(); // fallback (싱글플레이 등)
+                    // 플레이어가 감지 범위 밖이면 다른 순찰 지점으로 이동
+                    MoveToNextPatrolPoint();
                 }
-            }
-            else
-            {
-                MoveToNextPatrolPoint();
             }
         }
     }

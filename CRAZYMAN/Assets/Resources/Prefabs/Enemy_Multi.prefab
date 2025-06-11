@@ -847,7 +847,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chaseSpeed: 4
-  normalSpeed: 2.5
+  normalSpeed: 20
   chaseRange: 10
   chaseTimeLimit: 20
   chaseCoolDownTime: 5
