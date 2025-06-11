@@ -385,7 +385,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3287515507390031603}
-  - {fileID: 4509951212532920304}
   m_Father: {fileID: 5949155081246035205}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &6175704904883401134
@@ -2557,12 +2556,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6305879133886577323}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.17364825, y: 0, z: 0, w: 0.9848078}
-  m_LocalPosition: {x: 0, y: 0.03, z: 0.062}
+  m_LocalRotation: {x: -0.17364824, y: 0.0000000018626454, z: -0, w: 0.9848078}
+  m_LocalPosition: {x: 0, y: 0.030000197, z: 0.062000282}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8471671943245800239}
+  m_Father: {fileID: 3287515507390031603}
   m_LocalEulerAnglesHint: {x: -20, y: 0, z: 0}
 --- !u!108 &7620678538615338864
 Light:
@@ -2641,9 +2640,9 @@ MonoBehaviour:
   _flashlightBatterySlider: {fileID: 1722423921243925254}
   modoLightChoose: 1
   _PowerPickUp: 1
-  _maxIntensity: 2.5
-  intensityLight: 2.5
-  _lightTime: 0.05
+  _maxIntensity: 1.5
+  intensityLight: 1.5
+  _lightTime: 0.025
 --- !u!114 &931194251005646182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2651,7 +2650,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6305879133886577323}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f88661d4f94abf4fb63f1cb9a4d14fb, type: 3}
   m_Name: 
@@ -3111,7 +3110,8 @@ Transform:
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4509951212532920304}
   m_Father: {fileID: 8471671943245800239}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &16899129466179103

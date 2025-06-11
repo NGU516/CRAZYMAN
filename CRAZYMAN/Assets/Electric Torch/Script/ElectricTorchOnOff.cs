@@ -129,10 +129,10 @@ public class ElectricTorchOnOff : MonoBehaviourPun, IPunObservable
         if (photonView.IsMine && _flashlightBatterySlider != null)
         {
             _flashlightBatterySlider.value = intensityLight; // 현재 배터리 값으로 슬라이더 업데이트
+            _light.intensity = _flashLightOn ? intensityLight : 0f;
+
             Debug.Log($"[ElectricTorchOnOff] Slider Updated: {intensityLight}");
         }
-
-        //_ApplyFlashLightState();
     }
     private void TryFindBatterySlider()
     {
@@ -161,7 +161,9 @@ public class ElectricTorchOnOff : MonoBehaviourPun, IPunObservable
         if (_flashLightOn && modoLightChoose == LightChoose.withBattery)
         {
             intensityLight -= Time.deltaTime * _lightTime;
+
             _flashlightBatterySlider.value = intensityLight;
+            _light.intensity = intensityLight;
             if (intensityLight < 0)
             {
                 intensityLight = 0;
@@ -198,6 +200,11 @@ public class ElectricTorchOnOff : MonoBehaviourPun, IPunObservable
                 _emissionMaterialFade.OffEmission();
         }
         Debug.Log($"[ElectricTorchOnOff] Applied Flashlight State: On={_flashLightOn}, Intensity={intensityLight}");
+        
+        if (photonView.IsMine && _flashlightBatterySlider != null)
+        {
+            _flashlightBatterySlider.value = intensityLight;
+        }
         /*if (_flashLightOn)
         {
             _light.intensity = intensityLight;

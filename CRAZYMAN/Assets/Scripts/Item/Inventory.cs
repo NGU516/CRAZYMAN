@@ -44,7 +44,8 @@ public class Inventory : MonoBehaviourPun
                          (int)itemDataToUse.itemType, // 아이템 종류 (int로 변환)
                          photonView.ViewID, // 아이템을 사용한 플레이어의 ViewID
                          itemDataToUse.RecoveryStamina, // ItemDataForInventory의 스테미너 회복량
-                         itemDataToUse.RecoveryMental); // ItemDataForInventory의 정신력 회복량
+                         itemDataToUse.RecoveryMental, // ItemDataForInventory의 정신력 회복량
+                         itemDataToUse.RecoveryBattery); // ItemDataForInventory의 배터리 회복량
         items.RemoveAt(slotIndex);
         UpdateUI();
     }
@@ -87,7 +88,7 @@ public class Inventory : MonoBehaviourPun
     }*/
 
     [PunRPC]
-    void UseItemRPC(int itemTpyeInt, int senderViewID, float staminaRecover, float mentalRecover, PhotonMessageInfo info)
+    void UseItemRPC(int itemTpyeInt, int senderViewID, float staminaRecover, float mentalRecover, float batteryRecover, PhotonMessageInfo info)
     {
         ItemType usedItemType = (ItemType)itemTpyeInt;
         PhotonView senderPV = PhotonView.Find(senderViewID);
@@ -142,31 +143,32 @@ public class Inventory : MonoBehaviourPun
                 Debug.Log($"UseItemRPC: Player {senderViewID} used Battery. Battery Charge: {staminaRecover}"); // 배터리 충전량은 ItemDataForInventory의 RecoveryStamina 필드를 사용했을 수도 있습니다.
                 // TODO: 배터리 아이템 효과 구현 (손전등 충전 등)
                 // senderObject에서 손전등 스크립트 찾아서 함수 호출 (예: FlashlightSystem flashlight = senderObject.GetComponent<FlashlightSystem>(); flashlight?.ChargeBattery(staminaRecover);)
-                FlashlightSystem flashlightSystem = senderObject.GetComponent<FlashlightSystem>();
-                if (flashlightSystem != null)
+                ElectricTorchOnOff electricTorch = senderObject.GetComponentInChildren<ElectricTorchOnOff>();
+
+                if (electricTorch != null)
                 {
-                    flashlightSystem.FullRecharge(); // 또는 flashlightSystem.RechargeBattery(staminaRecover);
-                    Debug.Log($"UseItemRPC: Player {senderViewID} 배터리 충전 완료!");
+                    electricTorch.AddBattery(batteryRecover);
+                    Debug.Log($"UseItemRPC: Player {senderViewID} 손전등 배터리 {batteryRecover} 충전 완료 (큰 배터리).");
                 }
                 else
                 {
-                    Debug.LogError($"UseItemRPC: FlashlightSystem 컴포넌트를 Player {senderViewID}에서 찾을 수 없습니다! 배터리 충전 불가.");
+                    Debug.LogError($"UseItemRPC: ElectricTorchOnOff 컴포넌트를 Player {senderViewID}에서 찾을 수 없습니다! 손전등 배터리 충전 불가.");
                 }
                 break;
             
             case ItemType.BatterySmall: // 배터리 아이템
-                Debug.Log($"UseItemRPC: Player {senderViewID} used Battery. Battery Charge: {staminaRecover}"); // 배터리 충전량은 ItemDataForInventory의 RecoveryStamina 필드를 사용했을 수도 있습니다.
-                // TODO: 배터리 아이템 효과 구현 (손전등 충전 등)
-                // senderObject에서 손전등 스크립트 찾아서 함수 호출 (예: FlashlightSystem flashlight = senderObject.GetComponent<FlashlightSystem>(); flashlight?.ChargeBattery(staminaRecover);)
-                flashlightSystem = senderObject.GetComponent<FlashlightSystem>();
-                if (flashlightSystem != null)
+                Debug.Log($"UseItemRPC: Player {senderViewID} used Battery. Battery Charge: {batteryRecover}"); // 배터리 충전량은 ItemDataForInventory의 RecoveryStamina 필드를 사용했을 수도 있습니다.
+                                                                                                            // TODO: 배터리 아이템 효과 구현 (손전등 충전 등)
+                electricTorch = senderObject.GetComponentInChildren<ElectricTorchOnOff>();
+
+                if (electricTorch != null)
                 {
-                    flashlightSystem.RechargeBattery(50); // 또는 flashlightSystem.RechargeBattery(staminaRecover);
-                    Debug.Log($"UseItemRPC: Player {senderViewID} 배터리 충전 완료!");
+                    electricTorch.AddBattery(batteryRecover);
+                    Debug.Log($"UseItemRPC: Player {senderViewID} 손전등 배터리 {batteryRecover} 충전 완료 (큰 배터리).");
                 }
                 else
                 {
-                    Debug.LogError($"UseItemRPC: FlashlightSystem 컴포넌트를 Player {senderViewID}에서 찾을 수 없습니다! 배터리 충전 불가.");
+                    Debug.LogError($"UseItemRPC: ElectricTorchOnOff 컴포넌트를 Player {senderViewID}에서 찾을 수 없습니다! 손전등 배터리 충전 불가.");
                 }
                 break;
 
