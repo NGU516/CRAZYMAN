@@ -104,11 +104,11 @@ public class Inventory : MonoBehaviourPun
                 if (mentalGauge != null)
                 {
                     mentalGauge.RecoveryMental(mentalRecover); // MentalGauge의 RecoveryMental 함수 호출
-                    Debug.Log($"UseItemRPC: Player {senderViewID} 정신력 {mentalRecover} 회복 완료.");
+                    //Debug.Log($"UseItemRPC: Player {senderViewID} 정신력 {mentalRecover} 회복 완료.");
                 }
                 else
                 {
-                    Debug.LogError($"UseItemRPC: MentalGauge 컴포넌트를 Player {senderViewID}에서 찾을 수 없습니다! 정신력 회복 불가.");
+                    //Debug.LogError($"UseItemRPC: MentalGauge 컴포넌트를 Player {senderViewID}에서 찾을 수 없습니다! 정신력 회복 불가.");
                 }
                 
             break;
@@ -118,11 +118,11 @@ public class Inventory : MonoBehaviourPun
                 if (staminaSystemBandage != null)
                 {
                     staminaSystemBandage.RecoverStamina(staminaRecover); // StaminaSystem의 RecoverStamina 함수 호출
-                    Debug.Log($"UseItemRPC: Player {senderViewID} 스테미너 {staminaRecover} 회복 완료 (Bandage).");
+                    //Debug.Log($"UseItemRPC: Player {senderViewID} 스테미너 {staminaRecover} 회복 완료 (Bandage).");
                 }
                 else
                 {
-                    Debug.LogError($"UseItemRPC: StaminaSystem 컴포넌트를 Player {senderViewID}에서 찾을 수 없습니다! 스테미너 회복 불가.");
+                    //Debug.LogError($"UseItemRPC: StaminaSystem 컴포넌트를 Player {senderViewID}에서 찾을 수 없습니다! 스테미너 회복 불가.");
                 }
                 // 붕대 아이템이 정신력도 회복시킨다면 적용 (ItemDataForInventory에 설정된 값 사용)
                 if (mentalRecover > 0)
@@ -131,16 +131,16 @@ public class Inventory : MonoBehaviourPun
                     if (mentalGaugeBandage != null)
                     {
                         mentalGaugeBandage.RecoveryMental(mentalRecover); // MentalGauge의 RecoveryMental 함수 호출
-                        Debug.Log($"UseItemRPC: Player {senderViewID} 정신력 {mentalRecover} 회복 완료 (Bandage).");
+                        //Debug.Log($"UseItemRPC: Player {senderViewID} 정신력 {mentalRecover} 회복 완료 (Bandage).");
                     }
                     else
                     {
-                        Debug.LogError($"UseItemRPC: MentalGauge 컴포넌트를 Player {senderViewID}에서 찾을 수 없습니다! 정신력 회복 불가.");
+                        //Debug.LogError($"UseItemRPC: MentalGauge 컴포넌트를 Player {senderViewID}에서 찾을 수 없습니다! 정신력 회복 불가.");
                     }
                 }
                 break;
             case ItemType.BatteryBig: // 배터리 아이템
-                Debug.Log($"UseItemRPC: Player {senderViewID} used Battery. Battery Charge: {staminaRecover}"); // 배터리 충전량은 ItemDataForInventory의 RecoveryStamina 필드를 사용했을 수도 있습니다.
+                //Debug.Log($"UseItemRPC: Player {senderViewID} used Battery. Battery Charge: {staminaRecover}"); // 배터리 충전량은 ItemDataForInventory의 RecoveryStamina 필드를 사용했을 수도 있습니다.
                 // TODO: 배터리 아이템 효과 구현 (손전등 충전 등)
                 // senderObject에서 손전등 스크립트 찾아서 함수 호출 (예: FlashlightSystem flashlight = senderObject.GetComponent<FlashlightSystem>(); flashlight?.ChargeBattery(staminaRecover);)
                 ElectricTorchOnOff electricTorch = senderObject.GetComponentInChildren<ElectricTorchOnOff>();
@@ -148,34 +148,37 @@ public class Inventory : MonoBehaviourPun
                 if (electricTorch != null)
                 {
                     electricTorch.AddBattery(batteryRecover);
-                    Debug.Log($"UseItemRPC: Player {senderViewID} 손전등 배터리 {batteryRecover} 충전 완료 (큰 배터리).");
+                    //Debug.Log($"UseItemRPC: Player {senderViewID} 손전등 배터리 {batteryRecover} 충전 완료 (큰 배터리).");
                 }
                 else
                 {
-                    Debug.LogError($"UseItemRPC: ElectricTorchOnOff 컴포넌트를 Player {senderViewID}에서 찾을 수 없습니다! 손전등 배터리 충전 불가.");
+                    //Debug.LogError($"UseItemRPC: ElectricTorchOnOff 컴포넌트를 Player {senderViewID}에서 찾을 수 없습니다! 손전등 배터리 충전 불가.");
                 }
                 break;
             
             case ItemType.BatterySmall: // 배터리 아이템
-                Debug.Log($"UseItemRPC: Player {senderViewID} used Battery. Battery Charge: {batteryRecover}"); // 배터리 충전량은 ItemDataForInventory의 RecoveryStamina 필드를 사용했을 수도 있습니다.
+                //Debug.Log($"UseItemRPC: Player {senderViewID} used Battery. Battery Charge: {batteryRecover}"); // 배터리 충전량은 ItemDataForInventory의 RecoveryStamina 필드를 사용했을 수도 있습니다.
                                                                                                             // TODO: 배터리 아이템 효과 구현 (손전등 충전 등)
                 electricTorch = senderObject.GetComponentInChildren<ElectricTorchOnOff>();
 
                 if (electricTorch != null)
                 {
                     electricTorch.AddBattery(batteryRecover);
-                    Debug.Log($"UseItemRPC: Player {senderViewID} 손전등 배터리 {batteryRecover} 충전 완료 (큰 배터리).");
+                    //Debug.Log($"UseItemRPC: Player {senderViewID} 손전등 배터리 {batteryRecover} 충전 완료 (큰 배터리).");
                 }
                 else
                 {
-                    Debug.LogError($"UseItemRPC: ElectricTorchOnOff 컴포넌트를 Player {senderViewID}에서 찾을 수 없습니다! 손전등 배터리 충전 불가.");
+                    //Debug.LogError($"UseItemRPC: ElectricTorchOnOff 컴포넌트를 Player {senderViewID}에서 찾을 수 없습니다! 손전등 배터리 충전 불가.");
                 }
                 break;
 
             case ItemType.Camera: // 카메라 아이템
-                Debug.Log($"UseItemRPC: Player {senderViewID} used Camera.");
                 // TODO: 카메라 아이템 효과 구현 (적 스턴 등)
                 // senderObject 근처의 적을 찾아서 스턴 적용
+                ItemCamera cameraItem = senderObject.GetComponent<ItemCamera>();
+                if (cameraItem != null)
+                    cameraItem.Use();
+                Debug.Log("카메라 사용");
                 break;
         }
     }

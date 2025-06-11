@@ -101,11 +101,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2105ab1cbe14c4082c7b3d43e31a5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemType: 3
+  itemType: 4
   itemName: "\uBD95\uB300"
   inventoryIcon: {fileID: 21300000, guid: 9e3235dd77419cb4fad779675e271d33, type: 3}
   staminaRecoveryAmount: 100
   mentalRecoveryAmount: 0
+  batteryRecoveryAmount: 0
 --- !u!114 &3714166665667147969
 MonoBehaviour:
   m_ObjectHideFlags: 0
