@@ -102,18 +102,9 @@ public class DoorController : MonoBehaviour
                 {
                     return;
                 }
-                // NetworkDoor를 통해 문 상태 변경 요청
-                NetworkDoor networkDoor = GetComponent<NetworkDoor>();
-                if (networkDoor != null)
-                {
-                    networkDoor.RequestToggleDoor(transform.position);
-                }
-                else
-                {
-                    // NetworkDoor가 없는 경우 (싱글플레이 등) 기존 방식으로 처리
-                    Transform playerTr = GameObject.FindGameObjectWithTag(playerTag)?.transform;
-                    ToggleDoor(playerTr);
-                }
+                // 플레이어 Transform을 찾아서 전달
+                Transform playerTr = GameObject.FindGameObjectWithTag(playerTag)?.transform;
+                ToggleDoor(playerTr);
             }
         }
     }
