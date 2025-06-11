@@ -13,6 +13,8 @@ public class StaminaSystem : MonoBehaviourPun
     [SerializeField] public float recoveryDelay = 3f;  // ?????
     public Slider staminaSlider;
 
+    private GameObject uiInGameInstance;
+
     private bool isDraining = false;
     private bool isRecoveryDelayed = false; // ???? ???? ????
     private bool isExhausted = false; // ???????? ???? ????
@@ -25,11 +27,24 @@ public class StaminaSystem : MonoBehaviourPun
 
         if (staminaSlider == null)
         {
-            Transform found = transform.Find("UIInGame/Stamina_Slider");
-            if (found != null)
+            GameObject uiPrefab = Resources.Load<GameObject>("Prefabs/UIInGame");
+            if (uiPrefab != null)
             {
-                staminaSlider = found.GetComponent<Slider>();
-                Debug.Log("Stamina_Slider 바인딩 완료!");
+                // 씬에 UIInGame 인스턴스 생성 (한 번만 생성되도록 관리 필요)
+                uiInGameInstance = Instantiate(uiPrefab);
+                uiInGameInstance.name = "UIInGame"; // 이름 중복 방지용
+
+                // UIInGame 자식에서 Stamina_Slider 찾기
+                Transform sliderTransform = uiInGameInstance.transform.Find("Stamina_Slider");
+                if (sliderTransform != null)
+                {
+                    staminaSlider = sliderTransform.GetComponent<Slider>();
+                    Debug.Log("[StaminaSystem] Stamina_Slider 연결 완료!");
+                }
+                else
+                {
+                    Debug.LogError("[StaminaSystem] UIInGame 내 Stamina_Slider를 찾지 못했습니다!");
+                }
             }
             else
             {

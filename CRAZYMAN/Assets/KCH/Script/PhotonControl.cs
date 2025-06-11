@@ -22,7 +22,7 @@ public class PhotonControl : MonoBehaviourPunCallbacks
     public bool canRun = false;
     public bool canCrouch = false;
 
-    public MentalGauge mentalGauge;
+    private MentalGauge mentalGauge;
     public GameManager gameManager;
     private StaminaSystem staminaSystem;
     public Camera myCam;
