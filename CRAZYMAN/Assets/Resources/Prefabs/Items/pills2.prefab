@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3900903784526529935}
   - component: {fileID: 4033223629683720634}
   - component: {fileID: -5598760047002988950}
+  - component: {fileID: -2858393576715975877}
   m_Layer: 0
   m_Name: pills2
   m_TagString: Untagged
@@ -188,3 +189,24 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!135 &-2858393576715975877
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47235544966343999}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0.03704754, z: 0}
