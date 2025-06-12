@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -55,46 +56,8 @@ public class ElectricTorchOnOff : MonoBehaviourPun, IPunObservable
             Debug.LogError("Cannot find 'EmissionMaterialGlassTorchFadeOut' script");
         }
 
-        if (_flashlightBatterySlider == null)
-        {
-            GameObject uiInGameInstance = GameObject.Find("UIInGame");
-            if (uiInGameInstance == null)
-            {
-                // MentalGauge에서 UIInGame을 생성하지 않았다면 여기서 생성
-                GameObject uiPrefab = Resources.Load<GameObject>("Prefabs/UIInGame");
-                if (uiPrefab != null)
-                {
-                    uiInGameInstance = Instantiate(uiPrefab);
-                    uiInGameInstance.name = "UIInGame";
-                    Debug.Log("[ElectricTorchOnOff] UIInGame Prefab instantiated.");
-                }
-                else
-                {
-                    Debug.LogError("[ElectricTorchOnOff] UIInGame Prefab not found in Resources/Prefabs!");
-                }
-            }
-            else
-            {
-                Debug.Log("[ElectricTorchOnOff] UIInGame instance already exists in scene.");
-            }
+        StartCoroutine(InitializeUI());
 
-            // UIInGame 자식에서 손전등 배터리 슬라이더 찾기 (슬라이더 이름 확인 필수!)
-            if (uiInGameInstance != null)
-            {
-                // 네 UIInGame 프리팹 구조에 맞게 경로 수정 필요
-                // 예시: "FlashlightBattery_Slider"라는 이름의 슬라이더를 찾음
-                Transform sliderTransform = uiInGameInstance.transform.Find("FlashLight_Slider");
-                if (sliderTransform != null)
-                {
-                    _flashlightBatterySlider = sliderTransform.GetComponent<Slider>();
-                    Debug.Log("[ElectricTorchOnOff] Flashlight Battery Slider 연결 완료!");
-                }
-                else
-                {
-                    Debug.LogError("[ElectricTorchOnOff] UIInGame 내 FlashlightBattery_Slider를 찾지 못했습니다! 슬라이더 이름 또는 경로 확인 필요!");
-                }
-            }
-        }
         // 슬라이더가 연결되었다면 최대값 설정 및 초기값 업데이트
         if (_flashlightBatterySlider != null)
         {
@@ -108,6 +71,29 @@ public class ElectricTorchOnOff : MonoBehaviourPun, IPunObservable
         }
 
         _ApplyFlashLightState();
+    }
+
+    private IEnumerator InitializeUI()
+    {
+        yield return new WaitForSeconds(0.1f); // 또는 yield return null;
+
+        GameObject ui = GameObject.Find("UIInGame(Clone)");
+
+        if (ui != null)
+        {
+            Slider[] sliders = ui.GetComponentsInChildren<Slider>(true);
+            foreach (var s in sliders)
+            {
+                if (s.name == "FlashLight_Slider")
+                {
+                    _flashlightBatterySlider = s;
+                    break;
+                }
+            }
+        }
+
+        if (_flashlightBatterySlider == null)
+            Debug.LogError("[FlashLightSystem] FlashLight_Slider 연결 실패!");
     }
 
     void Update()
@@ -200,7 +186,7 @@ public class ElectricTorchOnOff : MonoBehaviourPun, IPunObservable
                 _emissionMaterialFade.OffEmission();
         }
         Debug.Log($"[ElectricTorchOnOff] Applied Flashlight State: On={_flashLightOn}, Intensity={intensityLight}");
-        
+
         if (photonView.IsMine && _flashlightBatterySlider != null)
         {
             _flashlightBatterySlider.value = intensityLight;

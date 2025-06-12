@@ -25,43 +25,31 @@ public class StaminaSystem : MonoBehaviourPun
     {
         if (!photonView.IsMine) return;
 
-        if (staminaSlider == null)
-        {
-            GameObject uiPrefab = Resources.Load<GameObject>("Prefabs/UIInGame");
-            if (uiPrefab != null)
-            {
-                // 씬에 UIInGame 인스턴스 생성 (한 번만 생성되도록 관리 필요)
-                uiInGameInstance = Instantiate(uiPrefab);
-                uiInGameInstance.name = "UIInGame"; // 이름 중복 방지용
-
-                // UIInGame 자식에서 Stamina_Slider 찾기
-                Transform sliderTransform = uiInGameInstance.transform.Find("Stamina_Slider");
-                if (sliderTransform != null)
-                {
-                    staminaSlider = sliderTransform.GetComponent<Slider>();
-                    Debug.Log("[StaminaSystem] Stamina_Slider 연결 완료!");
-                }
-                else
-                {
-                    Debug.LogError("[StaminaSystem] UIInGame 내 Stamina_Slider를 찾지 못했습니다!");
-                }
-            }
-            else
-            {
-                Debug.LogError("Stamina_Slider not found");
-            }
-        }
         currentStamina = maxStamina;
-        if (staminaSlider != null)
+
+        StartCoroutine(InitializeUI());
+    }
+
+    private IEnumerator InitializeUI()
+    {
+        yield return new WaitForSeconds(0.1f); // 또는 yield return null;
+
+        UIInGame ui = GetComponentInChildren<UIInGame>(true);
+        if (ui != null)
         {
-            staminaSlider.maxValue = maxStamina;
-            staminaSlider.value = currentStamina;
+            Slider[] sliders = ui.GetComponentsInChildren<Slider>(true);
+            foreach (var s in sliders)
+            {
+                if (s.name == "Stamina_Slider")
+                {
+                    staminaSlider = s;
+                    break;
+                }
+            }
         }
-        else
-        {
-            Debug.LogError("StaminaSlider is not assigned in the Inspector! Attempting to find it automatically.");
-            StartCoroutine(WaitForSliderAndInitialize());
-        }
+
+        if (staminaSlider == null)
+            Debug.LogError("[StaminaSystem] Stamina_Slider 연결 실패!");
     }
 
     private IEnumerator WaitForSliderAndInitialize()
@@ -69,7 +57,7 @@ public class StaminaSystem : MonoBehaviourPun
         // 슬라이더가 Instantiate될 때까지 대기
         while (staminaSlider == null)
         {
-        //     Debug.Log("Stamina_Slider 연결 중");
+            //     Debug.Log("Stamina_Slider 연결 중");
             Slider[] allSliders = GameObject.FindObjectsOfType<Slider>(true); // 비활성 포함
             foreach (Slider s in allSliders)
             {

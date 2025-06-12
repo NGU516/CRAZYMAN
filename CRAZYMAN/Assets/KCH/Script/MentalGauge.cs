@@ -59,39 +59,38 @@ public class MentalGauge : MonoBehaviourPun
     {
         if (!photonView.IsMine) return;
 
-        if (mentalSlider == null)
-        {
-            GameObject uiPrefab = Resources.Load<GameObject>("Prefabs/UIInGame");
-            if (uiPrefab != null)
-            {
-                // ���� UIInGame �ν��Ͻ� ���� (�� ���� �����ǵ��� ���� �ʿ�)
-                uiInGameInstance = Instantiate(uiPrefab);
-                uiInGameInstance.name = "UIInGame"; // �̸� �ߺ� ������
-
-                // UIInGame �ڽĿ��� Stamina_Slider ã��
-                Transform sliderTransform = uiInGameInstance.transform.Find("Stamina_Slider");
-                if (sliderTransform != null)
-                {
-                    mentalSlider = sliderTransform.GetComponent<Slider>();
-                    Debug.Log("[StaminaSystem] Stamina_Slider ���� �Ϸ�!");
-                }
-                else
-                {
-                    Debug.LogError("[StaminaSystem] UIInGame �� Stamina_Slider�� ã�� ���߽��ϴ�!");
-                }
-            }
-            else
-            {
-                Debug.LogError("Stamina_Slider not found");
-            }
-        }
         currentMental = maxMental;
+
+        StartCoroutine(InitializeUI());
+
         Debug.Log("초기 ?��?��?�� ?���? : " + currentMental);
         if (mentalSlider != null)
         {
             mentalSlider.maxValue = maxMental;
             mentalSlider.value = currentMental;
         }
+    }
+
+    private IEnumerator InitializeUI()
+    {
+        yield return new WaitForSeconds(0.1f); // 또는 yield return null;
+
+        UIInGame ui = GetComponentInChildren<UIInGame>(true);
+        if (ui != null)
+        {
+            Slider[] sliders = ui.GetComponentsInChildren<Slider>(true);
+            foreach (var s in sliders)
+            {
+                if (s.name == "Mental_Slider")
+                {
+                    mentalSlider = s;
+                    break;
+                }
+            }
+        }
+
+        if (mentalSlider == null)
+            Debug.LogError("[MentalSystem] Mental_Slider 연결 실패!");
     }
 
     // Update is called once per frame
@@ -103,7 +102,7 @@ public class MentalGauge : MonoBehaviourPun
         // *** �����? �α� �߰�: Update���� �����̴� MaxValue ��ȭ ����! ***
         if (mentalSlider != null && mentalSlider.maxValue != maxMental) // MaxValue�� 100�� �ƴ� �� �α� ���?
         {
-            Debug.LogWarning($"[MentalGauge] Update: mentalSlider.maxValue�� ����ġ ���� ������ �����?! ���� ��: {mentalSlider.maxValue}");
+            //Debug.LogWarning($"[MentalGauge] Update: mentalSlider.maxValue�� ����ġ ���� ������ �����?! ���� ��: {mentalSlider.maxValue}");
         }
 
         // �����̴��� null�� �ƴ� ���� �� ������Ʈ �õ�
@@ -120,8 +119,8 @@ public class MentalGauge : MonoBehaviourPun
                     TriggerDeath("MentalDepleted");
                 }
                 // ��Ż �� ��ȭ�� ���� �����̴� �� ������Ʈ
-                mentalSlider.value = currentMental; // 0~1 ������ �����̴� ������Ʈ
-//                 Debug.Log(mentalSlider.value);
+                mentalSlider.value = currentMental / maxMental; // 0~1 ������ �����̴� ������Ʈ
+                                                                //                 Debug.Log(mentalSlider.value);
             }
             // TODO: ���� ���� ���� �� ��Ż ȸ�� ���� �߰� (�ʿ��ϴٸ�)
             // else
@@ -181,7 +180,7 @@ public class MentalGauge : MonoBehaviourPun
         lastDeathPosition = transform.position; // Death Position Save
         GameObject player = GameObject.FindWithTag("Player");
         player.tag = "Dead";
-        
+
         PlayerPrefs.SetFloat("DeathX", lastDeathPosition.x);
         PlayerPrefs.SetFloat("DeathY", lastDeathPosition.y);
         PlayerPrefs.SetFloat("DeathZ", lastDeathPosition.z);

@@ -1054,7 +1054,7 @@ GameObject:
   - component: {fileID: 1973175163425953241}
   - component: {fileID: 7578744067300353171}
   m_Layer: 5
-  m_Name: Staminat_Slider
+  m_Name: Stamina_Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
