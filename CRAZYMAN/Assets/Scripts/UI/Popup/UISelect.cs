@@ -5,7 +5,8 @@ public class UISelect : UIPopup
     enum Buttons
     {
         CreateButton,
-        JoinButton
+        JoinButton,
+        BackButton
     }
 
     public override bool Init()
@@ -16,6 +17,7 @@ public class UISelect : UIPopup
         BindButton(typeof(Buttons));
         GetButton((int)Buttons.CreateButton).gameObject.BindEvent(OnClickCreate);
         GetButton((int)Buttons.JoinButton).gameObject.BindEvent(OnClickJoin);
+        GetButton((int)Buttons.BackButton).gameObject.BindEvent(OnClickBackButton);
 
         return true;
     }
@@ -33,5 +35,11 @@ public class UISelect : UIPopup
     {
         Managers.UI.ClosePopupUI(this);
         Managers.UI.ShowPopupUI<UIJoin>("UIJoin").SetMode(false);
+    }
+
+    void OnClickBackButton()
+    {
+        Managers.UI.ClosePopupUI(this);
+        Managers.UI.ShowPopupUI<UIMain>("UIMain");
     }
 }

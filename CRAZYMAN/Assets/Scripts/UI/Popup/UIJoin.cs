@@ -5,7 +5,8 @@ public class UIJoin : UIPopup
 {
     enum Buttons
     {
-        JoinButton
+        JoinButton,
+        BackButton
     }
     enum GameObjects
     {
@@ -23,6 +24,7 @@ public class UIJoin : UIPopup
         BindObject(typeof(GameObjects));
 
         GetButton((int)Buttons.JoinButton).gameObject.BindEvent(OnClickJoin);
+        GetButton((int)Buttons.BackButton).gameObject.BindEvent(OnClickBackButton);
 
         return true;
     }
@@ -59,5 +61,11 @@ public class UIJoin : UIPopup
         NetworkManager.Instance.JoinRoom(roomCode);
 
         Managers.UI.ShowPopupUI<UICreateRoom>("UICreateRoom");
+    }
+
+    void OnClickBackButton()
+    {
+        Managers.UI.ClosePopupUI(this);
+        Managers.UI.ShowPopupUI<UISelect>("UISelect");
     }
 }

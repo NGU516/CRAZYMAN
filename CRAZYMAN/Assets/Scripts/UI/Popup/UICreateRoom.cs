@@ -16,7 +16,8 @@ public class UICreateRoom : UIPopup
 
     enum Buttons
     {
-        StartButton
+        StartButton,
+        BackButton
     }
 
     enum GameObjects
@@ -55,6 +56,7 @@ public class UICreateRoom : UIPopup
         }
 
         GetButton((int)Buttons.StartButton).gameObject.BindEvent(OnClickStartButton);
+        GetButton((int)Buttons.BackButton).gameObject.BindEvent(OnClickBackButton);
 
         return true;
     }
@@ -87,5 +89,11 @@ public class UICreateRoom : UIPopup
         //Managers.UI.ShowPopupUI<UIInGame>("UIInGame");
 
         Time.timeScale = 1;
+    }
+
+    void OnClickBackButton()
+    {
+        Managers.UI.ClosePopupUI(this);
+        Managers.UI.ShowPopupUI<UISelect>("UISelect");
     }
 }
