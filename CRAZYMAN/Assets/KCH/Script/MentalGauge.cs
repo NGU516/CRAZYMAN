@@ -1,57 +1,46 @@
 using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.UI; // UI °ü·Ã »ç¿ë
+using UnityEngine.UI; // UI ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
 public class MentalGauge : MonoBehaviourPun
 {
-    public Slider mentalSlider; // ÀÎ½ºÆåÅÍ¿¡¼­ ¿¬°áÇÏ°Å³ª ½ºÅ©¸³Æ®¿¡¼­ Ã£À» ½½¶óÀÌ´õ º¯¼ö
-    [SerializeField] private float maxMental = 100f; // ÃÖ´ë ¸àÅ» °ª (Inspector¿¡¼­ ¼³Á¤)
-    [SerializeField] private float decreaseRate = 2f; // ¸àÅ» °¨¼Ò ¼Óµµ
-    [SerializeField] private float increaseRate = 4f; // ¸àÅ» È¸º¹ ¼Óµµ (ÇöÀç »ç¿ë ¾È ÇÔ)
-    private float currentMental; // ÇöÀç ¸àÅ» °ª
-    public bool isDeath = false; // Á×À½ »óÅÂ ¿©ºÎ
-    public Animator animator; // ÇÃ·¹ÀÌ¾î ¾Ö´Ï¸ÞÀÌÅÍ
-    public LightOff lightOff; // ¼ÕÀüµî ½ºÅ©¸³Æ® ÂüÁ¶
+    public Vector3 lastDeathPosition { get; private set; } // Save Death Position 
+    public Slider mentalSlider; // ï¿½Î½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°Å³ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] private float maxMental = 100f; // ï¿½Ö´ï¿½ ï¿½ï¿½Å» ï¿½ï¿½ (Inspectorï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+    [SerializeField] private float decreaseRate = 2f; // ï¿½ï¿½Å» ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½
+    [SerializeField] private float increaseRate = 4f; // ï¿½ï¿½Å» È¸ï¿½ï¿½ ï¿½Óµï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½)
+    private float currentMental; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å» ï¿½ï¿½
+    public bool isDeath = false; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public Animator animator; // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½ï¿½ï¿½ï¿½
+    public LightOff lightOff; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 
-    private ElectricTorchOnOff electricTorchOnOff;
+    public System.Action<string> OnDeathRequest; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» ï¿½Ìºï¿½Æ®
 
-    public System.Action<string> OnDeathRequest; // Á×À½ ¿äÃ» ÀÌº¥Æ®
-
-    // UIInGame ÀÎ½ºÅÏ½º¸¦ ÀúÀåÇÒ º¯¼ö (Áßº¹ »ý¼º ¹æÁö ¹× ÂüÁ¶¿ë)
+    // UIInGame ï¿½Î½ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ßºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
     private GameObject uiInGameInstance;
 
     void Awake()
     {
-        // Animator¿Í LightOff´Â Awake¿¡¼­ Ã£¾Æµµ µË´Ï´Ù.
-        // ÇÃ·¹ÀÌ¾î ¿ÀºêÁ§Æ®¿¡ MentalGauge°¡ ºÙ¾îÀÖ´Ù°í °¡Á¤ÇÏ°í FindWithTag·Î Animator Ã£±â
+        // Animatorï¿½ï¿½ LightOffï¿½ï¿½ Awakeï¿½ï¿½ï¿½ï¿½ Ã£ï¿½Æµï¿½ ï¿½Ë´Ï´ï¿½.
+        // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ MentalGaugeï¿½ï¿½ ï¿½Ù¾ï¿½ï¿½Ö´Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ FindWithTagï¿½ï¿½ Animator Ã£ï¿½ï¿½
         animator = GameObject.FindWithTag("Player")?.GetComponent<Animator>();
+        currentMental = maxMental;
         if (animator == null)
         {
             Debug.LogError("[MentalGauge] Awake: Animator is not assigned! Please ensure the player object has the 'Player' tag and an Animator component.");
         }
-
-        electricTorchOnOff = GetComponent<ElectricTorchOnOff>();
-        if (electricTorchOnOff == null)
-        {
-            // ¸¸¾à ´Ù¸¥ °÷¿¡ ÀÖ´Ù¸é ¾Æ·¡Ã³·³ FindObjectOfTypeÀ¸·Î Ã£¾ÆºÁ
-            electricTorchOnOff = FindObjectOfType<ElectricTorchOnOff>();
-            if (electricTorchOnOff == null)
-            {
-                Debug.LogError("[MentalGauge] Awake: ElectricTorchOnOff script is not found in the scene or on this GameObject!");
-            }
-        }
-
-        // ¾À¿¡¼­ LightOff ½ºÅ©¸³Æ® Ã£±â
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ LightOff ï¿½ï¿½Å©ï¿½ï¿½Æ® Ã£ï¿½ï¿½
         lightOff = FindObjectOfType<LightOff>();
         if (lightOff == null)
         {
             Debug.LogError("[MentalGauge] Awake: LightOff is not found in the scene! Please ensure LightOff script is attached to a GameObject in the scene.");
         }
 
-        // *** Awake¿¡¼­´Â ½½¶óÀÌ´õ¸¦ Ã£Áö ¾Ê½À´Ï´Ù. Start¿¡¼­ Resources ·Îµå ÈÄ Ã£½À´Ï´Ù. ***
+        // *** Awakeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½. Startï¿½ï¿½ï¿½ï¿½ Resources ï¿½Îµï¿½ ï¿½ï¿½ Ã£ï¿½ï¿½ï¿½Ï´ï¿½. ***
     }
 
     // Start is called before the first frame update
@@ -64,20 +53,20 @@ public class MentalGauge : MonoBehaviourPun
             GameObject uiPrefab = Resources.Load<GameObject>("Prefabs/UIInGame");
             if (uiPrefab != null)
             {
-                // ¾À¿¡ UIInGame ÀÎ½ºÅÏ½º »ý¼º (ÇÑ ¹ø¸¸ »ý¼ºµÇµµ·Ï °ü¸® ÇÊ¿ä)
+                // ï¿½ï¿½ï¿½ï¿½ UIInGame ï¿½Î½ï¿½ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½)
                 uiInGameInstance = Instantiate(uiPrefab);
-                uiInGameInstance.name = "UIInGame"; // ÀÌ¸§ Áßº¹ ¹æÁö¿ë
+                uiInGameInstance.name = "UIInGame"; // ï¿½Ì¸ï¿½ ï¿½ßºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-                // UIInGame ÀÚ½Ä¿¡¼­ Stamina_Slider Ã£±â
+                // UIInGame ï¿½Ú½Ä¿ï¿½ï¿½ï¿½ Stamina_Slider Ã£ï¿½ï¿½
                 Transform sliderTransform = uiInGameInstance.transform.Find("Stamina_Slider");
                 if (sliderTransform != null)
                 {
                     mentalSlider = sliderTransform.GetComponent<Slider>();
-                    Debug.Log("[StaminaSystem] Stamina_Slider ¿¬°á ¿Ï·á!");
+                    Debug.Log("[StaminaSystem] Stamina_Slider ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½!");
                 }
                 else
                 {
-                    Debug.LogError("[StaminaSystem] UIInGame ³» Stamina_Slider¸¦ Ã£Áö ¸øÇß½À´Ï´Ù!");
+                    Debug.LogError("[StaminaSystem] UIInGame ï¿½ï¿½ Stamina_Sliderï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½!");
                 }
             }
             else
@@ -86,6 +75,7 @@ public class MentalGauge : MonoBehaviourPun
             }
         }
         currentMental = maxMental;
+        Debug.Log("ì´ˆê¸° ì •ì‹ ë ¥ ìˆ˜ì¹˜ : " + currentMental);
         if (mentalSlider != null)
         {
             mentalSlider.maxValue = maxMental;
@@ -98,30 +88,29 @@ public class MentalGauge : MonoBehaviourPun
     {
         if (isDeath)
             return;
-
-        // *** µð¹ö±× ·Î±× Ãß°¡: Update¿¡¼­ ½½¶óÀÌ´õ MaxValue º¯È­ ÃßÀû! ***
-        if (mentalSlider != null && mentalSlider.maxValue != maxMental) // MaxValue°¡ 100ÀÌ ¾Æ´Ò ¶§ ·Î±× Ãâ·Â
+        Debug.Log("í˜„ìž¬ ì •ì‹ ë ¥ ìˆ˜ì¹˜ : " + currentMental);
+        // *** ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ ï¿½ß°ï¿½: Updateï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ MaxValue ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½! ***
+        if (mentalSlider != null && mentalSlider.maxValue != maxMental) // MaxValueï¿½ï¿½ 100ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ ï¿½Î±ï¿½ ï¿½ï¿½ï¿½
         {
-            Debug.LogWarning($"[MentalGauge] Update: mentalSlider.maxValue°¡ ¿¹»óÄ¡ ¸øÇÑ °ªÀ¸·Î º¯°æµÊ! ÇöÀç °ª: {mentalSlider.maxValue}");
+            Debug.LogWarning($"[MentalGauge] Update: mentalSlider.maxValueï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½! ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½: {mentalSlider.maxValue}");
         }
 
-        // ½½¶óÀÌ´õ°¡ nullÀÌ ¾Æ´Ò ¶§¸¸ °ª ¾÷µ¥ÀÌÆ® ½Ãµµ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ï¿½ï¿½ nullï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ãµï¿½
         if (mentalSlider != null)
         {
-            if (!(lightOff.isLightOn) && electricTorchOnOff != null && !electricTorchOnOff.IsFlashLightOn)
+            if (!(lightOff.isLightOn))
             {
-                currentMental -= Time.deltaTime * decreaseRate; // ¸àÅ» °¨¼Ò ·ÎÁ÷
-                currentMental = Mathf.Clamp(currentMental, 0, maxMental);
+                currentMental -= Time.deltaTime * decreaseRate; // ï¿½ï¿½Å» ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 if (currentMental <= 0)
                 {
                     currentMental = 0;
                     TriggerDeath("MentalDepleted");
                 }
-                // ¸àÅ» °ª º¯È­¿¡ µû¶ó ½½¶óÀÌ´õ °ª ¾÷µ¥ÀÌÆ®
-                mentalSlider.value = currentMental; // 0~1 °ªÀ¸·Î ½½¶óÀÌ´õ ¾÷µ¥ÀÌÆ®
+                // ï¿½ï¿½Å» ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+                mentalSlider.value = currentMental; // 0~1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 //                 Debug.Log(mentalSlider.value);
             }
-            // TODO: ºûÀÌ ÄÑÁ® ÀÖÀ» ¶§ ¸àÅ» È¸º¹ ·ÎÁ÷ Ãß°¡ (ÇÊ¿äÇÏ´Ù¸é)
+            // TODO: ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Å» È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ (ï¿½Ê¿ï¿½ï¿½Ï´Ù¸ï¿½)
             // else
             // {
             //     currentMental += Time.deltaTime * increaseRate;
@@ -131,32 +120,32 @@ public class MentalGauge : MonoBehaviourPun
         }
         else
         {
-            // Debug.LogWarning("[MentalGauge] mentalSlider is null in Update. Cannot update slider value."); // ³Ê¹« ÀÚÁÖ Ãâ·ÂµÉ ¼ö ÀÖÀ¸´Ï ÇÊ¿äÇÒ ¶§¸¸ È°¼ºÈ­
+            // Debug.LogWarning("[MentalGauge] mentalSlider is null in Update. Cannot update slider value."); // ï¿½Ê¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Âµï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
         }
     }
 
-    // Á¤½Å·Â È¸º¹ ÇÔ¼ö
+    // ï¿½ï¿½ï¿½Å·ï¿½ È¸ï¿½ï¿½ ï¿½Ô¼ï¿½
     public void RecoveryMental(float amount)
     {
-        Debug.Log($"MentalGauge: RecoveryMental È£ÃâµÊ. ¾ç: {amount}");
-        currentMental += amount; // Àü´Þ¹ÞÀº ¾ç¸¸Å­ Á¤½Å·Â Áï½Ã Áõ°¡
-        currentMental = Mathf.Clamp(currentMental, 0, maxMental); // 0°ú maxMental »çÀÌ·Î Á¦ÇÑ
+        Debug.Log($"MentalGauge: RecoveryMental È£ï¿½ï¿½ï¿½. ï¿½ï¿½: {amount}");
+        currentMental += amount; // ï¿½ï¿½ï¿½Þ¹ï¿½ï¿½ï¿½ ï¿½ç¸¸Å­ ï¿½ï¿½ï¿½Å·ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        currentMental = Mathf.Clamp(currentMental, 0, maxMental); // 0ï¿½ï¿½ maxMental ï¿½ï¿½ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-        // UI ½½¶óÀÌ´õ ¾÷µ¥ÀÌÆ® (½½¶óÀÌ´õ°¡ nullÀÌ ¾Æ´Ò ¶§¸¸)
+        // UI ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® (ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ï¿½ï¿½ nullï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½)
         if (mentalSlider != null)
-            mentalSlider.value = maxMental; // 0~1 °ªÀ¸·Î ½½¶óÀÌ´õ ¾÷µ¥ÀÌÆ®
+            mentalSlider.value = maxMental; // 0~1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
         else
             Debug.LogWarning("[MentalGauge] mentalSlider is null in RecoveryMental. Cannot update slider value.");
 
 
-        Debug.Log($"MentalGauge: RecoveryMental - ÇöÀç Á¤½Å·Â: {currentMental}");
+        Debug.Log($"MentalGauge: RecoveryMental - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Å·ï¿½: {currentMental}");
     }
 
-    // ResetMentalGauge ÇÔ¼ö (½½¶óÀÌ´õ null Ã¼Å© Ãß°¡)
+    // ResetMentalGauge ï¿½Ô¼ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ null Ã¼Å© ï¿½ß°ï¿½)
     public void ResetMentalGauge()
     {
         currentMental = maxMental;
-        if (mentalSlider != null) // ½½¶óÀÌ´õ null Ã¼Å© Ãß°¡
+        if (mentalSlider != null) // ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ null Ã¼Å© ï¿½ß°ï¿½
             mentalSlider.value = currentMental / maxMental;
         else
             Debug.LogWarning("[MentalGauge] mentalSlider is null in ResetMentalGauge. Cannot update slider value.");
@@ -168,7 +157,7 @@ public class MentalGauge : MonoBehaviourPun
         }
     }
 
-    // TriggerDeath ÇÔ¼ö (±âÁ¸ ÄÚµå À¯Áö)
+    // TriggerDeath ï¿½Ô¼ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½)
     public void TriggerDeath(string cause)
     {
         Debug.Log("TriggerDeath : " + isDeath);
@@ -176,34 +165,45 @@ public class MentalGauge : MonoBehaviourPun
             return;
 
         isDeath = true;
+        lastDeathPosition = transform.position; // Death Position Save
+        GameObject player = GameObject.FindWithTag("Player");
+        player.tag = "Dead";
+        
+        PlayerPrefs.SetFloat("DeathX", lastDeathPosition.x);
+        PlayerPrefs.SetFloat("DeathY", lastDeathPosition.y);
+        PlayerPrefs.SetFloat("DeathZ", lastDeathPosition.z);
+
         Debug.Log($"Death triggered! Cause: {cause}");
         if (animator != null)
         {
             Debug.Log("Trigger Animator");
             animator.SetBool("isDeath", true);
         }
+        Managers.UI.ShowPopupUI<UIDeath>("UIDeath");
+
+        Destroy(player, 2f);
         OnDeathRequest?.Invoke(cause);
     }
 
-    // TriggerDeathByMentalDepletion ÇÔ¼ö (±âÁ¸ ÄÚµå À¯Áö)
+    // TriggerDeathByMentalDepletion ï¿½Ô¼ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½)
     public void TriggerDeathByMentalDepletion()
     {
         TriggerDeath("MentalDepleted");
     }
 
-    // TriggerDeathByEnemy ÇÔ¼ö (±âÁ¸ ÄÚµå À¯Áö)
+    // TriggerDeathByEnemy ï¿½Ô¼ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½)
     public void TriggerDeathByEnemy()
     {
         TriggerDeath("EnemyCollision");
     }
 
-    // ¾À ÀüÈ¯ ½Ã UIInGame ÀÎ½ºÅÏ½º ÆÄ±« (ÇÊ¿äÇÏ´Ù¸é)
-    // °ÔÀÓ ¸Å´ÏÀú µî¿¡¼­ UIInGame ÀÎ½ºÅÏ½º¸¦ °ü¸®ÇÑ´Ù¸é ÀÌ ÇÔ¼ö´Â ÇÊ¿ä ¾øÀ» ¼ö ÀÖ½À´Ï´Ù.
+    // ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ï¿½ UIInGame ï¿½Î½ï¿½ï¿½Ï½ï¿½ ï¿½Ä±ï¿½ (ï¿½Ê¿ï¿½ï¿½Ï´Ù¸ï¿½)
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Å´ï¿½ï¿½ï¿½ ï¿½î¿¡ï¿½ï¿½ UIInGame ï¿½Î½ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´Ù¸ï¿½ ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.
     void OnDestroy()
     {
-        // ÀÌ MentalGauge ½ºÅ©¸³Æ®°¡ ÆÄ±«µÉ ¶§, ¸¸¾à ÀÌ ½ºÅ©¸³Æ®°¡ UIInGame ÀÎ½ºÅÏ½º¸¦ Á÷Á¢ »ý¼ºÇß´Ù¸é ÆÄ±«ÇÕ´Ï´Ù.
-        // UIInGame ÀÎ½ºÅÏ½º °ü¸®¸¦ GameManager µî ´Ù¸¥ °÷¿¡¼­ ÇÑ´Ù¸é ÀÌ ·ÎÁ÷Àº Á¦°ÅÇØ¾ß ÇÕ´Ï´Ù.
-        // ÇöÀç ÄÚµå ±¸Á¶»ó MentalGauge°¡ UIInGameÀ» »ý¼ºÇÏ°í ÀÖÀ¸¹Ç·Î ³²°ÜµÓ´Ï´Ù.
+        // ï¿½ï¿½ MentalGauge ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ä±ï¿½ï¿½ï¿½ ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ UIInGame ï¿½Î½ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß´Ù¸ï¿½ ï¿½Ä±ï¿½ï¿½Õ´Ï´ï¿½.
+        // UIInGame ï¿½Î½ï¿½ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ GameManager ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´Ù¸ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Õ´Ï´ï¿½.
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ MentalGaugeï¿½ï¿½ UIInGameï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½ÜµÓ´Ï´ï¿½.
         if (uiInGameInstance != null)
         {
             Destroy(uiInGameInstance);

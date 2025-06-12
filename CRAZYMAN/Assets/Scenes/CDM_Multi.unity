@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311915, g: 0.38073978, b: 0.35872692, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -123,91 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &364771779 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1219743181394920989, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-  m_PrefabInstance: {fileID: 1820668144481149817}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &364771784
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 364771779}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3eb11fdb5147304889671e0037b0967, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &364771785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 364771779}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 30
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!114 &364771786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 364771779}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3c8b1e2a868a54fbf90d78f96e8b2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorRoot: {fileID: 364771779}
-  doorObjects: []
-  openAngle: 90
-  closeAngle: 0
-  smoothSpeed: 2
-  isOpen: 0
-  isLocked: 0
-  doorObstacle: {fileID: 0}
-  playerTag: Player
-  interactionKey: 102
-  lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
---- !u!65 &364771787
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 364771779}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.3210223, y: 1.867741, z: 2}
-  m_Center: {x: 0.6627822, y: -0.92164654, z: 0.009326002}
 --- !u!1 &488033012
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,7 +148,7 @@ Transform:
   m_GameObject: {fileID: 488033012}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.93, y: 1, z: 4.567}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -307,346 +222,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &588810234 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6397718582563921702, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-  m_PrefabInstance: {fileID: 1820668144481149817}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &588810239
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 588810234}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3eb11fdb5147304889671e0037b0967, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &588810240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 588810234}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 35
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!114 &588810241
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 588810234}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3c8b1e2a868a54fbf90d78f96e8b2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorRoot: {fileID: 588810234}
-  doorObjects: []
-  openAngle: 90
-  closeAngle: 0
-  smoothSpeed: 2
-  isOpen: 0
-  isLocked: 0
-  doorObstacle: {fileID: 0}
-  playerTag: Player
-  interactionKey: 102
-  lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
---- !u!65 &588810242
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 588810234}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.3, y: 1.867741, z: 2}
-  m_Center: {x: 0.6627823, y: -0.92164654, z: 0.009327912}
---- !u!1 &752606164 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1244915131493838025, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-  m_PrefabInstance: {fileID: 1820668144481149817}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &752606169
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 752606164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3eb11fdb5147304889671e0037b0967, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &752606170
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 752606164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 39
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!114 &752606171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 752606164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3c8b1e2a868a54fbf90d78f96e8b2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorRoot: {fileID: 752606164}
-  doorObjects: []
-  openAngle: 90
-  closeAngle: 0
-  smoothSpeed: 2
-  isOpen: 0
-  isLocked: 0
-  doorObstacle: {fileID: 0}
-  playerTag: Player
-  interactionKey: 102
-  lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
---- !u!65 &752606172
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 752606164}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.3, y: 1.867741, z: 2}
-  m_Center: {x: 0.6627822, y: -0.9216468, z: 0.009326002}
---- !u!1 &769030648 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4929288278132863141, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-  m_PrefabInstance: {fileID: 1820668144481149817}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &769030653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 769030648}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3eb11fdb5147304889671e0037b0967, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &769030654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 769030648}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 34
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!114 &769030655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 769030648}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3c8b1e2a868a54fbf90d78f96e8b2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorRoot: {fileID: 769030648}
-  doorObjects: []
-  openAngle: 90
-  closeAngle: 0
-  smoothSpeed: 2
-  isOpen: 0
-  isLocked: 0
-  doorObstacle: {fileID: 0}
-  playerTag: Player
-  interactionKey: 102
-  lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
---- !u!65 &769030656
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 769030648}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.3, y: 1.867741, z: 2}
-  m_Center: {x: 0.6627804, y: -0.92164654, z: 0.009329819}
---- !u!1 &779397741 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3214996071804040062, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-  m_PrefabInstance: {fileID: 1820668144481149817}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &779397746
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 779397741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3eb11fdb5147304889671e0037b0967, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &779397747
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 779397741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 25
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!114 &779397748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 779397741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3c8b1e2a868a54fbf90d78f96e8b2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorRoot: {fileID: 779397741}
-  doorObjects: []
-  openAngle: 90
-  closeAngle: 0
-  smoothSpeed: 2
-  isOpen: 0
-  isLocked: 0
-  doorObstacle: {fileID: 0}
-  playerTag: Player
-  interactionKey: 102
-  lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
---- !u!65 &779397749
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 779397741}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.3210225, y: 1.867741, z: 2}
-  m_Center: {x: 0.6627785, y: -0.92164654, z: 0.009327912}
 --- !u!1 &811258627
 GameObject:
   m_ObjectHideFlags: 0
@@ -708,346 +283,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1108035170 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7095388503015306474, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-  m_PrefabInstance: {fileID: 1820668144481149817}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1108035175
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1108035170}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3eb11fdb5147304889671e0037b0967, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1108035176
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1108035170}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 28
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!114 &1108035177
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1108035170}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3c8b1e2a868a54fbf90d78f96e8b2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorRoot: {fileID: 1108035170}
-  doorObjects: []
-  openAngle: 90
-  closeAngle: 0
-  smoothSpeed: 2
-  isOpen: 0
-  isLocked: 0
-  doorObstacle: {fileID: 0}
-  playerTag: Player
-  interactionKey: 102
-  lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
---- !u!65 &1108035178
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1108035170}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.3210223, y: 1.867741, z: 2}
-  m_Center: {x: 0.6627803, y: -0.92164654, z: 0.009326002}
---- !u!1 &1140053516 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7662896313519995111, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-  m_PrefabInstance: {fileID: 1820668144481149817}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1140053521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1140053516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3eb11fdb5147304889671e0037b0967, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1140053522
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1140053516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 27
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!114 &1140053523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1140053516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3c8b1e2a868a54fbf90d78f96e8b2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorRoot: {fileID: 1140053516}
-  doorObjects: []
-  openAngle: 90
-  closeAngle: 0
-  smoothSpeed: 2
-  isOpen: 0
-  isLocked: 0
-  doorObstacle: {fileID: 0}
-  playerTag: Player
-  interactionKey: 102
-  lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
---- !u!65 &1140053524
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1140053516}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.3210225, y: 1.867741, z: 2}
-  m_Center: {x: 0.6627823, y: -0.92164654, z: 0.009327912}
---- !u!1 &1164838464 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1540054221333202843, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-  m_PrefabInstance: {fileID: 1820668144481149817}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1164838471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1164838464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3eb11fdb5147304889671e0037b0967, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1164838472
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1164838464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 33
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!114 &1164838473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1164838464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3c8b1e2a868a54fbf90d78f96e8b2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorRoot: {fileID: 1164838464}
-  doorObjects: []
-  openAngle: 90
-  closeAngle: 0
-  smoothSpeed: 2
-  isOpen: 0
-  isLocked: 0
-  doorObstacle: {fileID: 0}
-  playerTag: Player
-  interactionKey: 102
-  lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
---- !u!65 &1164838474
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1164838464}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.3, y: 1.867741, z: 2}
-  m_Center: {x: 0.6627804, y: -0.92164654, z: 0.009329819}
---- !u!1 &1178727577 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4912661431035696563, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-  m_PrefabInstance: {fileID: 1820668144481149817}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1178727582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1178727577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3eb11fdb5147304889671e0037b0967, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1178727583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1178727577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 37
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!114 &1178727584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1178727577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3c8b1e2a868a54fbf90d78f96e8b2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorRoot: {fileID: 1178727577}
-  doorObjects: []
-  openAngle: 90
-  closeAngle: 0
-  smoothSpeed: 2
-  isOpen: 0
-  isLocked: 0
-  doorObstacle: {fileID: 0}
-  playerTag: Player
-  interactionKey: 102
-  lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
---- !u!65 &1178727585
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1178727577}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.3, y: 1.867741, z: 2}
-  m_Center: {x: 0.6627822, y: -0.92164654, z: 0.009326002}
 --- !u!114 &1284137835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1101,36 +336,36 @@ Transform:
   m_GameObject: {fileID: 1303144805}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -26.917, y: 0.863, z: 4.567}
+  m_LocalPosition: {x: -14, y: 1, z: 18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1373502207 stripped
+--- !u!1 &1933970591 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 6626533046119019680, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4078180059103111904, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
   m_PrefabInstance: {fileID: 1820668144481149817}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1373502212
+--- !u!114 &1933970593
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1373502207}
+  m_GameObject: {fileID: 1933970591}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3eb11fdb5147304889671e0037b0967, type: 3}
+  m_Script: {fileID: 11500000, guid: da270107bbf4485479f41d2d5323efc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1373502213
+--- !u!114 &1933970597
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1373502207}
+  m_GameObject: {fileID: 1933970591}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
@@ -1143,126 +378,16 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents: []
-  sceneViewId: 29
+  sceneViewId: 21
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &1373502214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1373502207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3c8b1e2a868a54fbf90d78f96e8b2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorRoot: {fileID: 1373502207}
-  doorObjects: []
-  openAngle: 90
-  closeAngle: 0
-  smoothSpeed: 2
-  isOpen: 0
-  isLocked: 0
-  doorObstacle: {fileID: 0}
-  playerTag: Player
-  interactionKey: 102
-  lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
---- !u!65 &1373502215
+--- !u!65 &1933970598
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1373502207}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.3210223, y: 1.867741, z: 2}
-  m_Center: {x: 0.6627803, y: -0.92164654, z: 0.009326002}
---- !u!1 &1532207174 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 860363300629226522, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-  m_PrefabInstance: {fileID: 1820668144481149817}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1532207179
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1532207174}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3eb11fdb5147304889671e0037b0967, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1532207180
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1532207174}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 26
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!114 &1532207181
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1532207174}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3c8b1e2a868a54fbf90d78f96e8b2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorRoot: {fileID: 1532207174}
-  doorObjects: []
-  openAngle: 90
-  closeAngle: 0
-  smoothSpeed: 2
-  isOpen: 0
-  isLocked: 0
-  doorObstacle: {fileID: 0}
-  playerTag: Player
-  interactionKey: 102
-  lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
---- !u!65 &1532207182
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1532207174}
+  m_GameObject: {fileID: 1933970591}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1275,348 +400,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.3210225, y: 1.867741, z: 2}
-  m_Center: {x: 0.6627804, y: -0.92164654, z: 0.009327912}
---- !u!1 &1542045356 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2188491821163999878, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-  m_PrefabInstance: {fileID: 1820668144481149817}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1542045363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1542045356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3eb11fdb5147304889671e0037b0967, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1542045364
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1542045356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 32
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!114 &1542045365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1542045356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3c8b1e2a868a54fbf90d78f96e8b2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorRoot: {fileID: 1542045356}
-  doorObjects: []
-  openAngle: 90
-  closeAngle: 0
-  smoothSpeed: 2
-  isOpen: 0
-  isLocked: 0
-  doorObstacle: {fileID: 0}
-  playerTag: Player
-  interactionKey: 102
-  lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
---- !u!65 &1542045366
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1542045356}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.3, y: 1.867741, z: 2}
-  m_Center: {x: 0.6627804, y: -0.92164654, z: 0.009329819}
---- !u!1 &1742535906 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7880039001171728478, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-  m_PrefabInstance: {fileID: 1820668144481149817}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1742535913
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1742535906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3eb11fdb5147304889671e0037b0967, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1742535914
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1742535906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 31
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!114 &1742535915
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1742535906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3c8b1e2a868a54fbf90d78f96e8b2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorRoot: {fileID: 1742535906}
-  doorObjects: []
-  openAngle: 90
-  closeAngle: 0
-  smoothSpeed: 2
-  isOpen: 0
-  isLocked: 0
-  doorObstacle: {fileID: 0}
-  playerTag: Player
-  interactionKey: 102
-  lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
---- !u!65 &1742535916
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1742535906}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.3, y: 1.867741, z: 2}
-  m_Center: {x: 0.6627785, y: -0.92164654, z: 0.009329819}
---- !u!1 &1781809945 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2548353044427167893, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-  m_PrefabInstance: {fileID: 1820668144481149817}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1781809950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1781809945}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3eb11fdb5147304889671e0037b0967, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1781809951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1781809945}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 36
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!114 &1781809952
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1781809945}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3c8b1e2a868a54fbf90d78f96e8b2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorRoot: {fileID: 1781809945}
-  doorObjects: []
-  openAngle: 90
-  closeAngle: 0
-  smoothSpeed: 2
-  isOpen: 0
-  isLocked: 0
-  doorObstacle: {fileID: 0}
-  playerTag: Player
-  interactionKey: 102
-  lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
---- !u!65 &1781809953
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1781809945}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.3, y: 1.867741, z: 2}
-  m_Center: {x: 0.6627823, y: -0.92164654, z: 0.009329819}
---- !u!1 &2074034658 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7631013812015833602, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-  m_PrefabInstance: {fileID: 1820668144481149817}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2074034663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2074034658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3eb11fdb5147304889671e0037b0967, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2074034664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2074034658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 38
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!114 &2074034665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2074034658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3c8b1e2a868a54fbf90d78f96e8b2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorRoot: {fileID: 2074034658}
-  doorObjects: []
-  openAngle: 90
-  closeAngle: 0
-  smoothSpeed: 2
-  isOpen: 0
-  isLocked: 0
-  doorObstacle: {fileID: 0}
-  playerTag: Player
-  interactionKey: 102
-  lockedMessage: "\uBB38\uC774 \uC7A0\uACA8\uC788\uC2B5\uB2C8\uB2E4."
-  openMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uC5F4\uAE30"
-  closeMessage: "F\uD0A4\uB97C \uB20C\uB7EC \uBB38\uC744 \uB2EB\uAE30"
---- !u!65 &2074034666
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2074034658}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.3, y: 1.867741, z: 2}
-  m_Center: {x: 0.6627822, y: -0.92164654, z: 0.009326002}
+  m_Size: {x: 10.000002, y: 3, z: 10.000002}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &244563058268529135
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1682,81 +467,73 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 552634254828980084, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      propertyPath: sceneViewId
-      value: 2
+    - target: {fileID: 58881783815023522, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1404766783952094582, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
       propertyPath: sceneViewId
-      value: 19
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 1785339273849741359, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
       propertyPath: sceneViewId
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2194267039276946196, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
       propertyPath: sceneViewId
-      value: 22
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2237515989762104686, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
       propertyPath: sceneViewId
-      value: 17
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2387961584989581563, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
       propertyPath: sceneViewId
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2790570419446020809, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
       propertyPath: sceneViewId
-      value: 13
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3067725795653442485, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
       propertyPath: sceneViewId
-      value: 18
-      objectReference: {fileID: 0}
-    - target: {fileID: 3128223428975643377, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      propertyPath: sceneViewId
-      value: 3
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3455705358649958287, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
       propertyPath: sceneViewId
-      value: 16
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 3467717491642664377, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
       propertyPath: sceneViewId
-      value: 24
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3792801099261625342, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
       propertyPath: sceneViewId
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4126914030993034962, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      propertyPath: sceneViewId
-      value: 4
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 4200960307458773653, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
       propertyPath: sceneViewId
-      value: 9
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4558336781702426951, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
       propertyPath: sceneViewId
-      value: 8
+      value: 18
       objectReference: {fileID: 0}
-    - target: {fileID: 4621590944029806740, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      propertyPath: sceneViewId
-      value: 1
+    - target: {fileID: 4632363058747507389, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4988460757437487523, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
       propertyPath: sceneViewId
-      value: 14
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5147596794282680800, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
       propertyPath: sceneViewId
-      value: 11
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 5391031935235688770, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
       propertyPath: sceneViewId
-      value: 23
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5471543987665666514, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
       propertyPath: m_Name
@@ -1764,7 +541,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6152697209947787305, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
       propertyPath: sceneViewId
-      value: 12
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6215847142223737168, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1808,204 +585,37 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6358649498889968297, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
       propertyPath: sceneViewId
-      value: 15
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6757690087120906085, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
       propertyPath: sceneViewId
-      value: 20
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 7100182630148333917, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8524976293227580247, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
       propertyPath: sceneViewId
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8650558107112930952, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
       propertyPath: sceneViewId
-      value: 21
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3214996071804040062, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 4078180059103111904, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 779397749}
-    - targetCorrespondingSourceObject: {fileID: 3214996071804040062, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
+      addedObject: {fileID: 1933970593}
+    - targetCorrespondingSourceObject: {fileID: 4078180059103111904, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 779397748}
-    - targetCorrespondingSourceObject: {fileID: 3214996071804040062, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
+      addedObject: {fileID: 1933970597}
+    - targetCorrespondingSourceObject: {fileID: 4078180059103111904, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 779397747}
-    - targetCorrespondingSourceObject: {fileID: 3214996071804040062, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 779397746}
-    - targetCorrespondingSourceObject: {fileID: 860363300629226522, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1532207182}
-    - targetCorrespondingSourceObject: {fileID: 860363300629226522, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1532207181}
-    - targetCorrespondingSourceObject: {fileID: 860363300629226522, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1532207180}
-    - targetCorrespondingSourceObject: {fileID: 860363300629226522, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1532207179}
-    - targetCorrespondingSourceObject: {fileID: 7662896313519995111, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1140053524}
-    - targetCorrespondingSourceObject: {fileID: 7662896313519995111, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1140053523}
-    - targetCorrespondingSourceObject: {fileID: 7662896313519995111, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1140053522}
-    - targetCorrespondingSourceObject: {fileID: 7662896313519995111, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1140053521}
-    - targetCorrespondingSourceObject: {fileID: 7095388503015306474, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1108035178}
-    - targetCorrespondingSourceObject: {fileID: 7095388503015306474, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1108035177}
-    - targetCorrespondingSourceObject: {fileID: 7095388503015306474, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1108035176}
-    - targetCorrespondingSourceObject: {fileID: 7095388503015306474, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1108035175}
-    - targetCorrespondingSourceObject: {fileID: 6626533046119019680, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1373502215}
-    - targetCorrespondingSourceObject: {fileID: 6626533046119019680, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1373502214}
-    - targetCorrespondingSourceObject: {fileID: 6626533046119019680, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1373502213}
-    - targetCorrespondingSourceObject: {fileID: 6626533046119019680, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1373502212}
-    - targetCorrespondingSourceObject: {fileID: 1219743181394920989, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 364771787}
-    - targetCorrespondingSourceObject: {fileID: 1219743181394920989, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 364771786}
-    - targetCorrespondingSourceObject: {fileID: 1219743181394920989, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 364771785}
-    - targetCorrespondingSourceObject: {fileID: 1219743181394920989, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 364771784}
-    - targetCorrespondingSourceObject: {fileID: 7880039001171728478, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1742535916}
-    - targetCorrespondingSourceObject: {fileID: 7880039001171728478, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1742535915}
-    - targetCorrespondingSourceObject: {fileID: 7880039001171728478, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1742535914}
-    - targetCorrespondingSourceObject: {fileID: 7880039001171728478, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1742535913}
-    - targetCorrespondingSourceObject: {fileID: 2188491821163999878, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1542045366}
-    - targetCorrespondingSourceObject: {fileID: 2188491821163999878, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1542045365}
-    - targetCorrespondingSourceObject: {fileID: 2188491821163999878, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1542045364}
-    - targetCorrespondingSourceObject: {fileID: 2188491821163999878, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1542045363}
-    - targetCorrespondingSourceObject: {fileID: 1540054221333202843, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1164838474}
-    - targetCorrespondingSourceObject: {fileID: 1540054221333202843, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1164838473}
-    - targetCorrespondingSourceObject: {fileID: 1540054221333202843, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1164838472}
-    - targetCorrespondingSourceObject: {fileID: 1540054221333202843, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1164838471}
-    - targetCorrespondingSourceObject: {fileID: 4929288278132863141, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 769030656}
-    - targetCorrespondingSourceObject: {fileID: 4929288278132863141, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 769030655}
-    - targetCorrespondingSourceObject: {fileID: 4929288278132863141, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 769030654}
-    - targetCorrespondingSourceObject: {fileID: 4929288278132863141, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 769030653}
-    - targetCorrespondingSourceObject: {fileID: 6397718582563921702, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 588810242}
-    - targetCorrespondingSourceObject: {fileID: 6397718582563921702, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 588810241}
-    - targetCorrespondingSourceObject: {fileID: 6397718582563921702, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 588810240}
-    - targetCorrespondingSourceObject: {fileID: 6397718582563921702, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 588810239}
-    - targetCorrespondingSourceObject: {fileID: 2548353044427167893, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1781809953}
-    - targetCorrespondingSourceObject: {fileID: 2548353044427167893, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1781809952}
-    - targetCorrespondingSourceObject: {fileID: 2548353044427167893, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1781809951}
-    - targetCorrespondingSourceObject: {fileID: 2548353044427167893, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1781809950}
-    - targetCorrespondingSourceObject: {fileID: 4912661431035696563, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1178727585}
-    - targetCorrespondingSourceObject: {fileID: 4912661431035696563, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1178727584}
-    - targetCorrespondingSourceObject: {fileID: 4912661431035696563, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1178727583}
-    - targetCorrespondingSourceObject: {fileID: 4912661431035696563, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1178727582}
-    - targetCorrespondingSourceObject: {fileID: 7631013812015833602, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2074034666}
-    - targetCorrespondingSourceObject: {fileID: 7631013812015833602, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2074034665}
-    - targetCorrespondingSourceObject: {fileID: 7631013812015833602, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2074034664}
-    - targetCorrespondingSourceObject: {fileID: 7631013812015833602, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2074034663}
-    - targetCorrespondingSourceObject: {fileID: 1244915131493838025, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 752606172}
-    - targetCorrespondingSourceObject: {fileID: 1244915131493838025, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 752606171}
-    - targetCorrespondingSourceObject: {fileID: 1244915131493838025, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 752606170}
-    - targetCorrespondingSourceObject: {fileID: 1244915131493838025, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 752606169}
+      addedObject: {fileID: 1933970598}
   m_SourcePrefab: {fileID: 100100000, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
 --- !u!1001 &3051982730245224478
 PrefabInstance:
