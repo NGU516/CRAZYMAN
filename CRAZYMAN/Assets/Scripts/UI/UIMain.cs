@@ -31,6 +31,7 @@ public class UIMain : UIPopup
 
         GetButton((int)Buttons.GameStartButton).gameObject.BindEvent(OnClickStartButton);
         GetButton((int)Buttons.SettingButton).gameObject.BindEvent(OnClickSettingButton);
+        GetButton((int)Buttons.GameQuitButton).gameObject.BindEvent(OnClickGameQuitButton);
 
         GetText((int)Texts.GameTitle).text = "CRAZY MAN";
 
@@ -67,5 +68,12 @@ public class UIMain : UIPopup
     void OnComplete()
     {
         Managers.UI.ClosePopupUI(this);
+    }
+
+    void OnClickGameQuitButton()
+    {
+        UnityEditor.EditorApplication.isPlaying = false;
+
+        Application.Quit();
     }
 }
