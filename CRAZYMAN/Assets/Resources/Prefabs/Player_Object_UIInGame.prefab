@@ -2629,7 +2629,7 @@ MonoBehaviour:
   _PowerPickUp: 0
   _maxIntensity: 1
   intensityLight: 1
-  _lightTime: 0.05
+  _lightTime: 0.025
 --- !u!114 &931194251005646182
 MonoBehaviour:
   m_ObjectHideFlags: 0
