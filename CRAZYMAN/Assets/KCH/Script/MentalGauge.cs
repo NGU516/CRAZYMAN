@@ -28,6 +28,7 @@ public class MentalGauge : MonoBehaviourPun
         // Animator�� LightOff�� Awake���� ã�Ƶ� �˴ϴ�.
         // �÷��̾� ������Ʈ�� MentalGauge�� �پ��ִٰ� �����ϰ� FindWithTag�� Animator ã��
         animator = GameObject.FindWithTag("Player")?.GetComponent<Animator>();
+        currentMental = maxMental;
         if (animator == null)
         {
             Debug.LogError("[MentalGauge] Awake: Animator is not assigned! Please ensure the player object has the 'Player' tag and an Animator component.");
@@ -74,6 +75,7 @@ public class MentalGauge : MonoBehaviourPun
             }
         }
         currentMental = maxMental;
+        Debug.Log("초기 정신력 수치 : " + currentMental);
         if (mentalSlider != null)
         {
             mentalSlider.maxValue = maxMental;
@@ -86,7 +88,7 @@ public class MentalGauge : MonoBehaviourPun
     {
         if (isDeath)
             return;
-
+        Debug.Log("현재 정신력 수치 : " + currentMental);
         // *** ����� �α� �߰�: Update���� �����̴� MaxValue ��ȭ ����! ***
         if (mentalSlider != null && mentalSlider.maxValue != maxMental) // MaxValue�� 100�� �ƴ� �� �α� ���
         {
