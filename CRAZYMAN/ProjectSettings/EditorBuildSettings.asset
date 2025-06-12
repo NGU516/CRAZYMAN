@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/CDM_Multi.unity
+    guid: 846df8af75d614f489f4b0f4ac2bdbe3
   m_configObjects: {}
