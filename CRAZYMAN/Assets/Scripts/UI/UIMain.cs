@@ -72,8 +72,6 @@ public class UIMain : UIPopup
 
     void OnClickGameQuitButton()
     {
-        UnityEditor.EditorApplication.isPlaying = false;
-
         Application.Quit();
     }
 }
