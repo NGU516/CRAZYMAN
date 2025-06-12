@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311915, g: 0.38073978, b: 0.35872692, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -467,6 +467,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 58881783815023522, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1404766783952094582, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
       propertyPath: sceneViewId
       value: 16
@@ -514,6 +518,10 @@ PrefabInstance:
     - target: {fileID: 4558336781702426951, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
       propertyPath: sceneViewId
       value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 4632363058747507389, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4988460757437487523, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
       propertyPath: sceneViewId
@@ -582,6 +590,10 @@ PrefabInstance:
     - target: {fileID: 6757690087120906085, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
       propertyPath: sceneViewId
       value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 7100182630148333917, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8524976293227580247, guid: 12cc0a915b57559479e7dc7feca9c932, type: 3}
       propertyPath: sceneViewId
