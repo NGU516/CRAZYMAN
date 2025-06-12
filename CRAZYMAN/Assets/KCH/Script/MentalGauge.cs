@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.UI; // UI ���� ���
+using UnityEngine.UI; // UI ���� ���?
 
 public class MentalGauge : MonoBehaviourPun
 {
@@ -12,11 +12,12 @@ public class MentalGauge : MonoBehaviourPun
     public Slider mentalSlider; // �ν����Ϳ��� �����ϰų� ��ũ��Ʈ���� ã�� �����̴� ����
     [SerializeField] private float maxMental = 100f; // �ִ� ��Ż �� (Inspector���� ����)
     [SerializeField] private float decreaseRate = 2f; // ��Ż ���� �ӵ�
-    [SerializeField] private float increaseRate = 4f; // ��Ż ȸ�� �ӵ� (���� ��� �� ��)
+    [SerializeField] private float increaseRate = 4f; // ��Ż ȸ�� �ӵ� (���� ���? �� ��)
     private float currentMental; // ���� ��Ż ��
     public bool isDeath = false; // ���� ���� ����
     public Animator animator; // �÷��̾� �ִϸ�����
     public LightOff lightOff; // ������ ��ũ��Ʈ ����
+    private ElectricTorchOnOff electricTorchOnOff;
 
     public System.Action<string> OnDeathRequest; // ���� ��û �̺�Ʈ
 
@@ -38,6 +39,16 @@ public class MentalGauge : MonoBehaviourPun
         if (lightOff == null)
         {
             Debug.LogError("[MentalGauge] Awake: LightOff is not found in the scene! Please ensure LightOff script is attached to a GameObject in the scene.");
+        }
+
+        electricTorchOnOff = GetComponent<ElectricTorchOnOff>();
+        if (electricTorchOnOff == null)
+        {
+            electricTorchOnOff = FindObjectOfType<ElectricTorchOnOff>();
+            if (electricTorchOnOff == null)
+            {
+                Debug.LogError("[MentalGauge] Awake: ElectricTorchOnOff script is not found in the scene or on this GameObject!");
+            }
         }
 
         // *** Awake������ �����̴��� ã�� �ʽ��ϴ�. Start���� Resources �ε� �� ã���ϴ�. ***
@@ -75,7 +86,7 @@ public class MentalGauge : MonoBehaviourPun
             }
         }
         currentMental = maxMental;
-        Debug.Log("초기 정신력 수치 : " + currentMental);
+        Debug.Log("초기 ?��?��?�� ?���? : " + currentMental);
         if (mentalSlider != null)
         {
             mentalSlider.maxValue = maxMental;
@@ -88,17 +99,19 @@ public class MentalGauge : MonoBehaviourPun
     {
         if (isDeath)
             return;
-        Debug.Log("현재 정신력 수치 : " + currentMental);
-        // *** ����� �α� �߰�: Update���� �����̴� MaxValue ��ȭ ����! ***
-        if (mentalSlider != null && mentalSlider.maxValue != maxMental) // MaxValue�� 100�� �ƴ� �� �α� ���
+        Debug.Log("?��?�� ?��?��?�� ?���? : " + currentMental);
+        // *** �����? �α� �߰�: Update���� �����̴� MaxValue ��ȭ ����! ***
+        if (mentalSlider != null && mentalSlider.maxValue != maxMental) // MaxValue�� 100�� �ƴ� �� �α� ���?
         {
-            Debug.LogWarning($"[MentalGauge] Update: mentalSlider.maxValue�� ����ġ ���� ������ �����! ���� ��: {mentalSlider.maxValue}");
+            Debug.LogWarning($"[MentalGauge] Update: mentalSlider.maxValue�� ����ġ ���� ������ �����?! ���� ��: {mentalSlider.maxValue}");
         }
 
         // �����̴��� null�� �ƴ� ���� �� ������Ʈ �õ�
         if (mentalSlider != null)
         {
-            if (!(lightOff.isLightOn))
+            bool isLightCondition = (lightOff != null && !lightOff.isLightOn);
+            bool isFlashOff = (electricTorchOnOff != null && !electricTorchOnOff.IsFlashLightOn);
+            if (isLightCondition && isFlashOff)
             {
                 currentMental -= Time.deltaTime * decreaseRate; // ��Ż ���� ����
                 if (currentMental <= 0)
@@ -120,15 +133,15 @@ public class MentalGauge : MonoBehaviourPun
         }
         else
         {
-            // Debug.LogWarning("[MentalGauge] mentalSlider is null in Update. Cannot update slider value."); // �ʹ� ���� ��µ� �� ������ �ʿ��� ���� Ȱ��ȭ
+            // Debug.LogWarning("[MentalGauge] mentalSlider is null in Update. Cannot update slider value."); // �ʹ� ���� ��µ�? �� ������ �ʿ��� ���� Ȱ��ȭ
         }
     }
 
     // ���ŷ� ȸ�� �Լ�
     public void RecoveryMental(float amount)
     {
-        Debug.Log($"MentalGauge: RecoveryMental ȣ���. ��: {amount}");
-        currentMental += amount; // ���޹��� �縸ŭ ���ŷ� ��� ����
+        Debug.Log($"MentalGauge: RecoveryMental ȣ���?. ��: {amount}");
+        currentMental += amount; // ���޹��� �縸ŭ ���ŷ� ���? ����
         currentMental = Mathf.Clamp(currentMental, 0, maxMental); // 0�� maxMental ���̷� ����
 
         // UI �����̴� ������Ʈ (�����̴��� null�� �ƴ� ����)
