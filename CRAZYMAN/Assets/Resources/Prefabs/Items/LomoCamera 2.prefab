@@ -259,7 +259,7 @@ MonoBehaviour:
   stunRadius: 100
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 129
   cameraSound: {fileID: 8300000, guid: a1d416df1f8c04852bef40dc13e5b7bd, type: 3}
   cameraFlashEffect: {fileID: 919132149155446097, guid: fdcd35f9d24c79f428c496069e3e247f, type: 3}
   effectSpawnPoint: {fileID: 0}

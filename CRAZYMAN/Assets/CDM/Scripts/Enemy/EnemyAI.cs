@@ -206,6 +206,7 @@ public class EnemyAI : MonoBehaviour
 
     public void SetBlind(bool isBlind)
     {
+        Debug.Log("[EnemyAI] SetBlind: " + isBlind);
         if (isBlind)
         {
             SetState(EnemyState.Blind);

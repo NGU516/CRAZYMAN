@@ -119,6 +119,7 @@ MonoBehaviour:
   inventoryIcon: {fileID: 21300000, guid: c830625bd38e5cc47b7bb2cc9be090f5, type: 3}
   staminaRecoveryAmount: 0
   mentalRecoveryAmount: 100
+  batteryRecoveryAmount: 0
 --- !u!65 &-2138746716060235006
 BoxCollider:
   m_ObjectHideFlags: 0

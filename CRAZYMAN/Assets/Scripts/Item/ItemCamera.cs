@@ -55,6 +55,7 @@ public class ItemCamera : MonoBehaviourPun
 
     void StunNearbyEnemies()
     {
+        Debug.Log("[ItemCamera] StunNearbyEnemies");
         Collider[] hits = Physics.OverlapSphere(transform.position, stunRadius, enemyLayer);
         foreach (var hit in hits)
         {
